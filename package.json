@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "axios": "^1.5.1",
+    "create-vite": "^4.4.1",
+    "react-router": "^6.17.0",
+    "react-router-dom": "^6.17.0"
+  },
+  "devDependencies": {
+    "sass": "^1.69.4"
+  }
+}
