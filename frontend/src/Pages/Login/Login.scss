@@ -72,11 +72,12 @@
             @include fluid-type()
         }
 
-        .button {
+        .signIn{
             background-color: $primary;
             color: $white;
             align-self: bottom;
-            margin-top: 3rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
             padding: 0.4rem 4rem;
             transition: linear 200ms;
 
@@ -85,8 +86,43 @@
                 transform: translateY(-2px);
             }
         }
-        .textField{
-            margin-top: 0.4rem;
+
+         .txt-forgot-pass {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 400;
+            color: $primary;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .login-seperator {
+            width: 100%;
+            height: 1px;
+            background-color: $pr-gray;
+        }
+
+        .signUp{
+            background-color: $sign-up;
+            color: $white;
+            align-self: bottom;
+            margin-top: 2rem;
+            align-self: center;
+            width: 55%;
+            transition: linear 200ms;
+
+            &:hover {
+                background-color: $sign-up-light;
+                transform: translateY(-2px);
+            }
+        }
+
+        .loginField{
+            margin-bottom: 0.5rem;
         }
         
         p {
