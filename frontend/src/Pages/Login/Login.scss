@@ -2,12 +2,12 @@
 @import '../../utils/mixins';
 
 .login {
-  height: 100%;
   background-color: $app-background;
   display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+
 
     @include for-small-screens {
         flex-direction: column;
@@ -57,9 +57,10 @@
             display: flex;
             flex-direction: column;
             background-color: $white;
-            padding: 3rem;
+            padding: 4rem;
             border: 1px solid $border-color;
             border-radius: 0.4rem;
+            margin-top: 6rem;
 
             @include for-mobile-only {
                 padding: 1.8rem;
@@ -101,7 +102,7 @@
         }
 
         .login-seperator {
-            width: 100%;
+            width: 100%1;
             height: 1px;
             background-color: $pr-gray;
         }

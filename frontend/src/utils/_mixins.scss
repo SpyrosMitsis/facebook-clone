@@ -49,13 +49,14 @@ $default-max-font-size: 32px;
   $lower-range: $xs,
   $upper-range: $xxl
 ) {
-  font-size: calc(
-    #{$min-font-size} + #{(
-        math.div($max-font-size, ($max-font-size * 0 + 1)) - math.div($min-font-size, ($min-font-size * 0 + 1))
-      )} * math.div((100vw - #{$lower-range}), #{(
-            math.div($upper-range, ($upper-range * 0 + 1)) - math.div($lower-range, ($lower-range * 0 + 1))
-          )})
-  );
+font-size: calc(
+  #{$min-font-size} + (
+    ($max-font-size - $min-font-size) / 
+    ($upper-range - $lower-range) * 
+    (100vw - $lower-range)
+  )
+);
+
 
   @media screen and (max-width: $lower-range) {
     font-size: $min-font-size;
