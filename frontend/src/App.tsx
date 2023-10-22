@@ -4,7 +4,9 @@ import './App.scss'
 function App() {
   return (
     <>
-      <Outlet />
+        <div className='App'>
+          <Outlet />
+        </div>
     </>
   );
 }
