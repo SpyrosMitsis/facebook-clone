@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
 import './Login.scss';
 import fbNameLogo from '../../assets/fbNameLogo.png';
@@ -10,10 +10,19 @@ function Login(): React.ReactElement {
   const [password, setPassword] = useState('');
   const [showSignUp, setShowSignUp] = useState(false); 
 
-  const onSignIn = async () => {
+  const onSignIn = async (e: SyntheticEvent) => {
     // You can access the email and password values here and perform the login logic
-    console.log('Email:', email);
-    console.log('Password:', password);
+    e.preventDefault()
+
+        await fetch("http://localhost:5112/api/login", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({
+                email,
+                password,
+            })
+        })
   };
 
     return (

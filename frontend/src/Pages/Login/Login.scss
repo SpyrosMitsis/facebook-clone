@@ -3,8 +3,10 @@
 
 .login {
   background-color: $app-background;
+  margin-top: 9rem;
   display: flex;
-    flex-direction: row;
+    flex-direction: row/*  */;
+    flex-direction: row/*  */;
     align-items: center;
     justify-content: center;
 
@@ -52,6 +54,7 @@
         flex: 0.8;
         align-items: flex-start;
         flex-direction: column;
+        margin-left: 10rem;
 
         .card {
             display: flex;

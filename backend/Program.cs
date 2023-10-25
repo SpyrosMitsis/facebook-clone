@@ -32,7 +32,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseCors(options => options
-    //.WithOrigins(new [] {"http://locaholst:5173", "http://localhost:5112"})
+    .WithOrigins(new [] {"http://localhost:5173", "http://localhost:5114"})
     .AllowAnyHeader()
     .AllowAnyMethod()
     .AllowCredentials()
