@@ -186,3 +186,13 @@ C:\Users\mitsi\Desktop\facebook-clone-workspace\backend\obj\Debug\net6.0\refint\
 C:\Users\mitsi\Desktop\facebook-clone-workspace\backend\obj\Debug\net6.0\backend.pdb
 C:\Users\mitsi\Desktop\facebook-clone-workspace\backend\obj\Debug\net6.0\backend.genruntimeconfig.cache
 C:\Users\mitsi\Desktop\facebook-clone-workspace\backend\obj\Debug\net6.0\ref\backend.dll
+C:\Users\krist\OneDrive\Documents\GitHub\facebook-clone\backend\obj\Debug\net6.0\backend.csproj.AssemblyReference.cache
+C:\Users\krist\OneDrive\Documents\GitHub\facebook-clone\backend\obj\Debug\net6.0\backend.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\krist\OneDrive\Documents\GitHub\facebook-clone\backend\obj\Debug\net6.0\backend.AssemblyInfoInputs.cache
+C:\Users\krist\OneDrive\Documents\GitHub\facebook-clone\backend\obj\Debug\net6.0\backend.AssemblyInfo.cs
+C:\Users\krist\OneDrive\Documents\GitHub\facebook-clone\backend\obj\Debug\net6.0\backend.csproj.CoreCompileInputs.cache
+C:\Users\krist\OneDrive\Documents\GitHub\facebook-clone\backend\obj\Debug\net6.0\backend.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\krist\OneDrive\Documents\GitHub\facebook-clone\backend\obj\Debug\net6.0\backend.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\krist\OneDrive\Documents\GitHub\facebook-clone\backend\obj\Debug\net6.0\backend.dll
+C:\Users\krist\OneDrive\Documents\GitHub\facebook-clone\backend\obj\Debug\net6.0\refint\backend.dll
+C:\Users\krist\OneDrive\Documents\GitHub\facebook-clone\backend\obj\Debug\net6.0\backend.pdb
