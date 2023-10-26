@@ -8,3 +8,5 @@ backend/obj/Debug/net6.0/backend.assets.cache
 backend/obj/Debug/net6.0/apphost.exe
 backend/obj/backend.csproj.nuget.g.props
 backend/obj/backend.csproj.nuget.dgspec.json
+*.vsidx
+*.vsidx
