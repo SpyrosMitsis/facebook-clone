@@ -1,12 +1,15 @@
 import { Outlet } from 'react-router'
 import './App.scss'
-  
+import { AuthProvider } from './Context/AuthProvider';
+
 function App() {
   return (
     <>
-        <div className='App'>
+      <AuthProvider>
+        <main className='App'>
           <Outlet />
-        </div>
+        </main>
+      </AuthProvider>
     </>
   );
 }

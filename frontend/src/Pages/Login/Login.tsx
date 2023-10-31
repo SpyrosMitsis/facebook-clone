@@ -1,9 +1,14 @@
-import React, { SyntheticEvent, useState } from 'react';
+import React, { SyntheticEvent, useContext, useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
 import './Login.scss';
 import fbNameLogo from '../../assets/fbNameLogo.png';
 import SignUp from '../../components/SignUp';
 import { useNavigate } from 'react-router-dom';
+import axios from '../../api/axios';
+import AuthContext from '../../Context/AuthProvider';
+
+
+const LOGIN_URL = '/login'
 
 
 function Login(): React.ReactElement {
@@ -17,22 +22,32 @@ function Login(): React.ReactElement {
         // You can access the email and password values here and perform the login logic
         e.preventDefault()
 
-        await fetch("http://localhost:5112/api/login", {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-            body: JSON.stringify({
-                email,
-                password,
-            })
+        axios.post(LOGIN_URL, {
+            email,
+            password,
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            withCredentials: true // To include credentials
         })
+            .then((response) => {
+            
+            })
+            .catch((error) => {
+                if(error.response?.status === 400){
+                    setErrMsg('Missing Username or Password')
+                }else {
+                    setErrMsg('Login Failed');
+                }
+            });
         setRedirect(true)
 
     };
-        if(redirect ){
-            navigate("/home")
-        }
-
+//   if (redirect) {
+//       navigate("/home")
+//   }
+//
     return (
         <>
             <div className='login'>
@@ -74,3 +89,7 @@ function Login(): React.ReactElement {
 }
 
 export default Login;
+
+function setErrMsg(arg0: string) {
+    throw new Error('Function not implemented.');
+}

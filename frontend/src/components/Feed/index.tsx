@@ -2,10 +2,12 @@ import React from 'react'
 
 type Props = {}
 
-const index = (props: Props) => {
+const Post = (props: Props) => {
   return (
-    <div>Feed</div>
+    <div className='post'>
+      <div>Post</div>
+    </div>
   )
 }
 
-export default index
+export default Post

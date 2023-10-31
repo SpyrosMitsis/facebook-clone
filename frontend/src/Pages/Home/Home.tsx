@@ -1,35 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { Header, SideBar, Feed, Widget } from '../../components';
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 
-import './Home.scss';
-
-function Home(): React.ReactElement {
-  const [userName, setUserName] = useState('')
-
-  useEffect(() => {
-    (
-      async() => {
-
-        const response = await fetch("http://localhost:5112/api/user", {
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-        })
-
-        const content = await response.json()
-
-        setUserName(content.name)
-      }
-    )();
-  });
-
-  return (
-    <>
-      <div className='homeBody'>
-        <Feed username={userName}/>
-        <Widget />
-      </div>
-    </>
-  );
+type Props = {
+  name: string
 }
 
-export default Home;
+const Home = (props: Props) => {
+
+  const [name, setName] = useState('');
+
+  axios.get("http://localhost:5112/api/user", {
+
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    withCredentials: true // To include credentials
+})
+.then((response) => {
+  const content = response.data
+  setName(content.firstName);
+
+})
+.catch((error) => {
+    // Handle any errors here
+});
+  
+  return (
+    <div>Hi {name}</div>
+  )
+}
+
+export default Home
