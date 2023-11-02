@@ -11,9 +11,9 @@ function App() {
 
   return (
     <>
+        <main className='App'>
         <Routes>
-        <Route path='/login' element={ <Login />} />
-
+        <Route path='/' element={ <Login />} />
           <Route path={'/secure'} element={
             <RequireAuth loginPath={'/'}>
               <div>
@@ -22,6 +22,8 @@ function App() {
             </RequireAuth>
           } />
         </Routes>
+
+        </main>
     </>
 
   )

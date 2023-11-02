@@ -6,6 +6,7 @@ import SignUp from '../../components/SignUp';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
 import AuthContext from '../../Context/AuthProvider';
+import { useSignIn } from 'react-auth-kit';
 
 
 const LOGIN_URL = '/login'
@@ -17,6 +18,7 @@ function Login(): React.ReactElement {
     const [showSignUp, setShowSignUp] = useState(false);
     const [redirect, setRedirect] = useState(false)
     const navigate = useNavigate();
+    const signIn = useSignIn();
 
     const onSignIn = async (e: SyntheticEvent) => {
         // You can access the email and password values here and perform the login logic
@@ -32,6 +34,17 @@ function Login(): React.ReactElement {
             withCredentials: true // To include credentials
         })
             .then((response) => {
+                
+                console.log(response.data)
+                signIn(
+                    {
+                        token: response.data.jwt,
+                        expiresIn: response.data.totalMinutes,
+                        tokenType: 'Bearer',
+                        authState: response.data.email
+                    }
+
+                )
             
             })
             .catch((error) => {
