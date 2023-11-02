@@ -1,9 +1,1 @@
-node_modules
-backend/obj/Debug/net6.0/backend.dll
-*.vsidx
-*.vsidx
-.vs/backend/v17/.suo
-.vs/backend/v17/.suo
-*.pdb
-*.dll
-*.pdb
+
