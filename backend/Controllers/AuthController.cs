@@ -39,6 +39,10 @@ namespace backend.Controllers
         public IActionResult Login(LoginDto dto )
         {
             var user = _repository.GetByEmail(dto.Email);
+            DateTime currentTime= DateTime.Today;
+            DateTime expirationTime = currentTime.AddDays(7);
+            TimeSpan timeDifference = expirationTime - currentTime;
+
             if(user == null)
             {
                 return BadRequest(new { message = "Invalid Credentials" });
@@ -47,38 +51,22 @@ namespace backend.Controllers
                 return BadRequest(new { message = "Invalid Credentials" });
             }
 
-            var jwt = _jwtService.Generate(user.Id);
+            var jwt = _jwtService.Generate(user.Id, expirationTime );
 
-            Response.Cookies.Append("jwt", jwt, new CookieOptions
-            {
-                HttpOnly = true
-            });
+           //Response.Cookies.Append("jwt", jwt, new CookieOptions
+           //{
+           //    HttpOnly = false
+           //});
 
             return Ok(new
             {
-                message = "sucess"
+                jwt,
+                timeDifference.TotalMinutes,
+                user
             });
 
         }
 
-        [HttpGet("user")]
-        public IActionResult User()
-        {
-            try
-            {
-                var jwt = Request.Cookies["jwt"];
-                var token = _jwtService.Verify(jwt);
-                int userId = int.Parse(token.Issuer);
-                var user = _repository.GetById(userId);
-
-                return Ok(user);
-            }
-            catch(Exception _)
-            {
-                return Unauthorized();
-            }
-
-        }
 
         [HttpPost("logout")]
         public IActionResult Logout()
