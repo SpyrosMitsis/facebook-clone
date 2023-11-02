@@ -1,48 +1,51 @@
 import { Outlet, Route, Routes } from 'react-router'
 import React from 'react';
 import './App.scss'
-import { AuthProvider, RequireAuth } from 'react-auth-kit'
-import axios from './api/axios';
-import { BrowserRouter } from 'react-router-dom';
+import { RequireAuth } from 'react-auth-kit'
 import Login from './Pages/Login/Login';
+import Home from './Pages/Home/Home';
+import { useIsAuthenticated } from 'react-auth-kit';
+
 
 function App() {
 
+  const isAuthenticated = useIsAuthenticated()
 
-  return (
-    <>
+  if (isAuthenticated()) {
+    return (
+      <>
         <main className='App'>
-        <Routes>
-        <Route path='/' element={ <Login />} />
-          <Route path={'/secure'} element={
-            <RequireAuth loginPath={'/'}>
-              <div>
-                Secure
-              </div>
-            </RequireAuth>
-          } />
-        </Routes>
+          <Routes>
+            <Route path='/login' element={<Login />} />
+            <Route path='/' element={<Home />} />
+            <Route path={'/home'} element={
+              <RequireAuth loginPath={'/login'}>
+                <Home />
+              </RequireAuth>
+            } />
+          </Routes>
 
         </main>
-    </>
+      </>
 
-  )
+    )
+  } else {
+    return (
+      <>
+        <main className='App'>
+          <Routes>
+            <Route path='/login' element={<Login />} />
+            <Route path={'/'} element={
+              <RequireAuth loginPath={'/login'}>
+                <Home />
+              </RequireAuth>
+            } />
+          </Routes>
+
+        </main>
+      </>
+    )
+  }
 
 }
-
-
- // return (
- //   <>
- //     <AuthProvider authType={'cookie'}
- //       authName={'_auth'}
- //       cookieDomain={window.location.hostname}
- //       cookieSecure={false}>
- //       <main className='App'>
- //         <Outlet />
- //       </main>
- //     </AuthProvider>
- //   </>
- // );
-
-
 export default App;

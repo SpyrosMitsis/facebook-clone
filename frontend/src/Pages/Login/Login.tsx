@@ -5,7 +5,6 @@ import fbNameLogo from '../../assets/fbNameLogo.png';
 import SignUp from '../../components/SignUp';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
-import AuthContext from '../../Context/AuthProvider';
 import { useSignIn } from 'react-auth-kit';
 
 
@@ -41,7 +40,7 @@ function Login(): React.ReactElement {
                         token: response.data.jwt,
                         expiresIn: response.data.totalMinutes,
                         tokenType: 'Bearer',
-                        authState: response.data.email
+                        authState: response.data.user
                     }
 
                 )
@@ -87,7 +86,7 @@ function Login(): React.ReactElement {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                         <Button className='signIn' type='submit' onClick={onSignIn}>
-                            SIGN IN
+                            LOG IN
                         </Button>
                         <p className='txt-forgot-pass'>Forgotten password?</p>
                         <div className="login-seperator"></div>

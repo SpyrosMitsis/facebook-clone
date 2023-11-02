@@ -1,32 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios';
+import React from 'react'
+import { useAuthUser } from 'react-auth-kit'
 
-type Props = {
-  name: string
-}
 
-const Home = (props: Props) => {
+const Home = () => {
 
-  const [name, setName] = useState('');
+  const auth = useAuthUser()
 
-  axios.get("http://localhost:5112/api/user", {
-
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    withCredentials: true // To include credentials
-})
-.then((response) => {
-  const content = response.data
-  setName(content.firstName);
-
-})
-.catch((error) => {
-    // Handle any errors here
-});
-  
   return (
-    <div>Hi {name}</div>
+      <div>
+        Hello {auth()?.firstName}
+      </div>
   )
 }
 
