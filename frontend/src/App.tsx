@@ -1,5 +1,4 @@
-import { Outlet, Route, Routes } from 'react-router'
-import React from 'react';
+import { Navigate, Route, Routes } from 'react-router'
 import './App.scss'
 import { RequireAuth } from 'react-auth-kit'
 import Login from './Pages/Login/Login';
@@ -10,6 +9,7 @@ import { useIsAuthenticated } from 'react-auth-kit';
 function App() {
 
   const isAuthenticated = useIsAuthenticated()
+  
 
   if (isAuthenticated()) {
     return (
@@ -34,12 +34,9 @@ function App() {
       <>
         <main className='App'>
           <Routes>
+            <Route path='/' element={ <Navigate to='/login' replace/>} />
+            <Route path='/home' element={ <Navigate to='/login' replace/>} />
             <Route path='/login' element={<Login />} />
-            <Route path={'/'} element={
-              <RequireAuth loginPath={'/login'}>
-                <Home />
-              </RequireAuth>
-            } />
           </Routes>
 
         </main>
