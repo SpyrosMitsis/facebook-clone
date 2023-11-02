@@ -18,16 +18,9 @@ function App() {
           <Routes>
             <Route path='/login' element={<Login />} />
             <Route path='/' element={<Home />} />
-            <Route path={'/home'} element={
-              <RequireAuth loginPath={'/login'}>
-                <Home />
-              </RequireAuth>
-            } />
           </Routes>
-
         </main>
       </>
-
     )
   } else {
     return (

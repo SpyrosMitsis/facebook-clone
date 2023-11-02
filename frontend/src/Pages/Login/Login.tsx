@@ -3,9 +3,9 @@ import { Button, TextField } from '@material-ui/core';
 import './Login.scss';
 import fbNameLogo from '../../assets/fbNameLogo.png';
 import SignUp from '../../components/SignUp';
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
-import { useSignIn } from 'react-auth-kit';
+import { useIsAuthenticated, useSignIn } from 'react-auth-kit';
 
 
 const LOGIN_URL = '/login'
@@ -15,9 +15,9 @@ function Login(): React.ReactElement {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showSignUp, setShowSignUp] = useState(false);
-    const [redirect, setRedirect] = useState(false)
     const navigate = useNavigate();
     const signIn = useSignIn();
+  const isAuthenticated = useIsAuthenticated()
 
     const onSignIn = async (e: SyntheticEvent) => {
         // You can access the email and password values here and perform the login logic
@@ -42,24 +42,22 @@ function Login(): React.ReactElement {
                         tokenType: 'Bearer',
                         authState: response.data.user
                     }
-
                 )
-            
+
             })
             .catch((error) => {
                 if(error.response?.status === 400){
-                    setErrMsg('Missing Username or Password')
+                    error('Missing Username or Password')
                 }else {
-                    setErrMsg('Login Failed');
+                    error('Login Failed');
                 }
             });
-        setRedirect(true)
 
     };
-//   if (redirect) {
-//       navigate("/home")
-//   }
-//
+    if(isAuthenticated()){
+        navigate('/')
+    }
+
     return (
         <>
             <div className='login'>
@@ -102,6 +100,4 @@ function Login(): React.ReactElement {
 
 export default Login;
 
-function setErrMsg(arg0: string) {
-    throw new Error('Function not implemented.');
-}
+
