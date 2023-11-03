@@ -80,7 +80,7 @@ namespace backend.Controllers
 
         }
         [HttpPut("uploadProfilePic")]
-        public IActionResult UploadProfilePic([FromForm] UploadProfilePic account, int userId)
+        public IActionResult UploadProfilePic([FromForm] UploadProfilePicDto account, int userId)
         {
             var user = _repository.GetById(userId);
             var fileName = _repository.UploadProfilePic(account.ProfilePic, userId);
