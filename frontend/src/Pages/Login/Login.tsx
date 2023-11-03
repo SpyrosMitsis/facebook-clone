@@ -64,10 +64,10 @@ function Login(): React.ReactElement {
                 <SignUp show={showSignUp} setShow={setShowSignUp} />
                 <div className='logo'>
                     <img src={fbNameLogo} alt='name logo' />
-                    <h3>shit is hard.</h3>
+                    <h3>Yellow pages.</h3>
                 </div>
                 <div className='loginCard'>
-                    <div className='card'>
+                    <div className='card'>frontend/src/Pages/Login/Login.tsx
                         <span className='title'>Sign In</span>
                         <p>Sign in with your account or Sign up</p>
                         <TextField className="loginField"

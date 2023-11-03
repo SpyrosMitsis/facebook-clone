@@ -10,6 +10,7 @@ import {
 } from '../../utils/icons';
 
 import './SideBar.scss';
+import ProfilePage from '../../Pages/Profile/Profile';
 
 interface SideBarProps {
   photoUrl?: string;
@@ -19,9 +20,9 @@ interface SideBarProps {
 function SideBar({ photoUrl, username }: SideBarProps): React.ReactElement {
   return (
     <div className='sideBar'>
-      <SideBarRow src={photoUrl} title={username} />
+      <SideBarRow src={photoUrl} title={username} to={'/ProfilePage'} />
       {rowIconList.map(({ Icon, title }, index) => (
-        <SideBarRow key={index} title={title} Icon={Icon} />
+        <SideBarRow key={index} title={title} Icon={Icon} to={''} />
       ))}
     </div>
   );
