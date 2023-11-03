@@ -196,3 +196,7 @@ C:\Users\krist\OneDrive\Documents\GitHub\facebook-clone\backend\obj\Debug\net6.0
 C:\Users\krist\OneDrive\Documents\GitHub\facebook-clone\backend\obj\Debug\net6.0\backend.dll
 C:\Users\krist\OneDrive\Documents\GitHub\facebook-clone\backend\obj\Debug\net6.0\refint\backend.dll
 C:\Users\krist\OneDrive\Documents\GitHub\facebook-clone\backend\obj\Debug\net6.0\backend.pdb
+C:\Users\mitsi\Desktop\facebook-clone-workspace\backend\bin\Debug\net6.0\BoDi.dll
+C:\Users\mitsi\Desktop\facebook-clone-workspace\backend\bin\Debug\net6.0\Gherkin.dll
+C:\Users\mitsi\Desktop\facebook-clone-workspace\backend\bin\Debug\net6.0\TechTalk.SpecFlow.dll
+C:\Users\mitsi\Desktop\facebook-clone-workspace\backend\bin\Debug\net6.0\SpecFlow.Internal.Json.dll

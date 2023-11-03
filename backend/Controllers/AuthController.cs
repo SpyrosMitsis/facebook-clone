@@ -67,7 +67,6 @@ namespace backend.Controllers
 
         }
 
-
         [HttpPost("logout")]
         public IActionResult Logout()
         {
@@ -80,5 +79,23 @@ namespace backend.Controllers
             );
 
         }
+        [HttpPut("uploadProfilePic")]
+        public IActionResult UploadProfilePic([FromForm] UploadImageDto account, int userId)
+        {
+            var user = _repository.GetById(userId);
+            var fileName = _repository.UploadProfilePic(account.ProfilePic, userId);
+            user.ProfilePicName = fileName;
+
+            var userResult = _repository.UpdateProfilePic(user);
+            if (userResult)
+            {
+                return Ok();
+            }
+            else
+            {
+
+                return NotFound();
+            }
+        } 
     }
 }

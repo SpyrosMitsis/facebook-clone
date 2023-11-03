@@ -1,4 +1,5 @@
-﻿using backend.Models;
+﻿using backend.Dtos;
+using backend.Models;
 
 namespace backend.Data
 {
@@ -7,5 +8,9 @@ namespace backend.Data
         User Create(User user);
         User GetByEmail(string email);
         User GetById(int id);
+        string UploadProfilePic(IFormFile imageFile, int id);
+        bool RemoveProfilePic(string imageFileName);
+        public bool Save();
+        public bool UpdateProfilePic(User user);
     }
 }

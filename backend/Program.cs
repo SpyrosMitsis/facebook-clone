@@ -1,6 +1,7 @@
 using backend.Data;
 using backend.Helpers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,12 +28,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "Uploads")),
+    RequestPath = "/ProfilePic"
+});
+
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.UseCors(options => options
-    .WithOrigins(new [] {"http://localhost:5173", "http://localhost:5114"})
+    .WithOrigins(new [] {"http://localhost:5173", "http://localhost:5112"})
     .AllowAnyHeader()
     .AllowAnyMethod()
     .AllowCredentials()
