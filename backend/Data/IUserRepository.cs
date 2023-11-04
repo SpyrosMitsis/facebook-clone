@@ -8,8 +8,8 @@ namespace backend.Data
         User Create(User user);
         User GetByEmail(string email);
         Task<User> GetByIdAsync(int id);
-        string UploadProfilePic(IFormFile imageFile, int id);
-        bool RemoveProfilePic(string imageFileName);
+        string UploadImage(IFormFile imageFile, int id, string path);
+        Task<bool> RemoveImageAsync(int id, string path);
         public bool Save();
         public bool UpdateProfilePic(User user);
     }

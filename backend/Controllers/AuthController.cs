@@ -80,42 +80,5 @@ namespace backend.Controllers
             );
 
         }
-        [HttpPut("uploadProfilePic")]
-        public async Task<IActionResult> UploadProfilePic([FromForm] UploadProfilePicDto account, int userId)
-        {
-            var user = await _repository.GetByIdAsync(userId);
-            var fileName = _repository.UploadProfilePic(account.ProfilePic, userId);
-            user.ProfilePicName = fileName;
-
-            var userResult = _repository.UpdateProfilePic(user);
-            if (userResult)
-            {
-                return Ok();
-            }
-            else
-            {
-
-                return NotFound();
-            }
-        }
-
-        [HttpGet("User{id}")]
-        public async Task<IActionResult> GetUser(int id)
-        {
-            try
-            {
-                var user = await _repository.GetByIdAsync(id);
-                if (user == null)
-                {
-                    return NotFound(); // Returns a 404 if the user is not found
-                }
-                return Ok(user); // Returns a 200 with the user data
-            }
-            catch
-            {
-                // Optionally, log the exception or handle it as needed
-                return StatusCode(500, "An error occurred while processing your request."); // Returns a 500 if there's an error
-            }
-        }
     }
 }

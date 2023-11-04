@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection.PortableExecutable;
 using System.Text.Json.Serialization;
 
@@ -19,10 +20,12 @@ namespace backend.Models
         public DateTime DateOfBirth { get; set; }
         public DateTime DayOfJoyning { get; set; }
         public string Gender { get; set; }
-        public string ProfilePicName { get; set; }
+        [AllowNull]
+        public string? ProfilePicName { get; set; }
         public ICollection<Friendship> Friends { get; set; }
         public ICollection<Friendship> FriendOf { get; set; }
-        public string BannerFileName { get; set; }
+        [AllowNull]
+        public string? BannerFileName { get; set; }
         public ICollection<Post> Posts { get; set; }
         public ICollection<Like> Likes { get; set; }
         public ICollection<Comment> Comments { get; set; }

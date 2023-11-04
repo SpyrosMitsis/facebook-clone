@@ -33,17 +33,18 @@ namespace backend.Data
             return await _user.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public string UploadProfilePic(IFormFile imageFile, int id)
+        public string UploadImage(IFormFile imageFile, int id, string path)
         {
 
             try
             {
-                var contentPath = this.env.ContentRootPath;
+                string contentPath = this.env.ContentRootPath;
+                contentPath = contentPath + "Uploads\\";
                 // path = "c://projects/productminiapi/uploads" ,not exactly something like that
-                var path = Path.Combine(contentPath, "Uploads");
-                if (!Directory.Exists(path))
+                var _path = Path.Combine(contentPath, path);
+                if (!Directory.Exists(_path))
                 {
-                    Directory.CreateDirectory(path);
+                    Directory.CreateDirectory(_path);
                 }
 
                 // Check the allowed extenstions
@@ -57,7 +58,7 @@ namespace backend.Data
                 string uniqueString = Guid.NewGuid().ToString();
                 // we are trying to create a unique filename here
                 var newFileName = uniqueString + ext;
-                var fileWithPath = Path.Combine(path, newFileName);
+                var fileWithPath = Path.Combine(_path, newFileName);
                 var stream = new FileStream(fileWithPath, FileMode.Create);
                 imageFile.CopyTo(stream);
                 stream.Close();
@@ -71,15 +72,21 @@ namespace backend.Data
         
         }
 
-        public bool RemoveProfilePic(string imageFileName)
+        public async Task<bool> RemoveImageAsync(int id, string path)
         {
             try
             {
-                var wwwPath = this.env.WebRootPath;
-                var path = Path.Combine(wwwPath, "Uploads\\", imageFileName);
-                if (System.IO.File.Exists(path))
+                var wwwPath = this.env.ContentRootPath;
+                wwwPath = wwwPath + "Uploads\\";
+                string imageFileName = await _user.Users
+                    .Where(u => u.Id == id)
+                    .Select(u =>u.ProfilePicName) 
+                    .FirstOrDefaultAsync();
+
+                var _path = Path.Combine(wwwPath, (path) , imageFileName);
+                if (System.IO.File.Exists(_path))
                 {
-                    System.IO.File.Delete(path);
+                    System.IO.File.Delete(_path);
                     return true;
                 }
                 return false;
