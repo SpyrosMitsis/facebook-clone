@@ -1,5 +1,6 @@
 ﻿using backend.Dtos;
 using backend.Models;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.Design;
 
 namespace backend.Data
@@ -27,9 +28,9 @@ namespace backend.Data
             return _user.Users.FirstOrDefault(u => u.Email == email);
         }
 
-        public User GetById(int id)
+        public async Task<User> GetByIdAsync(int id)
         {
-            return _user.Users.FirstOrDefault(u => u.Id== id);
+            return await _user.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public string UploadProfilePic(IFormFile imageFile, int id)

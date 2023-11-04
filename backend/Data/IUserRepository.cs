@@ -7,7 +7,7 @@ namespace backend.Data
     {
         User Create(User user);
         User GetByEmail(string email);
-        User GetById(int id);
+        Task<User> GetByIdAsync(int id);
         string UploadProfilePic(IFormFile imageFile, int id);
         bool RemoveProfilePic(string imageFileName);
         public bool Save();
