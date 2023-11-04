@@ -4,7 +4,7 @@ import { RequireAuth } from 'react-auth-kit'
 import Login from './Pages/Login/Login';
 import Home from './Pages/Home/Home';
 import { useIsAuthenticated } from 'react-auth-kit';
-import ProfilePage from './Pages/Profile/Profile';
+import Profile from './Pages/Profile/Profile';
 
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
           <Routes>
             <Route path='/login' element={<Login />} />
             <Route path='/' element={<Home />} />
-            <Route path='/ProfilePage' element={<ProfilePage/>} />
+            <Route path='/ProfilePage' element={<Profile/>} />
           </Routes>
         </main>
       </>

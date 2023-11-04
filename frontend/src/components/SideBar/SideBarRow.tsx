@@ -1,7 +1,7 @@
-import { Avatar } from '@material-ui/core';
 import React from 'react';
 import './SideBar.scss';
 import { Link } from 'react-router-dom';
+import Avatar from '@mui/material/Avatar';
 
 interface SideBarRowProps {
   src?: string | null;

@@ -1,0 +1,28 @@
+// components/ProfileHeader.module.scss
+
+$profile-picture-size: 150px;
+
+.profileHeader {
+  display: flex;
+  flex-direction: column;
+  flex: 0.45;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.35rem;
+  height: 100vh;
+
+  .coverPhoto {
+    width: 100%;
+    height: auto;
+  }
+
+  .profilePicture {
+    width: $profile-picture-size;
+    height: $profile-picture-size;
+    border-radius: 50%;
+    border: 4px solid white;
+    position: relative;
+    top: -($profile-picture-size / 2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}

@@ -1,11 +1,12 @@
 import React, { SyntheticEvent, useContext, useState } from 'react';
-import { Button, TextField } from '@material-ui/core';
 import './Login.scss';
 import fbNameLogo from '../../assets/fbNameLogo.png';
 import SignUp from '../../components/SignUp';
 import { redirect, useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
 import { useIsAuthenticated, useSignIn } from 'react-auth-kit';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 
 const LOGIN_URL = '/login'
@@ -67,7 +68,7 @@ function Login(): React.ReactElement {
                     <h3>Yellow pages.</h3>
                 </div>
                 <div className='loginCard'>
-                    <div className='card'>frontend/src/Pages/Login/Login.tsx
+                    <div className='card'>
                         <span className='title'>Sign In</span>
                         <p>Sign in with your account or Sign up</p>
                         <TextField className="loginField"

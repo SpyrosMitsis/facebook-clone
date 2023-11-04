@@ -1,11 +1,12 @@
 import React from 'react';
-import { Avatar, IconButton } from '@material-ui/core';
 import { useLocation } from 'react-router-dom'; // Import useLocation
 import { SearchIcon, HomeRoundedIcon, SubscriptionsRoundedIcon, SupervisedUserCircleRoundedIcon, AddRoundedIcon, NotificationsRoundedIcon, StorefrontRoundedIcon, ExitToAppRoundedIcon } from '../../utils/icons';
 import fbImgLogo from '../../assets/fbImgLogo.png';
 import { useSignOut } from 'react-auth-kit';
 import './Header.scss';
 import { useNavigate } from 'react-router';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
 
 interface HeaderProps {
     photoUrl?: string;

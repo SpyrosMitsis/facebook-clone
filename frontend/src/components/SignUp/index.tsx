@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, SyntheticEvent } from 'react'
-import { Button } from '@material-ui/core'
 import closeIcon from "../../assets/close-icon.png"
 import { FaQuestionCircle } from "react-icons/fa"
 import "./signup.scss"
 import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
 
 
 // TODO

@@ -32,7 +32,7 @@ app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
         Path.Combine(builder.Environment.ContentRootPath, "Uploads")),
-    RequestPath = "/ProfilePic"
+    RequestPath = "/Media"
 });
 
 app.UseAuthorization();

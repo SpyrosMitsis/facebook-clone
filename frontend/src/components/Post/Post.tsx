@@ -1,9 +1,9 @@
 import React from 'react';
-import { Avatar } from '@material-ui/core';
 
 import { ChatBubbleOutlineRoundedIcon, NearMeRoundedIcon, ThumbUpRoundedIcon } from '../../utils/icons';
 
 import './Post.scss';
+import Avatar from '@mui/material/Avatar';
 
 interface PostProps {
   profilePic: string;
