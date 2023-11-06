@@ -15,7 +15,7 @@ namespace backend.Controllers
             _repository = repository;
         }
 
-        [HttpPut("uploadProfilePic")]
+        [HttpPatch("uploadProfilePic")]
         public async Task<IActionResult> UploadProfilePic([FromForm] UploadProfilePicDto account, int userId)
         {
             var user = await _repository.GetByIdAsync(userId);
@@ -34,7 +34,7 @@ namespace backend.Controllers
             }
         }
 
-        [HttpPut("deleteProfilePic")]
+        [HttpPatch("deleteProfilePic")]
         public async Task<IActionResult> DeleteProfilePic(int userId)
         {
             var user = await _repository.GetByIdAsync(userId);

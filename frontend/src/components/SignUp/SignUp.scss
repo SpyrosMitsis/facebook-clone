@@ -192,16 +192,16 @@
 }
 
  .signUp-btn{
-    background-color: $sign-up;
-    color: $white;
+    background-color: $sign-up !important;
+    color: $white !important;
     align-self: bottom;
     margin-top: 2rem;
     align-self: center;
     width: 55%;
-    transition: linear 200ms;
+    transition: linear 200ms !important;
 
     &:hover {
-        background-color: $sign-up-light;
+        background-color: $sign-up-light !important;
         transform: translateY(-2px);
     }
 }

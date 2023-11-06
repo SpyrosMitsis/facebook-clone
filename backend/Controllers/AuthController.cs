@@ -80,5 +80,46 @@ namespace backend.Controllers
             );
 
         }
+        [HttpPatch("forgotPassword")]
+        public IActionResult ForgotPassword(ForgotPasswordDto dto)
+        {
+            var user = _repository.GetByEmail(dto.Email);
+
+            if(user == null)
+            {
+                return NotFound( new
+                {
+                    message = "Email not Found!"
+                });
+
+            }
+            else
+            {
+                if(dto.Password1 == dto.Password2)
+                {
+                    user.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password1);
+                    var userResult = _repository.UpdateProfilePic(user);
+                        if (userResult)
+                        {
+                            return Ok();
+                        }
+                        else
+                        {
+                            return NotFound();
+                        }
+                }
+                else
+                {
+                    return NotFound(new
+                    {
+                        message = "Passowords don't match!"
+                    });
+                }
+            }
+
+            return NotFound();
+
+        }
+
     }
 }
