@@ -3,7 +3,7 @@ import { CoverPicture } from "../../components/CoverPicture/CoverPicture";
 import "./Profile.scss";
 import { useAuthUser } from "react-auth-kit";
 import Header from "../../components/Header";
-import { Button } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import { SearchIcon } from "../../utils/icons";
 
 const photoUrl = 'https://images.unsplash.com/photo-1695982206757-a9643cb6cee5?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
@@ -34,6 +34,7 @@ export const FacebookProfile = ({ photoUrl }: Props): JSX.Element => {
 export const Profile = (): JSX.Element => {
     const currentUser = useAuthUser();
     const photo = `http://localhost:5112/Media/ProfilePics/${currentUser()?.profilePicName}`
+
     const profileName = currentUser()?.firstName
 
     return (
@@ -42,7 +43,7 @@ export const Profile = (): JSX.Element => {
             <div className="frame">
                 <CoverPicture photoUrl={photoUrl} />
                 <div className="frame-3">
-                    <img src={photo} className="profileAvatar" />
+                    <Avatar className="profileAvatar" src={photo}/>
                     <div className="ProfileName"> {profileName}</div>
                     <div className="FriendsNumber">1K friends</div>
                     <Button className="edit_profile">
