@@ -79,11 +79,12 @@
         .signIn{
             background-color: $primary;
             color: $white;
-            align-self: bottom;
+            align-self: center;
             margin-top: 1rem;
             margin-bottom: 1rem;
             padding: 0.4rem 4rem;
             transition: linear 200ms;
+            width: 100%;
 
             &:hover {
                 background-color: $primary-light;
@@ -127,6 +128,7 @@
 
         .loginField{
             margin-bottom: 0.5rem;
+            width: 100%;
         }
         
         p {

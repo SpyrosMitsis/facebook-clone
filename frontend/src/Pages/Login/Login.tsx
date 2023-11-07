@@ -7,6 +7,7 @@ import axios from '../../api/axios';
 import { useIsAuthenticated, useSignIn } from 'react-auth-kit';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import ForgotPassword from '../../components/ForgotPassword/ForgotPassword';
 
 
 const LOGIN_URL = '/login'
@@ -16,9 +17,10 @@ function Login(): React.ReactElement {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showSignUp, setShowSignUp] = useState(false);
+    const [showForgotPass, setShowForgotPass] = useState(false);
     const navigate = useNavigate();
     const signIn = useSignIn();
-  const isAuthenticated = useIsAuthenticated()
+    const isAuthenticated = useIsAuthenticated()
 
     const onSignIn = async (e: SyntheticEvent) => {
         // You can access the email and password values here and perform the login logic
@@ -63,6 +65,7 @@ function Login(): React.ReactElement {
         <>
             <div className='login'>
                 <SignUp show={showSignUp} setShow={setShowSignUp} />
+                <ForgotPassword show={showForgotPass} setShow={setShowForgotPass} />
                 <div className='logo'>
                     <img src={fbNameLogo} alt='name logo' />
                     <h3>Yellow pages.</h3>
@@ -87,7 +90,7 @@ function Login(): React.ReactElement {
                         <Button className='signIn' type='submit' onClick={onSignIn}>
                             LOG IN
                         </Button>
-                        <p className='txt-forgot-pass'>Forgotten password?</p>
+                        <p className='txt-forgot-pass' onClick={() => setShowForgotPass(true)}>Forgotten password?</p>
                         <div className="login-seperator"></div>
                         <Button className='signUp' type='submit' onClick={() => setShowSignUp(true)}>
                             SIGN UP

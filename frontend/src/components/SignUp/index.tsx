@@ -2,22 +2,14 @@ import React, { useState, useEffect, useRef, SyntheticEvent } from 'react'
 import closeIcon from "../../assets/close-icon.png"
 import { FaQuestionCircle } from "react-icons/fa"
 import "./signup.scss"
-import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 
-
-// TODO
-// Fix date year entries
-
-// this is not needed if you are using javascript
-// just simply add props 
 type SignUpProps = {
     show: boolean,
     setShow: (show: boolean) => void
 }
 
 const SignUp = (props: SignUpProps) => {
-    const navigate = useNavigate();
     const [firstName, setFirstName] = useState('')
     const [surname, setSurname] = useState('')
     const [email, setEmail] = useState('')
@@ -28,7 +20,6 @@ const SignUp = (props: SignUpProps) => {
     const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
     const [selectedDay, setSelectedDay] = useState<number | null>(null);
     const [gender, setGender] = useState('')
-    const [redirect, setRedirect] = useState(false)
 
 
     const currentYear = new Date().getFullYear();
