@@ -101,13 +101,13 @@
 .edit_profile{
     background-color: #e5e6eb !important;
     color: $black !important;
-    align-self: bottom;
     margin-top: .2rem !important;
     margin-bottom: .2rem !important;
-    margin-left: 12rem !important;
     align-self: center;
     transition: linear 200ms;
     width: 15% !important;
+    left: 30rem;
+
 
 
     &:hover {
@@ -118,6 +118,7 @@
 .add_story{
     background-color: $primary !important;
     color: $white !important;
+    position: relative;
     margin-left: 1rem !important;
     align-self: bottom;
     margin-top: .2rem !important;
@@ -125,6 +126,7 @@
     align-self: center;
     width: 15% !important;
     transition: linear 200ms;
+    left: 30rem;
 
     &:hover {
         background-color: $sign-up-light;
@@ -325,7 +327,6 @@
 
 
 .profileAvatar{
-    margin-left: 12rem;
     margin-top: -10%;
     position: relative;
     height: 12rem !important;
