@@ -34,6 +34,9 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PostId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("TimeStamp")
                         .HasColumnType("datetime2");
 
@@ -42,6 +45,8 @@ namespace backend.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PostId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Comments");
@@ -49,13 +54,16 @@ namespace backend.Migrations
 
             modelBuilder.Entity("FacebookClone.Models.Friendship", b =>
                 {
-                    b.Property<int>("ProfileId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("FriendId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
+                    b.Property<int>("ProfileId")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -64,9 +72,11 @@ namespace backend.Migrations
                     b.Property<bool>("isFriend")
                         .HasColumnType("bit");
 
-                    b.HasKey("ProfileId", "FriendId");
+                    b.HasKey("Id");
 
                     b.HasIndex("FriendId");
+
+                    b.HasIndex("ProfileId");
 
                     b.ToTable("Friendships");
                 });
@@ -79,6 +89,9 @@ namespace backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("PostId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("TimeStamp")
                         .HasColumnType("datetime2");
 
@@ -86,6 +99,8 @@ namespace backend.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PostId");
 
                     b.HasIndex("UserId");
 
@@ -171,6 +186,10 @@ namespace backend.Migrations
 
             modelBuilder.Entity("FacebookClone.Models.Comment", b =>
                 {
+                    b.HasOne("FacebookClone.Models.Post", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId");
+
                     b.HasOne("backend.Models.User", null)
                         .WithMany("Comments")
                         .HasForeignKey("UserId");
@@ -197,6 +216,10 @@ namespace backend.Migrations
 
             modelBuilder.Entity("FacebookClone.Models.Like", b =>
                 {
+                    b.HasOne("FacebookClone.Models.Post", null)
+                        .WithMany("Likes")
+                        .HasForeignKey("PostId");
+
                     b.HasOne("backend.Models.User", null)
                         .WithMany("Likes")
                         .HasForeignKey("UserId");
@@ -207,6 +230,13 @@ namespace backend.Migrations
                     b.HasOne("backend.Models.User", null)
                         .WithMany("Posts")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("FacebookClone.Models.Post", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Likes");
                 });
 
             modelBuilder.Entity("backend.Models.User", b =>

@@ -9,6 +9,7 @@ namespace backend.Data
 
         public UserContext(DbContextOptions<UserContext> options): base(options)
         {
+
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Friendship> Friendships { get; set; }
@@ -19,8 +20,6 @@ namespace backend.Data
         {
             modelBuilder.Entity<User>(entity => { entity.HasIndex(e => e.Email).IsUnique(); });
 
-            modelBuilder.Entity<Friendship>()
-            .HasKey(uf => new { uf.ProfileId, uf.FriendId });
 
             modelBuilder.Entity<Friendship>()
                 .HasOne(uf => uf.Profile)
