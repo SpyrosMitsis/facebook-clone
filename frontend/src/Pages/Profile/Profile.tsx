@@ -47,14 +47,14 @@ export const Profile = (): JSX.Element => {
     const handleAvatarClick = () => {
         setShowImageUploader(true);
         setAspectRatio(1)
-        setDestinationFolder('ProfilePics')
+        setDestinationFolder('uploadProfilePic')
 
     };
 
     const handleCoverPictureClick = () => {
         setShowImageUploader(true);
         setAspectRatio(90 / 25)
-        setDestinationFolder('CoverPics')
+        setDestinationFolder('UploadCoverPic')
     };
 
     return (
@@ -66,12 +66,12 @@ export const Profile = (): JSX.Element => {
                     <div className="CoverPicture">
                         <CoverPicture photoUrl={photoUrl} />
                     </div>
-                    <span className="upload-text">Upload Picture</span>
+                    <span className="upload-text">Upload Cover</span>
                 </div>
                 <div className="frame-3">
                     <div className="avatar-wrapper" onClick={handleAvatarClick}>
                         <Avatar className="profileAvatar" src={photo} />
-                        <span className="upload-text">Upload Picture</span>
+                        <span className="upload-text">Upload Profile</span>
                     </div>
                     <div className="ProfileName"> {profileName}</div>
                     <div className="FriendsNumber">1K friends</div>
@@ -95,7 +95,7 @@ export const Profile = (): JSX.Element => {
                     </Button>
 
                     <Button className="button">
-                        Eat Ass
+                        Eat
                     </Button>
 
                     <Button className="button">
