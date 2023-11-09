@@ -8,8 +8,8 @@ import Feed from '../../components/Feed/Feed';
 function Home(): React.ReactElement {
   const currentUser = useAuthUser();
   const photo = `http://localhost:5112/Media/ProfilePics/${currentUser()?.profilePicName}`
-  console.log(photo)
   const user = currentUser()?.firstName ?? null;
+
   document.title = `Home | Facebook`
 
   return (

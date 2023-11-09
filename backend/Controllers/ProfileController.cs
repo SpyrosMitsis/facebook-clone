@@ -54,6 +54,45 @@ namespace backend.Controllers
                 return NotFound();
             }
         }
+        [HttpPatch("uploadCoverPic")]
+        public async Task<IActionResult> UploadCoverPic([FromForm] UploadProfilePicDto account, int userId)
+        {
+            var user = await _repository.GetByIdAsync(userId);
+            var fileName = _repository.UploadImage(account.ProfilePic, userId, "CoverPics" );
+            user.BannerFileName = fileName;
+
+            var userResult = _repository.UpdateProfilePic(user);
+            if (userResult)
+            {
+                return Ok();
+            }
+            else
+            {
+
+                return NotFound();
+            }
+        }
+
+        [HttpPatch("deleteCoverPic")]
+        public async Task<IActionResult> DeleteCoverPic(int userId)
+        {
+            var user = await _repository.GetByIdAsync(userId);
+            bool isDeleted = await _repository.RemoveImageAsync(userId, "CoberPics");
+            if (isDeleted)
+            {
+                user.BannerFileName = null;
+                var userResult = _repository.UpdateProfilePic(user);
+                if (userResult)
+                {
+                    return Ok();
+                }
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(int id)

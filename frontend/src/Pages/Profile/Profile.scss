@@ -36,7 +36,7 @@
 
 
 .ProfileName {
-    
+
     justify-content: center;
     padding-top: 1rem;
     padding-left: 3rem;
@@ -74,15 +74,15 @@
     flex-direction: column;
     gap: 20px;
     padding: 16px 18px 20px;
-    position: relative; /* Positioned absolutely within the same parent */
-    top: 3rem !important; /* Assuming the .frame div ends at 3.5rem from the top and .cover-picture-wrapper is the next element */
-    left: 20rem ;
-    width: 50%; /* Set the width to occupy half the page */
+    position: relative;
+    left: 20rem;
+    width: 50%;
+    /* Set the width to occupy half the page */
     grid-column: span 1;
 }
 
 
-.button{
+.button {
     background-color: #e5e6eb !important;
     color: $black !important;
     align-self: bottom;
@@ -98,7 +98,7 @@
     }
 }
 
-.edit_profile{
+.edit_profile {
     background-color: #e5e6eb !important;
     color: $black !important;
     margin-top: .2rem !important;
@@ -115,7 +115,8 @@
         transform: translatey(-2px);
     }
 }
-.add_story{
+
+.add_story {
     background-color: $primary !important;
     color: $white !important;
     position: relative;
@@ -203,10 +204,20 @@
     flex-direction: column;
     gap: 20px;
     padding: 16px 18px 20px;
-    position: relative; /* Positioned absolutely within the same parent */
-    top: 3rem !important; /* Assuming the .frame div ends at 3.5rem from the top and .cover-picture-wrapper is the next element */
-    grid-column: span 1; 
+    position: relative;
+    top: 3rem !important;
+    grid-column: span 1;
     width: 75%;
+
+    .card {
+        align-items: flex-start;
+        background-color: #ffffff;
+        border-radius: 11px;
+        box-shadow: var(--facebook-drop-shadow-001);
+        display: inline-flex;
+        flex-direction: column;
+        width: 100%;
+    }
 }
 
 .frame-33 {
@@ -219,23 +230,14 @@
     flex-direction: column;
     gap: 20px;
     padding: 16px 18px 20px;
-    position: relative; /* Positioned absolutely within the same parent */
-    top: 15rem !important; /* Assuming the .frame div ends at 3.5rem from the top and .cover-picture-wrapper is the next element */
+    position: relative;
+    /* Positioned absolutely within the same parent */
+    top: 15rem !important;
+    /* Assuming the .frame div ends at 3.5rem from the top and .cover-picture-wrapper is the next element */
     width: 100%;
-    grid-column: span 1; 
+    grid-column: span 1;
 }
 
-.card {
-    align-items: flex-start;
-    background-color: #ffffff;
-    border-radius: 11px;
-    box-shadow: var(--facebook-drop-shadow-001);
-    display: inline-flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    overflow: hidden;
-    position: relative;
-}
 
 
 .frame-31 {
@@ -286,6 +288,7 @@
     line-height: normal;
     position: relative;
     width: fit-content;
+    box-shadow: 0px 5px 7px -7px $box-shadow !important;
 }
 
 .frame-34 {
@@ -326,62 +329,123 @@
 }
 
 
-.profileAvatar{
-    margin-top: -10%;
+.avatar-wrapper {
     position: relative;
-    height: 12rem !important;
-    width: 12rem !important;
-    border: 0.4rem solid $pr-gray ;
+    display: flex;
+    top: -5rem;
+    left: -2rem;
 
+
+    &:hover .profileAvatar {
+        filter: grayscale(100%) blur(1px); // This applies the grayscale filter
+    }
+
+    &:hover .upload-text {
+        display: block; // This shows the text on hover
+    }
+
+    .profileAvatar {
+        margin-top: -10%;
+        position: relative;
+        height: 12rem !important;
+        width: 12rem !important;
+    }
+
+    .upload-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none; // Hide the text by default
+        font-size: 32px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: white; // Set text color
+        pointer-events: none; // Ignore pointer events on the text
+    }
 }
 
-    .searchInput1 {
-      margin: 0.4rem;
-      display: flex;
-      background-color: $comment-background;
-      padding: .2rem;
-      border-radius: 1rem;
-      justify-content: left;
-      align-items: center;
-      overflow: hidden;
-      width: 97%;
+.coverPicture-wrapper {
+    position: relative;
+    display: flex;
 
-      @include for-xl-devices {
+
+    &:hover .CoverPicture {
+        filter: grayscale(100%) blur(2px); // This applies the grayscale filter
+    }
+
+    &:hover .upload-text {
+        display: block; // This shows the text on hover
+    }
+
+    .upload-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none; // Hide the text by default
+        font-size: 90px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: white; // Set text color
+        pointer-events: none; // Ignore pointer events on the text
+    }
+}
+
+
+.searchInput1 {
+    margin: 0.4rem;
+    display: flex;
+    background-color: $comment-background;
+    padding: .2rem;
+    border-radius: 1rem;
+    justify-content: left;
+    align-items: center;
+    width: 100% !important;
+
+    @include for-xl-devices {
         flex: 0.7;
-      }
+    }
 
-      @include for-large-devices {
+    @include for-large-devices {
         flex: 0.4;
-      }
+    }
 
-      @include for-small-screens {
+    @include for-small-screens {
         display: none;
-      }
+    }
 
-      .searchIcon1 {
+    .searchIcon1 {
         color: $comment-text;
         margin-left: 0.5rem;
-        @include for-large-devices {
-          display: none;
-        }
-      }
 
-      .inputBar1 {
+        @include for-large-devices {
+            display: none;
+        }
+    }
+
+    .inputBar1 {
         background-color: transparent;
         border: none;
         font-size: large;
         outline: none;
         padding: 0.4rem;
         color: $comment-text;
-        @include for-large-devices {
-          text-align: center;
-        }
-      }
-    }
 
-    .main-content {
+        @include for-large-devices {
+            text-align: center;
+        }
+    }
+}
+
+.main-content {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* split into two columns */
-    grid-template-rows: auto auto; /* two rows */
-    width: 100%; /* assuming you want the container to take the full width */
-}        
+    grid-template-columns: 1fr 1fr;
+    /* split into two columns */
+    grid-template-rows: auto auto;
+    /* two rows */
+    width: 100%;
+    padding-top: 3rem;
+}
+
+.createPost_wrapper {
+    width: 80%;
+}

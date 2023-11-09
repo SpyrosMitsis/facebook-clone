@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { CoverPicture } from "../../components/CoverPicture/CoverPicture";
 import "./Profile.scss";
 import { useAuthUser } from "react-auth-kit";
 import Header from "../../components/Header";
 import { Avatar, Button } from "@mui/material";
 import { SearchIcon } from "../../utils/icons";
+import ImageUploader from "../../components/ImageUploader/ImageUploader";
+import CreatePost from "../../components/CreatePost/CreatePost";
 
-const photoUrl = 'https://images.unsplash.com/photo-1695982206757-a9643cb6cee5?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
 
 
 interface Props {
@@ -31,19 +32,47 @@ export const FacebookProfile = ({ photoUrl }: Props): JSX.Element => {
 
 
 
+
+
 export const Profile = (): JSX.Element => {
     const currentUser = useAuthUser();
     const photo = `http://localhost:5112/Media/ProfilePics/${currentUser()?.profilePicName}`
+    const photoUrl = `http://localhost:5112/Media/CoverPics/${currentUser()?.bannerFileName}`
+    const [showImageUploader, setShowImageUploader] = useState(false)
+    const [aspectRatio, setAspectRatio] = useState(1);
+    const [destinationFolder, setDestinationFolder] = useState('')
 
     const profileName = currentUser()?.firstName
 
+    const handleAvatarClick = () => {
+        setShowImageUploader(true);
+        setAspectRatio(1)
+        setDestinationFolder('ProfilePics')
+
+    };
+
+    const handleCoverPictureClick = () => {
+        setShowImageUploader(true);
+        setAspectRatio(90 / 25)
+        setDestinationFolder('CoverPics')
+    };
+
     return (
         <>
+            <ImageUploader show={showImageUploader} setShow={setShowImageUploader} imageUrl={photoUrl} aspectRatio={aspectRatio} destinationFolder={destinationFolder} />
             <Header photoUrl={photo} username={profileName} />
             <div className="frame">
-                <CoverPicture photoUrl={photoUrl} />
+                <div className="coverPicture-wrapper" onClick={handleCoverPictureClick}>
+                    <div className="CoverPicture">
+                        <CoverPicture photoUrl={photoUrl} />
+                    </div>
+                    <span className="upload-text">Upload Picture</span>
+                </div>
                 <div className="frame-3">
-                    <Avatar className="profileAvatar" src={photo}/>
+                    <div className="avatar-wrapper" onClick={handleAvatarClick}>
+                        <Avatar className="profileAvatar" src={photo} />
+                        <span className="upload-text">Upload Picture</span>
+                    </div>
                     <div className="ProfileName"> {profileName}</div>
                     <div className="FriendsNumber">1K friends</div>
                     <Button className="edit_profile">
@@ -77,42 +106,13 @@ export const Profile = (): JSX.Element => {
                         Add featured
                     </Button>
                 </div>
-                <div className="Posts">
-                    <div className="card">
-                        <div>
-                            Profile Picture
-                        </div>
-                        <div className='searchInput1'>
-                            <SearchIcon className='searchIcon1' />
-                            <input type='text' placeholder="What's on your mind?" className='inputBar1' />
-                        </div>
-                        <div className="frame-31">
-                            <div className="frame-32">
-                                <div className="rectangle-3" />
-                                <div className="text-wrapper-14">Live video</div>
-                            </div>
-                            <div className="frame-32">
-                                <div className="rectangle-3" />
-                                <div className="text-wrapper-14">Photo/video</div>
-                            </div>
-                            <div className="frame-32">
-                                <div className="rectangle-3" />
-                                <div className="text-wrapper-14">Feeling/activity</div>
-                            </div>
-                        </div>
-                    </div>
-                <div className="frame-33">
-                    <div className="text-wrapper-15">Posts</div>
-                    <div className="frame-34">
-                        <img className="img" alt="Frame" src="frame-88.svg" />
-                        <div className="text-wrapper-16">Filters</div>
-                    </div>
-                </div>
-                </div>
-            </div>
+        <div className="createPost_wrapper">
+            <CreatePost photoUrl={photo} username={profileName}/>
+        </div>
+        </div>
         </>
     );
 }
-;
+    ;
 
 export default Profile;

@@ -3,14 +3,13 @@
 
 .createPost {
   background-color: $component-background;
-  border-radius: 0.4rem;
+  border-radius: 0.5rem;
   padding: 0.3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   box-shadow: 0px 5px 7px -7px $box-shadow;
-  margin: 0.8rem;
 
   @include for-xl-devices {
     width: 90%;
@@ -36,6 +35,7 @@
     .form {
       flex: 1;
       display: flex;
+      flex-direction: row;
 
       @include for-small-screens {
         flex-wrap: wrap;
@@ -43,17 +43,20 @@
   
       input {
         border-radius: 3rem;
-        padding: 0.7rem 1rem;
+        padding: 0.7rem 1rem !important;
         border: none;
         background-color: $comment-background;
         outline: none;
         border-radius: 3rem;
         overflow: hidden;
-        margin-left: 0.5rem;
+        margin-left: 1rem !important;
       }
 
       .button {
-        display: none;
+        display: flex;
+        width: auto;
+        left: 0.1rem;
+
         @include for-small-screens {
           display: flex;
         }
@@ -71,9 +74,8 @@
   .bottom {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content:end;
     padding-top: 0.4rem;
-    width: 98%;
 
     @include for-small-screens {
       padding: 0.2rem;
