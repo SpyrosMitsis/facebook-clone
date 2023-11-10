@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CoverPicture } from "../../components/CoverPicture/CoverPicture";
 import "./Profile.scss";
-import { useAuthUser } from "react-auth-kit";
+import { useAuthHeader, useAuthUser, useSignIn } from "react-auth-kit";
 import Header from "../../components/Header";
 import { Avatar, Button } from "@mui/material";
-import { SearchIcon } from "../../utils/icons";
 import ImageUploader from "../../components/ImageUploader/ImageUploader";
 import CreatePost from "../../components/CreatePost/CreatePost";
-
+import axios from "../../api/axios";
 
 
 interface Props {
@@ -30,17 +29,43 @@ export const FacebookProfile = ({ photoUrl }: Props): JSX.Element => {
 };
 
 
+const useUpdateReactAuthKitUserState = (id: number) => {
+    const signIn = useSignIn();
+    const authHeader = useAuthHeader();
+    const [tokenType, token] = authHeader().split(" ");
+    const GET_USER = `/User/${id}`
 
+    if (!tokenType || !token) {
+        return () => { };
+    }
 
+    axios.get(GET_USER,)
+        .then((response) => {
+            signIn(
+                {
+                    token: token,
+                    tokenType: tokenType, 
+                    expiresIn: 3600,
+                    authState: response.data
+                }
+            )
+        })
+        .catch(function (error) {
+            console.error('Error:', error);
+        });
 
+}
 
 export const Profile = (): JSX.Element => {
     const currentUser = useAuthUser();
+
+
     const photo = `http://localhost:5112/Media/ProfilePics/${currentUser()?.profilePicName}`
     const photoUrl = `http://localhost:5112/Media/CoverPics/${currentUser()?.bannerFileName}`
     const [showImageUploader, setShowImageUploader] = useState(false)
     const [aspectRatio, setAspectRatio] = useState(1);
     const [destinationFolder, setDestinationFolder] = useState('')
+    useUpdateReactAuthKitUserState(currentUser()?.id);
 
     const profileName = currentUser()?.firstName
 
@@ -48,7 +73,6 @@ export const Profile = (): JSX.Element => {
         setShowImageUploader(true);
         setAspectRatio(1)
         setDestinationFolder('uploadProfilePic')
-
     };
 
     const handleCoverPictureClick = () => {
@@ -56,6 +80,7 @@ export const Profile = (): JSX.Element => {
         setAspectRatio(90 / 25)
         setDestinationFolder('UploadCoverPic')
     };
+
 
     return (
         <>
@@ -106,10 +131,10 @@ export const Profile = (): JSX.Element => {
                         Add featured
                     </Button>
                 </div>
-        <div className="createPost_wrapper">
-            <CreatePost photoUrl={photo} username={profileName}/>
-        </div>
-        </div>
+                <div className="createPost_wrapper">
+                    <CreatePost photoUrl={photo} username={profileName} />
+                </div>
+            </div>
         </>
     );
 }
