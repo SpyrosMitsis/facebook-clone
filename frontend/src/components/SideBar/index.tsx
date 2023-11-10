@@ -22,8 +22,8 @@ function SideBar({ photoUrl, username }: SideBarProps): React.ReactElement {
     <div className='sideBar'>
       <SideBarRow src={photoUrl} title={username} to={'/ProfilePage'} />
 
-      {rowIconList.map(({ Icon, title }, index) => (
-        <SideBarRow key={index} title={title} Icon={Icon} to={'/Dick'} />
+      {rowIconList.map(({ Icon, title , to}, index) => (
+        <SideBarRow key={index} title={title} Icon={Icon} to={to} />
       ))}
     </div>
   );
@@ -32,27 +32,33 @@ function SideBar({ photoUrl, username }: SideBarProps): React.ReactElement {
 const rowIconList = [
   {
     Icon: LocalHospitalRoundedIcon,
-    title: 'COVID-19 Information Center'
+    title: 'COVID-19 Information Center',
+    to: '/Loog'
   },
   {
     Icon: FlagRoundedIcon,
-    title: 'Pages'
+    title: 'Pages',
+    to: '/Pages'
   },
   {
     Icon: GroupRoundedIcon,
-    title: 'Friends'
+    title: 'Friends',
+    to: '/Friends'
   },
   {
     Icon: ChatRoundedIcon,
-    title: 'Messenger'
+    title: 'Messenger',
+    to: '/Friends'
   },
   {
     Icon: StorefrontRoundedIcon,
-    title: 'Marketplace'
+    title: 'Marketplace',
+    to: '/Friends'
   },
   {
     Icon: VideoLibraryRoundedIcon,
-    title: 'Videos'
+    title: 'Videos',
+    to: '/Friends'
   }
 ];
 

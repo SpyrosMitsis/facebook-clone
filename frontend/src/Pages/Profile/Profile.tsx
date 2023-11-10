@@ -29,33 +29,6 @@ export const FacebookProfile = ({ photoUrl }: Props): JSX.Element => {
 };
 
 
-const useUpdateReactAuthKitUserState = (id: number) => {
-    const signIn = useSignIn();
-    const authHeader = useAuthHeader();
-    const [tokenType, token] = authHeader().split(" ");
-    const GET_USER = `/User/${id}`
-
-    if (!tokenType || !token) {
-        return () => { };
-    }
-
-    axios.get(GET_USER,)
-        .then((response) => {
-            signIn(
-                {
-                    token: token,
-                    tokenType: tokenType, 
-                    expiresIn: 3600,
-                    authState: response.data
-                }
-            )
-        })
-        .catch(function (error) {
-            console.error('Error:', error);
-        });
-
-}
-
 export const Profile = (): JSX.Element => {
     const currentUser = useAuthUser();
 
@@ -65,7 +38,10 @@ export const Profile = (): JSX.Element => {
     const [showImageUploader, setShowImageUploader] = useState(false)
     const [aspectRatio, setAspectRatio] = useState(1);
     const [destinationFolder, setDestinationFolder] = useState('')
-    useUpdateReactAuthKitUserState(currentUser()?.id);
+    const signIn = useSignIn();
+    const authHeader = useAuthHeader();
+    const [tokenType, token] = authHeader().split(" ");
+    const GET_USER = `/User/1`
 
     const profileName = currentUser()?.firstName
 
@@ -73,6 +49,7 @@ export const Profile = (): JSX.Element => {
         setShowImageUploader(true);
         setAspectRatio(1)
         setDestinationFolder('uploadProfilePic')
+        console.log('i am here')
     };
 
     const handleCoverPictureClick = () => {
@@ -80,6 +57,24 @@ export const Profile = (): JSX.Element => {
         setAspectRatio(90 / 25)
         setDestinationFolder('UploadCoverPic')
     };
+
+    useEffect(() => {
+        // Execute the asynchronous code only on the initial render
+        if (tokenType && token) {
+            axios.get(GET_USER)
+                .then((response) => {
+                    signIn({
+                        token: token,
+                        tokenType: tokenType,
+                        expiresIn: 3600,
+                        authState: response.data,
+                    });
+                })
+                .catch(function (error) {
+                    console.error('Error:', error);
+                });
+        }
+    }, []); 
 
 
     return (
@@ -141,3 +136,4 @@ export const Profile = (): JSX.Element => {
     ;
 
 export default Profile;
+
