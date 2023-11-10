@@ -1,3 +1,4 @@
+import { signInFunctionParams } from "react-auth-kit/dist/types";
 import axios from "../../api/axios";
 import { dataURLtoFile } from "../DataUrlToFile/DataUrlToFile";
 
@@ -29,8 +30,8 @@ export default async function getCroppedImg(
   rotation: number = 0
 ): Promise<HTMLCanvasElement> {
   const image = await createImage(imageSrc);
-    console.log('Hello')
-    console.log(image)
+  console.log('Hello')
+  console.log(image)
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
 
@@ -72,7 +73,7 @@ export const uploadCroppedImage = async (
   userId: number,
   destinationFolder: string,
   imageSrc: string,
-  crop: PixelCrop | null
+  crop: PixelCrop | null,
 ): Promise<void> => {
   if (!crop || !imageSrc) {
     console.error("Crop or image source is missing.");
@@ -105,6 +106,8 @@ export const uploadCroppedImage = async (
       } catch (error) {
         console.error('Error uploading image', error);
       }
+
+
     },
     "image/jpeg",
     0.66
@@ -136,3 +139,5 @@ export const generateDownload = async (imageSrc: string, crop: PixelCrop | null)
     0.66
   );
 };
+
+

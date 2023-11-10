@@ -31,8 +31,10 @@ namespace backend.Models
         public ICollection<Comment> Comments { get; set; }
 
         [NotMapped]
+        [System.Text.Json.Serialization.JsonIgnore]
         public IFormFile ProfilePic { get; set; }
         [NotMapped]
+        [System.Text.Json.Serialization.JsonIgnore]
         public IFormFile BannerFile { get; set; }
 
     }
