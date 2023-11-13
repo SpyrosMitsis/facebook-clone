@@ -81,4 +81,15 @@
       padding: 0.2rem;
     }
   }
+
+  .ImageThumbnail {
+    width: 30rem;
+    border-left-width: 1rem;
+    margin: 1rem; // Adjust the margin as needed
+    border: .2rem solid $pr-gray;
+    border-radius: 5px;
+
+  }
+
+
 }   

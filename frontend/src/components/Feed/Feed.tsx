@@ -22,6 +22,14 @@ function Feed({photoUrl, username}: FeedProps): React.ReactElement {
     <div className='feed'>
                 <ImageUploader show={showImageUploader} setShow={setShowImageUploader} imageUrl={photoUrl} aspectRatio={4 / 3} destinationFolder={'lol'} />
               <CreatePost photoUrl={photoUrl} username={username} />
+        <Post
+          key={1}
+          username={'spyross'}
+          profilePic={'http://localhost:5112/ProfilePic/64900b40-9225-4d2c-a6f7-950b807c2f4d.png'}
+          text={'Hello'}
+          image={'http://localhost:5112/ProfilePic/64900b40-9225-4d2c-a6f7-950b807c2f4d.png'}
+          timestamp={String(new Date().getTime())}
+        />
       {posts.map(() => (
         <Post
           key={1}

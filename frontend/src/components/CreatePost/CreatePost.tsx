@@ -26,6 +26,14 @@ function CreatePost({ photoUrl, username }: CreatePostProps): React.ReactElement
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       console.log(file);
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        const imageDataUrl = reader.result as string;
+        setImgUrl(imageDataUrl); // Set the thumbnail image data URL
+      };
+
+      reader.readAsDataURL(file);
     }
   };
 
@@ -56,6 +64,7 @@ function CreatePost({ photoUrl, username }: CreatePostProps): React.ReactElement
           </IconButton>
         </form>
       </div>
+      {imgUrl && <img  className='ImageThumbnail' src={imgUrl} alt="Thumbnail" />} {/* Display the thumbnail */}
       <input
         type="file"
         ref={fileInputRef}
@@ -72,6 +81,7 @@ function CreatePost({ photoUrl, username }: CreatePostProps): React.ReactElement
         />
       </div>
     </div>
+
   );
 }
 

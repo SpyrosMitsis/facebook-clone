@@ -19,6 +19,7 @@ import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineR
 import NearMeRoundedIcon from '@mui/icons-material/NearMeRounded';
 import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
+import MoreHorizontal from '@mui/icons-material/MoreHoriz'
 
 
 export {
@@ -42,5 +43,6 @@ export {
   ChatBubbleOutlineRoundedIcon,
   NearMeRoundedIcon,
   ExitToAppRoundedIcon,
-  SendRoundedIcon
+  SendRoundedIcon,
+  MoreHorizontal
 };
