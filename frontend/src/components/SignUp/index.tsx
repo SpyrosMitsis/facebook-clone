@@ -54,82 +54,82 @@ const SignUp = (props: SignUpProps) => {
                 })
             });
         }
-};
+    };
 
-        const fnameRef = useRef<HTMLInputElement>(null)
+    const fnameRef = useRef<HTMLInputElement>(null)
 
-        useEffect(() => {
-            const dayRange = [];
-            for (let i = 1; i <= 31; i++) {
-                dayRange.push(i)
-                setDateDay(dayRange)
+    useEffect(() => {
+        const dayRange = [];
+        for (let i = 1; i <= 31; i++) {
+            dayRange.push(i)
+            setDateDay(dayRange)
 
-            }
+        }
 
-            const yearRange = [];
-            for (let i = currentYear; i >= 1905; i--) {
-                yearRange.push(i)
-                setDateYear(yearRange)
-                //setDateYear(prevY => [...prevY, i])
-            }
+        const yearRange = [];
+        for (let i = currentYear; i >= 1905; i--) {
+            yearRange.push(i)
+            setDateYear(yearRange)
+            //setDateYear(prevY => [...prevY, i])
+        }
 
-            if (fnameRef.current) {
-                fnameRef.current.focus();
-
-
-                // You can do something with the ref here
-                fnameRef.current.addEventListener("focusin", () => {
-
-                });
-
-                // like showing a dialog on focus out and check if input is still empty
-                // you can use states to store all inputs variable
-                fnameRef.current.addEventListener("focusout", () => {
-
-                    if (fnameRef.current?.value === "") {
-                        // do something!
-                    }
-                });
+        if (fnameRef.current) {
+            fnameRef.current.focus();
 
 
-            }
+            // You can do something with the ref here
+            fnameRef.current.addEventListener("focusin", () => {
 
-        }, [])
+            });
+
+            // like showing a dialog on focus out and check if input is still empty
+            // you can use states to store all inputs variable
+            fnameRef.current.addEventListener("focusout", () => {
+
+                if (fnameRef.current?.value === "") {
+                    // do something!
+                }
+            });
+
+
+        }
+
+    }, [])
 
 
 
-        return (
-            <div style={{
-                display: props.show ? "flex" : "none"
-            }}>
-                <div className="overlay-signup"></div>
-                <div className="signup">
-                    <div className="signup-container">
-                        <div className="signup-header">
-                            <div>
-                                <h1>Sign Up</h1>
-                                <p>It's quick and easy.</p>
-                            </div>
-                            <img src={closeIcon} alt="close icon" id="close-icon"
-                                onClick={() => props.setShow(false)}
-
-                            />
+    return (
+        <div style={{
+            display: props.show ? "flex" : "none"
+        }}>
+            <div className="overlay-signup"></div>
+            <div className="signup">
+                <div className="signup-container">
+                    <div className="signup-header">
+                        <div>
+                            <h1>Sign Up</h1>
+                            <p>It's quick and easy.</p>
                         </div>
+                        <img src={closeIcon} alt="close icon" id="close-icon"
+                            onClick={() => props.setShow(false)}
 
-                        <div className="signup-seperator"></div>
+                        />
+                    </div>
 
-                        <form onSubmit={submit}>
-                            <div className="signup-fields">
+                    <div className="signup-seperator"></div>
 
-                                <div className="signup-inputs">
-                                    <div>
-                                        <input type="text" placeholder='First Name' required ref={fnameRef}
-                                            onChange={e => setFirstName(e.target.value)}
-                                        />
-                                        <input type="text" placeholder='Surname' required
-                                            onChange={e => setSurname(e.target.value)}
-                                        />
-                                    </div>
+                    <form onSubmit={submit}>
+                        <div className="signup-fields">
+
+                            <div className="signup-inputs">
+                                <div>
+                                    <input className="default-input" type="text" placeholder='First Name' required ref={fnameRef}
+                                        onChange={e => setFirstName(e.target.value)}
+                                    />
+                                    <input type="text" placeholder='Surname' required
+                                        onChange={e => setSurname(e.target.value)}
+                                    />
+
                                     <input className="default-input" type="text" placeholder='email address' required
                                         onChange={e => setEmail(e.target.value)}
                                     />
@@ -137,83 +137,84 @@ const SignUp = (props: SignUpProps) => {
                                         onChange={e => setPassword(e.target.value)}
                                     />
                                 </div>
+                            </div>
 
 
-                                <div className="signup-boxes">
-                                    <div className="info-text">
-                                        <p>Date of birth</p>
-                                        <FaQuestionCircle />
+                            <div className="signup-boxes">
+                                <div className="info-text">
+                                    <p>Date of birth</p>
+                                    <FaQuestionCircle />
+                                </div>
+
+
+                                <div className="signup-box">
+                                    <select name="day" id="day-date" required onChange={(e) => setSelectedDay(parseInt(e.target.value))}>
+                                        {dateDay.map((day, index) => (
+                                            <option value={day} key={index}>
+                                                {day}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <select name="month" id="month-date" required onChange={(e) => setSelectedMonth(e.target.value)}>
+                                        <option value="Jan">Jan</option>
+                                        <option value="Feb">Feb</option>
+                                        <option value="Mar">Mar</option>
+                                        <option value="Apr">Apr</option>
+                                        <option value="May">May</option>
+                                        <option value="Jun">Jun</option>
+                                        <option value="Jul">Jul</option>
+                                        <option value="Aug">Aug</option>
+                                        <option value="Sep">Sep</option>
+                                        <option value="Oct">Oct</option>
+                                        <option value="Nov">Nov</option>
+                                        <option value="Dec">Dec</option>
+                                    </select>
+
+                                    <select name="year" id="year-date" required onChange={(e) => setSelectedYear(parseInt(e.target.value))}>
+                                        {
+                                            dateYear.map((year, index) => (
+                                                <option value={year} key={index}>{year}</option>
+                                            ))
+                                        }
+
+                                    </select>
+                                </div>
+
+
+                                <div className="info-text">
+                                    <p>Gender</p>
+                                    <FaQuestionCircle />
+                                </div>
+
+                                <div className="signup-box">
+                                    <div className="checkbox-wrapper">
+                                        <label htmlFor="female">Female</label>
+                                        <input type="radio" name="gender" value="Female" id="female" onChange={e => setGender(e.target.value)}></input>
                                     </div>
 
-
-                                    <div className="signup-box">
-                                        <select name="day" id="day-date" required onChange={(e) => setSelectedDay(parseInt(e.target.value))}>
-                                            {dateDay.map((day, index) => (
-                                                <option value={day} key={index}>
-                                                    {day}
-                                                </option>
-                                            ))}
-                                        </select>
-                                        <select name="month" id="month-date" required onChange={(e) => setSelectedMonth(e.target.value)}>
-                                            <option value="Jan">Jan</option>
-                                            <option value="Feb">Feb</option>
-                                            <option value="Mar">Mar</option>
-                                            <option value="Apr">Apr</option>
-                                            <option value="May">May</option>
-                                            <option value="Jun">Jun</option>
-                                            <option value="Jul">Jul</option>
-                                            <option value="Aug">Aug</option>
-                                            <option value="Sep">Sep</option>
-                                            <option value="Oct">Oct</option>
-                                            <option value="Nov">Nov</option>
-                                            <option value="Dec">Dec</option>
-                                        </select>
-
-                                        <select name="year" id="year-date" required onChange={(e) => setSelectedYear(parseInt(e.target.value))}>
-                                            {
-                                                dateYear.map((year, index) => (
-                                                    <option value={year} key={index}>{year}</option>
-                                                ))
-                                            }
-
-                                        </select>
+                                    <div className="checkbox-wrapper">
+                                        <label htmlFor="male">Male</label>
+                                        <input type="radio" name="gender" value="Male" id="male" onChange={e => setGender(e.target.value)}></input>
                                     </div>
 
-
-                                    <div className="info-text">
-                                        <p>Gender</p>
-                                        <FaQuestionCircle />
-                                    </div>
-
-                                    <div className="signup-box">
-                                        <div className="checkbox-wrapper">
-                                            <label htmlFor="female">Female</label>
-                                            <input type="radio" name="gender" value="Female" id="female" onChange={e => setGender(e.target.value)}></input>
-                                        </div>
-
-                                        <div className="checkbox-wrapper">
-                                            <label htmlFor="male">Male</label>
-                                            <input type="radio" name="gender" value="Male" id="male" onChange={e => setGender(e.target.value)}></input>
-                                        </div>
-
-                                        <div className="checkbox-wrapper">
-                                            <label htmlFor="notSpecified">Prefer not to say</label>
-                                            <input type="radio" name="gender" value="NotSpecified" id="notSpecified" onChange={e => setGender(e.target.value)}></input>
-                                        </div>
-
+                                    <div className="checkbox-wrapper">
+                                        <label htmlFor="notSpecified">Prefer not to say</label>
+                                        <input type="radio" name="gender" value="NotSpecified" id="notSpecified" onChange={e => setGender(e.target.value)}></input>
                                     </div>
 
                                 </div>
-                                <Button variant='outlined' className='signUp-btn' type='submit'>
-                                    SIGN UP
-                                </Button>
 
                             </div>
-                        </form>
-                    </div>
+                            <Button variant='outlined' className='signUp-btn' type='submit'>
+                                SIGN UP
+                            </Button>
+
+                        </div>
+                    </form>
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
+}
 
-    export default SignUp
+export default SignUp

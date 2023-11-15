@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\backend\\backend.csproj": {}
+    "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\BogusData\\BogusData.csproj": {}
   },
   "projects": {
     "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\backend\\backend.csproj": {
@@ -100,6 +100,71 @@
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
             },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\BogusData\\BogusData.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\BogusData\\BogusData.csproj",
+        "projectName": "BogusData",
+        "projectPath": "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\BogusData\\BogusData.csproj",
+        "packagesPath": "C:\\Users\\mitsi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\BogusData\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\mitsi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\backend\\backend.csproj": {
+                "projectPath": "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\backend\\backend.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

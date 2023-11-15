@@ -200,3 +200,4 @@ C:\Users\mitsi\Desktop\facebook-clone-workspace\backend\bin\Debug\net6.0\BoDi.dl
 C:\Users\mitsi\Desktop\facebook-clone-workspace\backend\bin\Debug\net6.0\Gherkin.dll
 C:\Users\mitsi\Desktop\facebook-clone-workspace\backend\bin\Debug\net6.0\TechTalk.SpecFlow.dll
 C:\Users\mitsi\Desktop\facebook-clone-workspace\backend\bin\Debug\net6.0\SpecFlow.Internal.Json.dll
+C:\Users\mitsi\Desktop\facebook-clone-workspace\backend\bin\Debug\net6.0\Bogus.dll
