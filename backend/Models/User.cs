@@ -23,7 +23,7 @@ namespace backend.Models
         [AllowNull]
         public string? ProfilePicName { get; set; }
         public ICollection<Friendship> Friends { get; set; }
-        public ICollection<Friendship> FriendOf { get; set; }
+        public ICollection<Friendship> FriendsOf { get; set; }
         [AllowNull]
         public string? BannerFileName { get; set; }
         public ICollection<Post> Posts { get; set; }

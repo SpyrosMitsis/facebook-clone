@@ -29,7 +29,7 @@ namespace backend.Data
 
             modelBuilder.Entity<Friendship>()
                 .HasOne(uf => uf.Friend)
-                .WithMany(u => u.FriendOf)
+                .WithMany(u => u.FriendsOf)
                 .HasForeignKey(uf => uf.FriendId)
                 .OnDelete(DeleteBehavior.Restrict); 
         }

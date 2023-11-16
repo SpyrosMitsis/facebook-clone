@@ -1,5 +1,7 @@
-﻿using backend.Dtos;
+﻿using Azure.Core;
+using backend.Dtos;
 using backend.Models;
+using FacebookClone.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.Design;
 
@@ -21,6 +23,16 @@ namespace backend.Data
             user.Id = _user.SaveChanges();
 
             return user;
+        }
+        public async Task<ICollection<User>> GetFriendsAsync(int id)
+        {
+            var user = await _user.Users.Include(u => u.Friends).ThenInclude(f => f.Friend).FirstOrDefaultAsync(u => u.Id == id);  
+            if(user != null)
+            {
+                var friends = user.Friends.Select(f => f.Friend).ToList();
+                return friends;
+            }
+            return null;
         }
 
         public User GetByEmail(string email)

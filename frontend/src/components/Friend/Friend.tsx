@@ -2,11 +2,22 @@ import React from 'react'
 import './Friend.scss'
 import { Avatar, IconButton, Menu, MenuItem } from '@mui/material'
 import { MoreHorizontal } from '../../utils/icons'
+import axios from '../../api/axios'
+import { useAuthUser } from 'react-auth-kit'
 
-const Friend = () => {
+interface Props {
+  firstName: string,
+  lastName: string
+  profilePicUrl: string
+}
+
+const Friend = (props: Props ): React.ReactElement => {
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const currentUser = useAuthUser();
+
+  const GET_FRIENDS = `/User/Friends/${currentUser()?.id}`
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -16,8 +27,8 @@ const Friend = () => {
 
   return (
     <div className='friend'>
-      <Avatar />
-      <span>John Smith</span>
+      <Avatar src={props.profilePicUrl}/>
+      <span>{props.firstName} {props.lastName}</span>
       <div className="spacer"></div>
       <IconButton aria-label="Example" className='more-options'
         id="basic-button"
