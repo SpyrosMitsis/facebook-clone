@@ -68,7 +68,6 @@ function Login(): React.ReactElement {
                 <ForgotPassword show={showForgotPass} setShow={setShowForgotPass} />
                 <div className='logo'>
                     <img src={fbNameLogo} alt='name logo' />
-                    <h3>Yellow pages.</h3>
                 </div>
                 <div className='loginCard'>
                     <div className='card'>

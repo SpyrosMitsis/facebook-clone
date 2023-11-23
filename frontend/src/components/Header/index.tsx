@@ -18,6 +18,17 @@ export default function Header({ photoUrl, username }: HeaderProps): React.React
     const navigate = useNavigate();
     const location = useLocation(); // Get the current location
 
+
+                // <div className={location.pathname === '/' ? 'activeOption' : 'option'} onClick={() => navigate('/')}>
+                //     <HomeRoundedIcon fontSize='large' className='icon' />
+                // </div>
+                // <div className={location.pathname === '/subscriptions' ? 'activeOption' : 'option'}>
+                //     <SubscriptionsRoundedIcon fontSize='large' className='icon' />
+                // </div>
+                // <div className={location.pathname === '/storefront' ? 'activeOption' : 'option'}>
+                //     <StorefrontRoundedIcon fontSize='large' className='icon' />
+                // </div>
+
     return (
         <div className='header'>
             <div className='headerLeft'>
@@ -29,15 +40,9 @@ export default function Header({ photoUrl, username }: HeaderProps): React.React
             </div>
 
             <div className='headerCenter'>
-                <div className={location.pathname === '/' ? 'activeOption' : 'option'} onClick={() => navigate('/')}>
-                    <HomeRoundedIcon fontSize='large' className='icon' />
-                </div>
-                <div className={location.pathname === '/subscriptions' ? 'activeOption' : 'option'}>
-                    <SubscriptionsRoundedIcon fontSize='large' className='icon' />
-                </div>
-                <div className={location.pathname === '/storefront' ? 'activeOption' : 'option'}>
-                    <StorefrontRoundedIcon fontSize='large' className='icon' />
-                </div>
+                 <div className={location.pathname === '/' ? 'activeOption' : 'option'} onClick={() => navigate('/')}>
+                     <HomeRoundedIcon fontSize='large' className='icon' />
+                 </div>
                 <div className={location.pathname === '/Friends' ? 'activeOption' : 'option'} onClick={() => navigate('/Friends')}>
                     <SupervisedUserCircleRoundedIcon fontSize='large' className='icon' />
                 </div>

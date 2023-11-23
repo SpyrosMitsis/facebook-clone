@@ -6,6 +6,7 @@ import Home from './Pages/Home/Home';
 import { useIsAuthenticated } from 'react-auth-kit';
 import Profile from './Pages/Profile/Profile';
 import Friends from './Pages/Friends/Friends';
+import FriendsProfile from './Pages/FriendsProfile/FriendsProfile';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/' element={<Home />} />
             <Route path='/ProfilePage' element={<Profile/>} />
+            <Route path='/Profile' element={<FriendsProfile/>} />
             <Route path='/Friends' element={<Friends/>} />
           </Routes>
         </main>

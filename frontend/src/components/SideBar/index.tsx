@@ -30,36 +30,36 @@ function SideBar({ photoUrl, username }: SideBarProps): React.ReactElement {
 }
 
 const rowIconList = [
-  {
-    Icon: LocalHospitalRoundedIcon,
-    title: 'COVID-19 Information Center',
-    to: '/Loog'
-  },
-  {
-    Icon: FlagRoundedIcon,
-    title: 'Pages',
-    to: '/Pages'
-  },
+ // {
+ //   Icon: LocalHospitalRoundedIcon,
+ //   title: 'COVID-19 Information Center',
+ //   to: '/Loog'
+ // },
+ // {
+ //   Icon: FlagRoundedIcon,
+ //   title: 'Pages',
+ //   to: '/Pages'
+ // },
   {
     Icon: GroupRoundedIcon,
     title: 'Friends',
     to: '/Friends'
   },
-  {
-    Icon: ChatRoundedIcon,
-    title: 'Messenger',
-    to: '/Friends'
-  },
-  {
-    Icon: StorefrontRoundedIcon,
-    title: 'Marketplace',
-    to: '/Friends'
-  },
-  {
-    Icon: VideoLibraryRoundedIcon,
-    title: 'Videos',
-    to: '/Friends'
-  }
+ // {
+ //   Icon: ChatRoundedIcon,
+ //   title: 'Messenger',
+ //   to: '/Friends'
+ // },
+ // {
+ //   Icon: StorefrontRoundedIcon,
+ //   title: 'Marketplace',
+ //   to: '/Friends'
+ // },
+ // {
+ //   Icon: VideoLibraryRoundedIcon,
+ //   title: 'Videos',
+ //   to: '/Friends'
+ // }
 ];
 
 export default SideBar;
