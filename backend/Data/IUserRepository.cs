@@ -6,7 +6,7 @@ namespace backend.Data
     public interface IUserRepository
     {
         User Create(User user);
-        User GetByEmail(string email);
+        Task<User> GetByEmailAsync(string email);
         Task<User> GetByIdAsync(int id);
         string UploadImage(IFormFile imageFile, int id, string path);
         Task<bool> RemoveImageAsync(int id, string path);

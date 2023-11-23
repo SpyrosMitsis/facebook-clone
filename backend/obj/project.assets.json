@@ -8555,19 +8555,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mitsi\\.nuget\\packages\\": {}
+    "C:\\Users\\xaris\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\backend\\backend.csproj",
+      "projectUniqueName": "C:\\Users\\xaris\\source\\repos\\SpyrosMitsis\\facebook-clone\\backend\\backend.csproj",
       "projectName": "backend",
-      "projectPath": "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\backend\\backend.csproj",
-      "packagesPath": "C:\\Users\\mitsi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\backend\\obj\\",
+      "projectPath": "C:\\Users\\xaris\\source\\repos\\SpyrosMitsis\\facebook-clone\\backend\\backend.csproj",
+      "packagesPath": "C:\\Users\\xaris\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\xaris\\Source\\Repos\\SpyrosMitsis\\facebook-clone\\backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\mitsi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\xaris\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8575,6 +8575,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -8653,7 +8654,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   },

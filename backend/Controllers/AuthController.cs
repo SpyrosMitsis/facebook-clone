@@ -37,9 +37,9 @@ namespace backend.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login(LoginDto dto )
+        public async Task<IActionResult> Login(LoginDto dto )
         {
-            var user = _repository.GetByEmail(dto.Email);
+            var user = await _repository.GetByEmailAsync(dto.Email);
             DateTime currentTime= DateTime.Today;
             DateTime expirationTime = currentTime.AddDays(7);
             TimeSpan timeDifference = expirationTime - currentTime;
@@ -81,9 +81,9 @@ namespace backend.Controllers
 
         }
         [HttpPatch("forgotPassword")]
-        public IActionResult ForgotPassword(ForgotPasswordDto dto)
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordDto dto)
         {
-            var user = _repository.GetByEmail(dto.Email);
+            var user = await _repository.GetByEmailAsync(dto.Email);
 
             if(user == null)
             {
