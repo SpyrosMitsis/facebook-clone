@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CoverPicture } from "../../components/CoverPicture/CoverPicture";
-import "./Profile.scss";
+import "./FriendsProfile.scss";
 import Header from "../../components/Header";
 import { Avatar, Button } from "@mui/material";
 import ImageUploader from "../../components/ImageUploader/ImageUploader";
@@ -29,7 +29,7 @@ export const FacebookProfile = ({ photoUrl }: Props): JSX.Element => {
 };
 
 
-export const Profile = (): React.ReactElement => {
+export const FriendsProfile = (): React.ReactElement => {
     const currentUser = useAuthUser();
     const photo = `http://localhost:5112/Media/ProfilePics/${currentUser()?.profilePicName}`
     const photoUrl = `http://localhost:5112/Media/CoverPics/${currentUser()?.bannerFileName}`
@@ -66,13 +66,9 @@ export const Profile = (): React.ReactElement => {
                     <div className="CoverPicture">
                         <CoverPicture photoUrl={photoUrl} />
                     </div>
-                    <span className="upload-text">Upload Cover</span>
                 </div>
                 <div className="frame-3">
-                    <div className="avatar-wrapper" onClick={handleAvatarClick}>
-                        <Avatar className="profileAvatar" src={photo} />
-                        <span className="upload-text">Upload Profile</span>
-                    </div>
+                    <Avatar className="profileAvatar" src={photo} />
                     <div className="ProfileName"> {profileName}</div>
                     <div className="FriendsNumber">1K friends</div>
                     <Button className="edit_profile">
@@ -115,5 +111,5 @@ export const Profile = (): React.ReactElement => {
 }
     ;
 
-export default Profile;
+export default FriendsProfile;
 

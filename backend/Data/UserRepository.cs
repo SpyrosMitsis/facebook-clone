@@ -35,9 +35,9 @@ namespace backend.Data
             return null;
         }
 
-        public User GetByEmail(string email)
+        public async Task<User> GetByEmailAsync(string email)
         {
-            return _user.Users.FirstOrDefault(u => u.Email == email);
+            return  await _user.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
 
         public async Task<User> GetByIdAsync(int id)
