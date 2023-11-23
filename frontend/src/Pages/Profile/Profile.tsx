@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { CoverPicture } from "../../components/CoverPicture/CoverPicture";
 import "./Profile.scss";
-import { useAuthHeader, useAuthUser, useSignIn } from "react-auth-kit";
 import Header from "../../components/Header";
 import { Avatar, Button } from "@mui/material";
 import ImageUploader from "../../components/ImageUploader/ImageUploader";
 import CreatePost from "../../components/CreatePost/CreatePost";
-import axios from "../../api/axios";
+import UpdateUserData from "../../Hooks/UpdateUserData";
+import { useAuthUser } from "react-auth-kit";
 
 
 interface Props {
@@ -29,21 +29,19 @@ export const FacebookProfile = ({ photoUrl }: Props): JSX.Element => {
 };
 
 
-export const Profile = (): JSX.Element => {
+export const Profile = (): React.ReactElement => {
     const currentUser = useAuthUser();
-
-
     const photo = `http://localhost:5112/Media/ProfilePics/${currentUser()?.profilePicName}`
     const photoUrl = `http://localhost:5112/Media/CoverPics/${currentUser()?.bannerFileName}`
     const [showImageUploader, setShowImageUploader] = useState(false)
     const [aspectRatio, setAspectRatio] = useState(1);
     const [destinationFolder, setDestinationFolder] = useState('')
-    const signIn = useSignIn();
-    const authHeader = useAuthHeader();
-    const [tokenType, token] = authHeader().split(" ");
-    const GET_USER = `/User/1`
 
-    const profileName = currentUser()?.firstName
+    const profilefirstName= currentUser()?.firstName
+    const profileSurname = currentUser()?.surname
+    const profileName = `${profilefirstName} ${profileSurname}`    
+    UpdateUserData();
+    
 
     const handleAvatarClick = () => {
         setShowImageUploader(true);
@@ -57,24 +55,6 @@ export const Profile = (): JSX.Element => {
         setAspectRatio(90 / 25)
         setDestinationFolder('UploadCoverPic')
     };
-
-    useEffect(() => {
-        // Execute the asynchronous code only on the initial render
-        if (tokenType && token) {
-            axios.get(GET_USER)
-                .then((response) => {
-                    signIn({
-                        token: token,
-                        tokenType: tokenType,
-                        expiresIn: 3600,
-                        authState: response.data,
-                    });
-                })
-                .catch(function (error) {
-                    console.error('Error:', error);
-                });
-        }
-    }, []); 
 
 
     return (

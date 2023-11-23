@@ -1,0 +1,95 @@
+@import '../../utils/variables';
+@import '../../utils/mixins';
+
+
+.homebody {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between!important;
+}
+
+.friends-text {
+  padding-left: 5rem !important;
+
+}
+
+.Friends-list {
+  display: flex-start;
+  flex-direction: column;
+  top: 1rem;
+  left: 8rem;
+  color: #050505;
+  font-family: "Inter-Bold", Helvetica;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: normal;
+  width: fit-content;
+  margin-left: 19% !important;
+}
+
+
+.inputBar1 {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 0.4rem;
+  color: $comment-text;
+  width: 100% ;
+
+  @include for-large-devices {
+    text-align: center;
+  }
+}
+
+.search-wrapper {
+  background-color: $component-background !important;
+  border-radius: 0.5rem;
+  align-self: center;
+  padding: 0.3rem;
+  box-shadow: 0px 5px 7px -7px $box-shadow;
+  width: 40rem;
+  margin: 0.8rem;
+
+  @include for-xl-devices {
+    width: 90%;
+  }
+
+  @include for-large-devices {
+    width: 85%;
+  }
+
+  .searchInput {
+    margin: 0 0.4rem;
+    display: flex;
+    background-color: $comment-background;
+    padding: 0.2rem;
+    border-radius: 3rem;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    @include for-xl-devices {
+      flex: 0.7;
+    }
+
+    @include for-large-devices {
+      flex: 0.4;
+    }
+
+    @include for-small-screens {
+      display: none;
+    }
+
+    .searchIcon {
+      color: $comment-text;
+      margin-left: 0.5rem;
+
+      @include for-large-devices {
+        display: none;
+      }
+    }
+  }
+
+
+}

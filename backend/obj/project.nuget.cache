@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "EDzsNFWU8A6he+/YesWPeu21OiGDJBIMEL4/19aszezkl7FBeJkORJbG80hJHPVbZz/5z/GLHp5DuCpNDUi6oQ==",
+  "dgSpecHash": "cSdUpGSCXNNLHxwlf9BWuKwmx5xSHgXf7zs8kNro6vxvPMbeZDjUcGBjhjYifKMiFv+mCOdalDxku79MLUen4A==",
   "success": true,
   "projectFilePath": "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\backend\\backend.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\mitsi\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\mitsi\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\mitsi\\.nuget\\packages\\bodi\\1.5.0\\bodi.1.5.0.nupkg.sha512",
+    "C:\\Users\\mitsi\\.nuget\\packages\\bogus\\34.0.2\\bogus.34.0.2.nupkg.sha512",
     "C:\\Users\\mitsi\\.nuget\\packages\\gherkin\\19.0.3\\gherkin.19.0.3.nupkg.sha512",
     "C:\\Users\\mitsi\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\mitsi\\.nuget\\packages\\microsoft.aspnet.cors\\5.2.9\\microsoft.aspnet.cors.5.2.9.nupkg.sha512",

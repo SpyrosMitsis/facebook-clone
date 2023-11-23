@@ -1,10 +1,16 @@
 {
   "ExpandedNodes": [
+<<<<<<< HEAD
     "",
     "\\backend",
     "\\backend\\Controllers",
     "\\backend\\Data"
   ],
   "SelectedNode": "\\backend.sln",
+=======
+    ""
+  ],
+  "SelectedNode": "\\backend",
+>>>>>>> 4296dac33ccc2f801599107b7258d1192b835e0f
   "PreviewInSolutionExplorer": false
 }

@@ -112,5 +112,15 @@ namespace backend.Controllers
                 return StatusCode(500, "An error occurred while processing your request."); // Returns a 500 if there's an error
             }
         }
+        [HttpGet("Friends/{id}")]
+        public async Task<IActionResult> GetFriends(int id)
+        {
+            var friends = await _repository.GetFriendsAsync(id);
+            if (friends == null)
+            {
+                return NotFound(nameof(friends));
+            }
+            return Ok(friends);
+        }
     }
 }
