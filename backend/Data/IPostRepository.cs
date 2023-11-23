@@ -5,6 +5,7 @@ namespace backend.Data
 {
     public interface IPostRepository
     {
-        Task<List<User>> GetPostsByidAsync(int id);
+        Task<ICollection<Comment>> GetCommentsByPostIdAsync(int id);
+        Task<ICollection<UserPostDto>> GetPostsByidAsync(int id);
     }
 }
