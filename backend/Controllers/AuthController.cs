@@ -3,7 +3,6 @@ using backend.Dtos;
 using backend.Helpers;
 using backend.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client;
 
 namespace backend.Controllers
 {
