@@ -9,10 +9,9 @@ namespace backend.Data
         User Create(User user);
         Task<User> GetByEmailAsync(string email);
         Task<User> GetByIdAsync(int id);
-        Task<ICollection<User>> GetFriendsAsync(int id);
         string UploadImage(IFormFile imageFile, int id, string path);
         Task<bool> RemoveImageAsync(int id, string path);
         bool Save();
-        bool UpdateProfilePic(User user);
+        bool UpdateUser(User user);
     }
 }

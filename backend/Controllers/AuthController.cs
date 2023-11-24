@@ -97,7 +97,7 @@ namespace backend.Controllers
                 if(dto.Password1 == dto.Password2)
                 {
                     user.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password1);
-                    var userResult = _repository.UpdateProfilePic(user);
+                    var userResult = _repository.UpdateUser(user);
                         if (userResult)
                         {
                             return Ok();

@@ -7,7 +7,7 @@ using backend.Data;
 namespace FacebookClone.Controllers
 {
     [ApiController]
-    [Route("api/User")]
+    [Route("api/Friend")]
     public class FriendsController : ControllerBase
     {
         private readonly IFriendsRepository _friendsRepository;
@@ -17,7 +17,7 @@ namespace FacebookClone.Controllers
             _friendsRepository = friendsRepository;
         }
 
-        [HttpGet("{userId}/friendslist")]
+        [HttpGet("friendList/{userId}")]
         public IActionResult GetFriendsList(int userId)
         {
             var friends = _friendsRepository.GetFriendsListAsync(userId).Result;
@@ -30,7 +30,7 @@ namespace FacebookClone.Controllers
             return Ok(friends);
         }
 
-        [HttpPost("{userId}/AddFriend")]
+        [HttpPost("{userId}/AddFriend/{friendId}")]
 
         public async Task<IActionResult> SendFriendRequest(int userId, [FromBody] int friendId)
         {

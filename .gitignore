@@ -4,3 +4,8 @@
 .vs/ProjectEvaluation/backend.projects.v6.1
 /backend/obj/Debug/net6.0/backend.pdb
 /backend/bin/Debug/net6.0/backend.dll
+*.dll
+*.vsidx
+*.exe
+*.pdb
+*.cache

@@ -36,6 +36,8 @@ namespace backend.Models
         [NotMapped]
         [System.Text.Json.Serialization.JsonIgnore]
         public IFormFile BannerFile { get; set; }
+        [AllowNull]
+        public string? Bio { get; set; }
 
     }
 }

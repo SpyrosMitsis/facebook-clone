@@ -24,16 +24,6 @@ namespace backend.Data
 
             return user;
         }
-        public async Task<ICollection<User>> GetFriendsAsync(int id)
-        {
-            var user = await _user.Users.Include(u => u.Friends).ThenInclude(f => f.Friend).FirstOrDefaultAsync(u => u.Id == id);  
-            if(user != null)
-            {
-                var friends = user.Friends.Select(f => f.Friend).ToList();
-                return friends;
-            }
-            return null;
-        }
 
         public async Task<User> GetByEmailAsync(string email)
         {
@@ -114,7 +104,7 @@ namespace backend.Data
             var saved = _user.SaveChanges();
             return saved > 0 ? true : false;
         }
-        public bool UpdateProfilePic(User user)
+        public bool UpdateUser(User user)
         {
             _user.Update(user);
             return Save();

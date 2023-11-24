@@ -22,7 +22,7 @@ namespace backend.Controllers
             var fileName = _repository.UploadImage(account.ProfilePic, userId, "ProfilePics" );
             user.ProfilePicName = fileName;
 
-            var userResult = _repository.UpdateProfilePic(user);
+            var userResult = _repository.UpdateUser(user);
             if (userResult)
             {
                 return Ok();
@@ -42,7 +42,7 @@ namespace backend.Controllers
             if (isDeleted)
             {
                 user.ProfilePicName = null;
-                var userResult = _repository.UpdateProfilePic(user);
+                var userResult = _repository.UpdateUser(user);
                 if (userResult)
                 {
                     return Ok();
@@ -61,7 +61,7 @@ namespace backend.Controllers
             var fileName = _repository.UploadImage(account.ProfilePic, userId, "CoverPics" );
             user.BannerFileName = fileName;
 
-            var userResult = _repository.UpdateProfilePic(user);
+            var userResult = _repository.UpdateUser(user);
             if (userResult)
             {
                 return Ok();
@@ -81,7 +81,7 @@ namespace backend.Controllers
             if (isDeleted)
             {
                 user.BannerFileName = null;
-                var userResult = _repository.UpdateProfilePic(user);
+                var userResult = _repository.UpdateUser(user);
                 if (userResult)
                 {
                     return Ok();
@@ -112,15 +112,44 @@ namespace backend.Controllers
                 return StatusCode(500, "An error occurred while processing your request."); // Returns a 500 if there's an error
             }
         }
-        [HttpGet("Friends/{id}")]
-        public async Task<IActionResult> GetFriends(int id)
+        [HttpPatch("UpdateBio/{id}")]
+        public async Task<IActionResult> UpdateBio(int userId, [FromBody] UpdateBioDto updatedBio)
         {
-            var friends = await _repository.GetFriendsAsync(id);
-            if (friends == null)
+            var user = await _repository.GetByIdAsync(userId);
+            user.Bio = updatedBio.Bio;
+            if (user == null)
             {
-                return NotFound(nameof(friends));
+                return NotFound();
             }
-            return Ok(friends);
+            var userResult = _repository.UpdateUser(user);
+
+            if (userResult)
+            {
+                return Ok("Bio updated successfully");
+            }
+            else
+            {
+
+                return StatusCode(500, "An error occurred while updating the bio.");
+
+            }
+        }
+        [HttpPatch("DeleteBio/{userId}")]
+
+        public async Task<IActionResult> DeleteBio(int userId)
+        {
+            var user = await _repository.GetByIdAsync(userId);
+            user.Bio = null;
+            var userResult = _repository.UpdateUser(user);
+            if (userResult)
+            {
+                return Ok("Bio deleted successfully");
+            }
+            else
+            {
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+
         }
     }
 }
