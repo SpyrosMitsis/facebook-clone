@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using backend.Controllers;
 using backend.Models;
 using backend.Data;
+using System.Runtime.InteropServices;
 
 namespace FacebookClone.Controllers
 {
@@ -93,6 +94,21 @@ namespace FacebookClone.Controllers
             }
         }
 
+        [HttpGet("sumOfFriends/{userId}")]
+        public async Task<IActionResult> GetSumOfFriends(int userId)
+        {
+            int sum =  await _friendsRepository.GetSumOfFriendsAsync(userId);
+
+            if(sum > 0)
+            {
+                return Ok(sum);
+            }
+            else
+            {
+                return BadRequest();
+            }
+            
+        }
 
     }
 }

@@ -98,5 +98,11 @@ namespace backend.Data
 
             return false;
         }
+
+        public async Task<int> GetSumOfFriendsAsync(int userId)
+        {
+            var friends = await GetFriendsListAsync(userId);
+            return friends.Count();
+        }
     }
 }
