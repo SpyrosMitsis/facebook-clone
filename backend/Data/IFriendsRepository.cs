@@ -9,6 +9,6 @@ namespace backend.Data
         Task<bool> SendFriendRequestAsync(int fromUserId, int toUserId);
         Task<bool> AcceptFriendRequestAsync(int profileId, int friendId);
         Task<bool> DeclineFriendRequestAsync(int profileId, int friendId);
-        
+        Task<int> GetFriendCountAsync(int userId);
     }
 }
