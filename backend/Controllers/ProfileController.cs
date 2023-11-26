@@ -113,9 +113,9 @@ namespace backend.Controllers
             }
         }
         [HttpPatch("UpdateBio/{id}")]
-        public async Task<IActionResult> UpdateBio(int userId, [FromBody] UpdateBioDto updatedBio)
+        public async Task<IActionResult> UpdateBio(int id, [FromBody] UpdateBioDto updatedBio)
         {
-            var user = await _repository.GetByIdAsync(userId);
+            var user = await _repository.GetByIdAsync(id);
             user.Bio = updatedBio.Bio;
             if (user == null)
             {

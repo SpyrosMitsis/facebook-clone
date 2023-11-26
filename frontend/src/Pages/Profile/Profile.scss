@@ -50,10 +50,32 @@
 
 .FriendsNumber {
     color: #66676b;
-    margin-left: -5rem;
-    margin-top: 4rem;
     font-family: "Inter-Medium", Helvetica;
     font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: normal;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+.Bio {
+    font-family: "Inter-Medium", Helvetica;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: normal;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+.BioWrapper{
+    color: $black; 
+    font-family: "Inter-Medium", Helvetica;
+    margin-top: 1rem;
+    font-size: 20px;
     font-weight: 500;
     letter-spacing: 0;
     line-height: normal;

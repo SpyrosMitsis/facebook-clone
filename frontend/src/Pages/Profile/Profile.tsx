@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CoverPicture } from "../../components/CoverPicture/CoverPicture";
 import "./Profile.scss";
 import Header from "../../components/Header";
@@ -7,6 +7,8 @@ import ImageUploader from "../../components/ImageUploader/ImageUploader";
 import CreatePost from "../../components/CreatePost/CreatePost";
 import UpdateUserData from "../../Hooks/UpdateUserData";
 import { useAuthUser } from "react-auth-kit";
+import axios from "../../api/axios";
+import AddBio from "../../components/Bio/Bio";
 
 
 interface Props {
@@ -29,25 +31,34 @@ export const FacebookProfile = ({ photoUrl }: Props): JSX.Element => {
 };
 
 
+
+
 export const Profile = (): React.ReactElement => {
     const currentUser = useAuthUser();
     const photo = `http://localhost:5112/Media/ProfilePics/${currentUser()?.profilePicName}`
     const photoUrl = `http://localhost:5112/Media/CoverPics/${currentUser()?.bannerFileName}`
     const [showImageUploader, setShowImageUploader] = useState(false)
+    const [showBioAdder, setShowBioAdder] = useState(false)
     const [aspectRatio, setAspectRatio] = useState(1);
     const [destinationFolder, setDestinationFolder] = useState('')
 
-    const profilefirstName= currentUser()?.firstName
+    const profilefirstName = currentUser()?.firstName
     const profileSurname = currentUser()?.surname
-    const profileName = `${profilefirstName} ${profileSurname}`    
-    UpdateUserData();
+    const profileName = `${profilefirstName} ${profileSurname}`
+    const bio = currentUser()?.bio
+    const [friends, setFriends] = useState(Number)
     
+    UpdateUserData();
+
+    const GET_FRIENDS_NUMBER = `/Friend/sumOfFriends/${currentUser()?.id}`
+    const DELETE_BIO = `/User/DeleteBio/${currentUser()?.id}`
+
+
 
     const handleAvatarClick = () => {
         setShowImageUploader(true);
         setAspectRatio(1)
         setDestinationFolder('uploadProfilePic')
-        console.log('i am here')
     };
 
     const handleCoverPictureClick = () => {
@@ -56,10 +67,38 @@ export const Profile = (): React.ReactElement => {
         setDestinationFolder('UploadCoverPic')
     };
 
+  const handleDeleteBioClick = () => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.patch(DELETE_BIO, {});
+        console.log('Patch request successful', response.data);
+        // You may want to update your component state or perform other actions here
+      } catch (error) {
+        console.error('Error making patch request', error);
+      }
+    };
+    fetchData();
+  };
+
+    useEffect(() => {
+        axios.get(GET_FRIENDS_NUMBER)
+            .then(response => {
+                setFriends(response.data);
+                console.log(response.data.profilePicName)
+            })
+            .catch(error => {
+                // Handle errors here
+                console.error('Error fetching friends:', error);
+            });
+
+    }, [])
+
 
     return (
         <>
             <ImageUploader show={showImageUploader} setShow={setShowImageUploader} imageUrl={photoUrl} aspectRatio={aspectRatio} destinationFolder={destinationFolder} />
+            <AddBio show={showBioAdder} setShow={setShowBioAdder} userId={currentUser()?.id} />
+
             <Header photoUrl={photo} username={profileName} />
             <div className="frame">
                 <div className="coverPicture-wrapper" onClick={handleCoverPictureClick}>
@@ -73,38 +112,26 @@ export const Profile = (): React.ReactElement => {
                         <Avatar className="profileAvatar" src={photo} />
                         <span className="upload-text">Upload Profile</span>
                     </div>
-                    <div className="ProfileName"> {profileName}</div>
-                    <div className="FriendsNumber">1K friends</div>
-                    <Button className="edit_profile">
-                        edit profile
-                    </Button>
-                    <Button className="add_story">
-                        Add to story
-                    </Button>
+                    <div className="ProfileName"> {profileName}
+                        <div className="FriendsNumber">{friends} friends</div>
+                        <div className="BioWrapper">
+                            Bio
+                            <div className="Bio">{bio}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="main-content">
                 <div className="frame-15">
                     <div className="Intro">Intro</div>
-                    <Button className="button">
+                    <Button className="button" onClick={() => setShowBioAdder(true)}>
                         Add bio
                     </Button>
 
-                    <Button className="button">
-                        Edit details
+                    <Button className="button" onClick={handleDeleteBioClick}>
+                        delete Bio
                     </Button>
 
-                    <Button className="button">
-                        Eat
-                    </Button>
-
-                    <Button className="button">
-                        Add hobbies
-                    </Button>
-
-                    <Button className="button">
-                        Add featured
-                    </Button>
                 </div>
                 <div className="createPost_wrapper">
                     <CreatePost photoUrl={photo} username={profileName} />

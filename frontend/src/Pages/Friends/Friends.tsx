@@ -39,8 +39,7 @@ function Friends(): React.ReactElement {
   const profileName = `${profilefirstName} ${profileSurname}`
   const [friends, setFriends] = useState<User[]>([]);
 
-
-  const GET_FRIENDS = `/User/Friends/${currentUser()?.id}`
+  const GET_FRIENDS = `/Friend/friendList/${currentUser()?.id}`
 
   useEffect(() => {
     axios.get(GET_FRIENDS)
