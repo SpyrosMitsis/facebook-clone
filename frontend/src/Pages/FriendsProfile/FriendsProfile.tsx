@@ -91,7 +91,7 @@ useEffect(() => {
                 console.error('Error fetching friends:', error);
             });
 
-    }, [])
+    }, [userData?.id])
 
     return (
         <>
@@ -113,6 +113,17 @@ useEffect(() => {
                 </div>
             </div>
             <div className="main-content">
+
+                <div className="intro_wrapper">
+                    <div className="Intro">Intro</div>
+                    <Button className="button" >
+                        Add bio
+                    </Button>
+
+                    <Button className="button">
+                        delete Bio
+                    </Button>
+                </div>
                 <div className="createPost_wrapper">
                     {posts?.posts.map(post => (
                         <Post 
