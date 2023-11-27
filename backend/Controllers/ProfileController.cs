@@ -151,5 +151,18 @@ namespace backend.Controllers
             }
 
         }
+        [HttpGet("Users")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _repository.GetUsersAsync();
+            if(users == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(users);
+            }
+        }
     }
 }

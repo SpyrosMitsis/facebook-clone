@@ -34,7 +34,19 @@ namespace backend.Data
         {
             return await _user.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
+        public async Task<ICollection<AllUsersDto>> GetUsersAsync()
+        {
+            var users = await _user.Users
+                .Select(u => new AllUsersDto
+                {
+                    Id = u.Id,
+                    FullName = u.FirstName + ' ' + u.Surname,
+                    ProfilePicName = u.ProfilePicName
+                })
+                .ToListAsync();
 
+    return users;
+}
         public string UploadImage(IFormFile imageFile, int id, string path)
         {
 

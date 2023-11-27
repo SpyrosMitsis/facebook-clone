@@ -13,7 +13,7 @@ namespace backend.Data
         {
             _user = user;
         }
-        public async Task<ICollection<UserPostDto>> GetPostsByidAsync(int id)
+        public async Task<UserPostDto> GetPostsByidAsync(int id)
         {
             var user = await _user.Users
                 .Where(u => u.Id == id)
@@ -31,10 +31,10 @@ namespace backend.Data
                     Posts = user.Posts.ToList()
                 };
 
-                return new List<UserPostDto> { userPostDto };
+                return userPostDto ;
             }
 
-            return new List<UserPostDto>(); // Return an empty list if the user is not found
+            return new UserPostDto(); // Return an empty list if the user is not found
         }
         public async Task<ICollection<Comment>> GetCommentsByPostIdAsync(int id)
         {

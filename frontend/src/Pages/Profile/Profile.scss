@@ -85,19 +85,19 @@
 }
 
 
-.frame-15 {
+.intro_wrapper {
     align-items: flex-start;
     background-color: #ffffff;
     border-radius: 11px;
-    box-shadow: var(--facebook-drop-shadow-001);
+    box-shadow: $box-shadow;
     display: flex;
-    flex: 0 0 auto;
     flex-direction: column;
     gap: 20px;
     padding: 16px 18px 20px;
     position: relative;
     left: 20rem;
     width: 50%;
+    height: 9rem;
     /* Set the width to occupy half the page */
     grid-column: span 1;
 }
@@ -213,32 +213,6 @@
     line-height: normal;
     position: relative;
     width: fit-content;
-}
-
-.Posts {
-    align-items: flex-start;
-    background-color: #ffffff;
-    border-radius: 11px;
-    box-shadow: var(--facebook-drop-shadow-001);
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 20px;
-    padding: 16px 18px 20px;
-    position: relative;
-    top: 3rem !important;
-    grid-column: span 1;
-    width: 75%;
-
-    .card {
-        align-items: flex-start;
-        background-color: #ffffff;
-        border-radius: 11px;
-        box-shadow: var(--facebook-drop-shadow-001);
-        display: inline-flex;
-        flex-direction: column;
-        width: 100%;
-    }
 }
 
 .frame-33 {
@@ -466,8 +440,4 @@
     /* two rows */
     width: 100%;
     padding-top: 3rem;
-}
-
-.createPost_wrapper {
-    width: 80%;
 }

@@ -8,9 +8,9 @@ import Avatar from '@mui/material/Avatar';
 interface PostProps {
   profilePic: string;
   username: string;
-  text?: string;
+  text: string;
   timestamp: string;
-  image?: string;
+  image: string;
 }
 
 function Post(props: PostProps): React.ReactElement {
@@ -42,10 +42,6 @@ function Post(props: PostProps): React.ReactElement {
         <div className='action'>
           <ChatBubbleOutlineRoundedIcon className='postAction' />
           <h4>Comment</h4>
-        </div>
-        <div className='action'>
-          <NearMeRoundedIcon className='postAction' />
-          <h4>Share</h4>
         </div>
       </div>
     </div>

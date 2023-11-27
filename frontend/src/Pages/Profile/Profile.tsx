@@ -9,11 +9,30 @@ import UpdateUserData from "../../Hooks/UpdateUserData";
 import { useAuthUser } from "react-auth-kit";
 import axios from "../../api/axios";
 import AddBio from "../../components/Bio/Bio";
+import Post from "../../components/Post/Post";
 
 
 interface Props {
     photoUrl: string
 }
+
+interface User {
+  id: number;
+  firstName: string;
+  surname: string;
+  profilePicName: string;
+  posts:Post[]
+}
+
+interface Post {
+    id: number;
+    mediaFileName: string;
+    description: string;
+    timeStamp: string
+    likes: number;
+    commnets: string;
+}
+
 export const FacebookPost = ({ photoUrl }: Props): JSX.Element => {
     return (
         <div className="ProfilePicture">
@@ -47,11 +66,13 @@ export const Profile = (): React.ReactElement => {
     const profileName = `${profilefirstName} ${profileSurname}`
     const bio = currentUser()?.bio
     const [friends, setFriends] = useState(Number)
-    
+    const [posts, setPosts] = useState<User | null>(null);
+
     UpdateUserData();
 
     const GET_FRIENDS_NUMBER = `/Friend/sumOfFriends/${currentUser()?.id}`
     const DELETE_BIO = `/User/DeleteBio/${currentUser()?.id}`
+    const GET_POSTS = `/Post/${currentUser()?.id}`
 
 
 
@@ -67,24 +88,36 @@ export const Profile = (): React.ReactElement => {
         setDestinationFolder('UploadCoverPic')
     };
 
-  const handleDeleteBioClick = () => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.patch(DELETE_BIO, {});
-        console.log('Patch request successful', response.data);
-        // You may want to update your component state or perform other actions here
-      } catch (error) {
-        console.error('Error making patch request', error);
-      }
+    const handleDeleteBioClick = () => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.patch(DELETE_BIO, {});
+                console.log('Patch request successful', response.data);
+                // You may want to update your component state or perform other actions here
+            } catch (error) {
+                console.error('Error making patch request', error);
+            }
+        };
+        fetchData();
     };
-    fetchData();
-  };
 
     useEffect(() => {
         axios.get(GET_FRIENDS_NUMBER)
             .then(response => {
                 setFriends(response.data);
-                console.log(response.data.profilePicName)
+            })
+            .catch(error => {
+                // Handle errors here
+                console.error('Error fetching friends:', error);
+            });
+
+    }, [])
+
+    useEffect(() => {
+        axios.get(GET_POSTS)
+            .then(response => {
+                setPosts(response.data);
+                console.log(response.data)
             })
             .catch(error => {
                 // Handle errors here
@@ -99,7 +132,7 @@ export const Profile = (): React.ReactElement => {
             <ImageUploader show={showImageUploader} setShow={setShowImageUploader} imageUrl={photoUrl} aspectRatio={aspectRatio} destinationFolder={destinationFolder} />
             <AddBio show={showBioAdder} setShow={setShowBioAdder} userId={currentUser()?.id} />
 
-            <Header photoUrl={photo} username={profileName} />
+            <Header photoUrl={photo} username={profileName} users={[]} />
             <div className="frame">
                 <div className="coverPicture-wrapper" onClick={handleCoverPictureClick}>
                     <div className="CoverPicture">
@@ -122,7 +155,7 @@ export const Profile = (): React.ReactElement => {
                 </div>
             </div>
             <div className="main-content">
-                <div className="frame-15">
+                <div className="intro_wrapper">
                     <div className="Intro">Intro</div>
                     <Button className="button" onClick={() => setShowBioAdder(true)}>
                         Add bio
@@ -131,10 +164,19 @@ export const Profile = (): React.ReactElement => {
                     <Button className="button" onClick={handleDeleteBioClick}>
                         delete Bio
                     </Button>
-
                 </div>
                 <div className="createPost_wrapper">
                     <CreatePost photoUrl={photo} username={profileName} />
+                    {posts?.posts.map(post => (
+                        <Post 
+                        profilePic={`http://localhost:5112/Media/ProfilePics/${posts.profilePicName}`}
+                        username={posts.firstName} 
+                        key={post.id}
+                        timestamp={post.timeStamp} 
+                        text={post.description} 
+                        image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
+                        />
+                    ))}
                 </div>
             </div>
         </>
