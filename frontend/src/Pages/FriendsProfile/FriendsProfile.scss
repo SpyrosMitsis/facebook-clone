@@ -455,6 +455,11 @@
     padding-top: 3rem;
 }
 
-.createPost_wrapper {
-    width: 80%;
+.createPost_wrapper1 {
+    width: 50%;
+    margin:auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 }

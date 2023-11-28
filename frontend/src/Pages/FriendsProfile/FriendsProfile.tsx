@@ -9,13 +9,14 @@ import { useParams } from "react-router-dom";
 import axios from "../../api/axios";
 import { useUserContext } from "../../Hooks/UserContext";
 import Post from "../../components/Post/Post";
+import { useAuthUser } from "react-auth-kit";
 
 interface User {
-  id: number;
-  firstName: string;
-  surname: string;
-  profilePicName: string;
-  posts:Post[]
+    id: number;
+    firstName: string;
+    surname: string;
+    profilePicName: string;
+    posts: Post[]
 }
 
 interface Post {
@@ -51,16 +52,23 @@ export const FriendsProfile = (): React.ReactElement => {
 
     const { userId } = useParams();
     const GET_USER = `/User/${userId}`
-    const { userData, loading, fetchUserData , numberFriends } = useUserContext();
+    const { userData, loading, fetchUserData, numberFriends } = useUserContext();
     const [posts, setPosts] = useState<User | null>(null);
 
-useEffect(() => {
-    if (userId !== undefined) {
-        fetchUserData(userId);
-    }
-}, []);
+    const currentUser = useAuthUser();
+    const currentPhoto = `http://localhost:5112/Media/ProfilePics/${currentUser()?.profilePicName}`
+    const currentPhotoUrl = `http://localhost:5112/Media/CoverPics/${currentUser()?.bannerFileName}`
+    const currentProfilefirstName = currentUser()?.firstName
+    const currentProfileSurname = currentUser()?.surname
+    const currentProfileName = `${currentProfilefirstName} ${currentProfileSurname}`
 
- 
+    useEffect(() => {
+        if (userId !== undefined) {
+            fetchUserData(userId);
+        }
+    }, []);
+
+
 
 
     const photo = `http://localhost:5112/Media/ProfilePics/${userData?.profilePicName}`
@@ -74,9 +82,9 @@ useEffect(() => {
 
     const profilefirstName = userData?.firstName
     const profileSurname = userData?.surname
-    const bio = userData?.bio
     const profileName = `${profilefirstName} ${profileSurname}`
-    
+    const bio = userData?.bio
+
     //UpdateUserData();
 
 
@@ -96,7 +104,7 @@ useEffect(() => {
     return (
         <>
             <ImageUploader show={showImageUploader} setShow={setShowImageUploader} imageUrl={photoUrl} aspectRatio={aspectRatio} destinationFolder={destinationFolder} />
-            <Header photoUrl={photo} username={profileName} users={[]} />
+            <Header photoUrl={currentPhoto} username={currentProfileName} users={[]} />
             <div className="frame">
                 <div className="CoverPicture">
                     <CoverPicture photoUrl={photoUrl} />
@@ -104,39 +112,27 @@ useEffect(() => {
                 <div className="frame-3">
                     <Avatar className="profileAvatar1" src={photo} />
                     <div className="ProfileName"> {profileName}
-                   <div className="FriendsNumber">{numberFriends} friends</div>
-                    <div className="BioWrapper">
-                        Bio
-                    <div className="Bio">{bio}</div>
+                        <div className="FriendsNumber">{numberFriends} friends</div>
+                        <div className="BioWrapper">
+                            Bio
+                            <div className="Bio">{bio}</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="main-content">
 
-                <div className="intro_wrapper">
-                    <div className="Intro">Intro</div>
-                    <Button className="button" >
-                        Add bio
-                    </Button>
-
-                    <Button className="button">
-                        delete Bio
-                    </Button>
-                </div>
-                <div className="createPost_wrapper">
+                <div className="createPost_wrapper1">
                     {posts?.posts.map(post => (
-                        <Post 
-                        profilePic={`http://localhost:5112/Media/ProfilePics/${posts.profilePicName}`}
-                        username={posts.firstName} 
-                        key={post.id}
-                        timestamp={post.timeStamp} 
-                        text={post.description} 
-                        image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
+                        <Post
+                            profilePic={`http://localhost:5112/Media/ProfilePics/${posts.profilePicName}`}
+                            username={posts.firstName}
+                            key={post.id}
+                            timestamp={post.timeStamp}
+                            text={post.description}
+                            image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
                         />
                     ))}
                 </div>
-            </div>
         </>
     );
 }
