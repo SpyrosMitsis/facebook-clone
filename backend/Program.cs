@@ -14,7 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<UserContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Spyros"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Kristiana"));
 });
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();

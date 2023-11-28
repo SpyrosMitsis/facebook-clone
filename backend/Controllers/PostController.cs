@@ -29,10 +29,20 @@ namespace backend.Controllers
             }
 
         }
-        //[HttpGet("Friends/{id}")]
-        //public async Task<IActionResult> GetFriendsPosts(int id)
-        //{
-        //}
+        [HttpGet("Home/{id}")]
+        public async Task<IActionResult> GetFriendsPosts(int id)
+        {
+            try
+            {
+                var posts = await _repository.GetPostsHomeAsync(id);
+                return Ok(posts);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
 
         [HttpGet("comment/{id}")]
         public async Task<IActionResult> GetComments(int id)
