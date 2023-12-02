@@ -8,7 +8,7 @@ namespace backend.Data
     {
 
         Task<ICollection<UserCommentDto>> GetCommentsByPostIdAsync(int id);
-        Task<UserPostDto> GetPostsByidAsync(int id);
-        Task<ICollection<Post>> GetPostsHomeAsync(int id);
+        Task<ICollection<PostDto>> GetPostsByidAsync(int id);
+        Task<ICollection<PostDto>> GetPostsHomeAsync(int id);
     }
 }

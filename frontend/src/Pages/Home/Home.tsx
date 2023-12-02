@@ -39,7 +39,7 @@ function Home(): React.ReactElement {
   
   return (
     <>
-      <Header photoUrl={photo} username={profileName} users={users} />
+      <Header photoUrl={photo} username={profileName} users={[]} />
       <div className='homeBody'>
         <SideBar photoUrl={photo} username={profileName} />
         <Feed photoUrl={photo} username={profileName}/>

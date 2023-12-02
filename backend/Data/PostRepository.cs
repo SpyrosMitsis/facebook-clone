@@ -14,38 +14,53 @@ namespace backend.Data
         {
             _user = user;
         }
-        public async Task<UserPostDto> GetPostsByidAsync(int id)
+       public async Task<ICollection<PostDto>> GetPostsByidAsync(int id)
         {
-            var user = await _user.Users
-                .Where(u => u.Id == id)
-                .Include(u => u.Posts)
-                .FirstOrDefaultAsync();
+                var posts = await (from post in _user.Posts
+                       where post.UserId== id 
+                       orderby post.TimeStamp
+                       select new PostDto
+                       {
+                           Id = post.Id,
+                           MediaFileName = post.MediaFileName,
+                           Description = post.Description,
+                           TimeStamp = post.TimeStamp,
+                           User = new UserDto
+                           {
+                               Id = post.User.Id,
+                               FirstName = post.User.FirstName,
+                               Surname = post.User.Surname,
+                               ProfilePicName = post.User.ProfilePicName
+                           }
+                       }).ToListAsync();
 
-            if (user != null)
-            {
-                var userPostDto = new UserPostDto
-                {
-                    UserId = user.Id,
-                    FirstName = user.FirstName,
-                    Surname = user.Surname,
-                    profilePicName = user.ProfilePicName,
-                    Posts = user.Posts.ToList()
-                };
 
-                return userPostDto ;
-            }
 
-            return new UserPostDto(); 
+            return posts;
+
+
         }
-
-        public async Task<ICollection<Post>> GetPostsHomeAsync(int id)
+        public async Task<ICollection<PostDto>> GetPostsHomeAsync(int id)
         {
-            var posts = await (from post in _user.Posts
-                         join friendship in _user.Friendships
-                         on post.UserId equals friendship.FriendId
-                         where friendship.ProfileId == id && friendship.isFriend == true
-                         orderby post.TimeStamp
-                         select post).ToListAsync();
+                var posts = await (from post in _user.Posts
+                       join friendship in _user.Friendships
+                       on post.UserId equals friendship.FriendId
+                       where friendship.ProfileId == id && friendship.isFriend == true
+                       orderby post.TimeStamp
+                       select new PostDto
+                       {
+                           Id = post.Id,
+                           MediaFileName = post.MediaFileName,
+                           Description = post.Description,
+                           TimeStamp = post.TimeStamp,
+                           User = new UserDto
+                           {
+                               Id = post.User.Id,
+                               FirstName = post.User.FirstName,
+                               Surname = post.User.Surname,
+                               ProfilePicName = post.User.ProfilePicName
+                           }
+                       }).ToListAsync();
             return posts;
         }
 
