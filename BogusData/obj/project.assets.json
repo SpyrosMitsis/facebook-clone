@@ -8405,11 +8405,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\BogusData\\BogusData.csproj",
+      "projectUniqueName": "C:\\Users\\mitsi\\Desktop\\facebook-clone\\BogusData\\BogusData.csproj",
       "projectName": "BogusData",
-      "projectPath": "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\BogusData\\BogusData.csproj",
+      "projectPath": "C:\\Users\\mitsi\\Desktop\\facebook-clone\\BogusData\\BogusData.csproj",
       "packagesPath": "C:\\Users\\mitsi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\BogusData\\obj\\",
+      "outputPath": "C:\\Users\\mitsi\\Desktop\\facebook-clone\\BogusData\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\mitsi\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -8426,8 +8426,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\backend\\backend.csproj": {
-              "projectPath": "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\backend\\backend.csproj"
+            "C:\\Users\\mitsi\\Desktop\\facebook-clone\\backend\\backend.csproj": {
+              "projectPath": "C:\\Users\\mitsi\\Desktop\\facebook-clone\\backend\\backend.csproj"
             }
           }
         }
@@ -8463,7 +8463,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   },

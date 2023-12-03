@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-
-import AvatarEditor from 'react-avatar-editor'
 import './Feed.scss';
 import Post from '../Post/Post';
 import CreatePost from '../CreatePost/CreatePost';
 import ImageUploader from '../ImageUploader/ImageUploader';
-import Button from '@mui/material/Button';
 import axios from '../../api/axios';
 
 interface FeedProps {
@@ -15,28 +12,27 @@ interface FeedProps {
 }
 
 interface User {
-    id: number;
-    firstName: string;
-    surname: string;
-    profilePicName: string;
-    posts: Post[]
+  firstName: string;
+  surname: string;
+  profilePicName: string;
 }
 
 interface Post {
-    id: number;
-    mediaFileName: string;
-    description: string;
-    timeStamp: string
-    likes: number;
-    commnets: string;
+  id: number;
+  mediaFileName: string;
+  description: string;
+  timeStamp: string
+  likes: number;
+  commnets: string;
+  user: User
 }
 
-function Feed({ photoUrl, username, profileId}: FeedProps): React.ReactElement {
-  const [posts, setPosts] = useState([]);
+function Feed({ photoUrl, username, profileId }: FeedProps): React.ReactElement {
+  const [posts, setPosts] = useState<Post[]>([]);
   const [showImageUploader, setShowImageUploader] = useState(false)
-  const [image, setImage] = React.useState(null);
 
   const GET_POSTS = `/Post/Home/${profileId}`
+  console.log(GET_POSTS)
 
   useEffect(() => {
     axios.get(GET_POSTS)
@@ -56,14 +52,14 @@ function Feed({ photoUrl, username, profileId}: FeedProps): React.ReactElement {
     <div className='feed'>
       <ImageUploader show={showImageUploader} setShow={setShowImageUploader} imageUrl={photoUrl} aspectRatio={4 / 3} destinationFolder={'lol'} />
       <CreatePost photoUrl={photoUrl} username={username} />
-      {posts?.map((post) => (
+      {posts?.map(post => (
         <Post
           key={post.id}
-          username={posts.firstName}
-          profilePic={`http://localhost:5112/Media/ProfilePics/${posts.profilePicName}`}
-          text={post.}
+          profilePic={`http://localhost:5112/Media/ProfilePics/${post.user.profilePicName}`}
+          username={post.user.firstName + " " + post.user.surname}
+          text={post.description}
+          timestamp={post.timeStamp}
           image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
-          timestamp={String(new Date().getTime())}
         />
       ))}
     </div>

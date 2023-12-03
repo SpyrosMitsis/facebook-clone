@@ -2,21 +2,22 @@ import React, { useEffect, useState } from "react";
 import { CoverPicture } from "../../components/CoverPicture/CoverPicture";
 import "./FriendsProfile.scss";
 import Header from "../../components/Header";
-import { Avatar, Button } from "@mui/material";
-import ImageUploader from "../../components/ImageUploader/ImageUploader";
-import UpdateUserData from "../../Hooks/UpdateUserData";
+import { Avatar } from "@mui/material";
 import { useParams } from "react-router-dom";
 import axios from "../../api/axios";
 import { useUserContext } from "../../Hooks/UserContext";
 import Post from "../../components/Post/Post";
 import { useAuthUser } from "react-auth-kit";
 
+
+interface Props {
+    photoUrl: string
+}
+
 interface User {
-    id: number;
     firstName: string;
     surname: string;
     profilePicName: string;
-    posts: Post[]
 }
 
 interface Post {
@@ -26,11 +27,9 @@ interface Post {
     timeStamp: string
     likes: number;
     commnets: string;
+    user: User
 }
 
-interface Props {
-    photoUrl: string
-}
 export const FacebookPost = ({ photoUrl }: Props): JSX.Element => {
     return (
         <div className="ProfilePicture">
@@ -51,13 +50,11 @@ export const FacebookProfile = ({ photoUrl }: Props): JSX.Element => {
 export const FriendsProfile = (): React.ReactElement => {
 
     const { userId } = useParams();
-    const GET_USER = `/User/${userId}`
-    const { userData, loading, fetchUserData, numberFriends } = useUserContext();
-    const [posts, setPosts] = useState<User | null>(null);
+    const { userData, fetchUserData, numberFriends } = useUserContext();
+    const [posts, setPosts] = useState<Post[]>();
 
     const currentUser = useAuthUser();
     const currentPhoto = `http://localhost:5112/Media/ProfilePics/${currentUser()?.profilePicName}`
-    const currentPhotoUrl = `http://localhost:5112/Media/CoverPics/${currentUser()?.bannerFileName}`
     const currentProfilefirstName = currentUser()?.firstName
     const currentProfileSurname = currentUser()?.surname
     const currentProfileName = `${currentProfilefirstName} ${currentProfileSurname}`
@@ -73,11 +70,7 @@ export const FriendsProfile = (): React.ReactElement => {
 
     const photo = `http://localhost:5112/Media/ProfilePics/${userData?.profilePicName}`
     const photoUrl = `http://localhost:5112/Media/CoverPics/${userData?.bannerFileName}`
-    const [showImageUploader, setShowImageUploader] = useState(false)
-    const [aspectRatio, setAspectRatio] = useState(1);
-    const [destinationFolder, setDestinationFolder] = useState('')
 
-    const GET_FRIENDS_NUMBER = `/Friend/sumOfFriends/${userData?.id}`
     const GET_POSTS = `/Post/${userData?.id}`
 
     const profilefirstName = userData?.firstName
@@ -103,7 +96,6 @@ export const FriendsProfile = (): React.ReactElement => {
 
     return (
         <>
-            <ImageUploader show={showImageUploader} setShow={setShowImageUploader} imageUrl={photoUrl} aspectRatio={aspectRatio} destinationFolder={destinationFolder} />
             <Header photoUrl={currentPhoto} username={currentProfileName} users={[]} />
             <div className="frame">
                 <div className="CoverPicture">
@@ -121,18 +113,18 @@ export const FriendsProfile = (): React.ReactElement => {
                 </div>
             </div>
 
-                <div className="createPost_wrapper1">
-                    {posts?.posts.map(post => (
-                        <Post
-                            profilePic={`http://localhost:5112/Media/ProfilePics/${posts.profilePicName}`}
-                            username={posts.firstName}
-                            key={post.id}
-                            timestamp={post.timeStamp}
-                            text={post.description}
-                            image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
-                        />
-                    ))}
-                </div>
+            <div className="createPost_wrapper1">
+                {posts?.map(post => (
+                    <Post
+                        key={post.id}
+                        profilePic={`http://localhost:5112/Media/ProfilePics/${post.user.profilePicName}`}
+                        username={post.user.firstName + " " + post.user.surname}
+                        text={post.description}
+                        timestamp={post.timeStamp}
+                        image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
+                    />
+                ))}
+            </div>
         </>
     );
 }

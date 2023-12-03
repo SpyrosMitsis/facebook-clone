@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cSdUpGSCXNNLHxwlf9BWuKwmx5xSHgXf7zs8kNro6vxvPMbeZDjUcGBjhjYifKMiFv+mCOdalDxku79MLUen4A==",
+  "dgSpecHash": "+LR+NF83RWj4pcNUaD3OYEk4wZmqMNBBrK6iT0UGcG/jUISkX2MZ/hnfkbJzgBNNo62fipmuLfotveqqSnizzw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mitsi\\Desktop\\facebook-clone-workspace\\backend\\backend.csproj",
+  "projectFilePath": "C:\\Users\\mitsi\\Desktop\\facebook-clone\\backend\\backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mitsi\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\mitsi\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

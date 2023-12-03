@@ -17,11 +17,9 @@ interface Props {
 }
 
 interface User {
-  id: number;
-  firstName: string;
-  surname: string;
-  profilePicName: string;
-  posts:Post[]
+    firstName: string;
+    surname: string;
+    profilePicName: string;
 }
 
 interface Post {
@@ -31,6 +29,7 @@ interface Post {
     timeStamp: string
     likes: number;
     commnets: string;
+    user: User
 }
 
 export const FacebookPost = ({ photoUrl }: Props): JSX.Element => {
@@ -66,7 +65,7 @@ export const Profile = (): React.ReactElement => {
     const profileName = `${profilefirstName} ${profileSurname}`
     const bio = currentUser()?.bio
     const [friends, setFriends] = useState(Number)
-    const [posts, setPosts] = useState<User | null>(null);
+    const [posts, setPosts] = useState<Post[]>();
 
     UpdateUserData();
 
@@ -167,14 +166,14 @@ export const Profile = (): React.ReactElement => {
                 </div>
                 <div className="createPost_wrapper">
                     <CreatePost photoUrl={photo} username={profileName} />
-                    {posts?.posts.map(post => (
-                        <Post 
-                        profilePic={`http://localhost:5112/Media/ProfilePics/${posts.profilePicName}`}
-                        username={posts.firstName} 
-                        key={post.id}
-                        timestamp={post.timeStamp} 
-                        text={post.description} 
-                        image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
+                    {posts?.map(post => (
+                        <Post
+                            key={post.id}
+                            profilePic={`http://localhost:5112/Media/ProfilePics/${post.user.profilePicName}`}
+                            username={post.user.firstName + " " + post.user.surname}
+                            text={post.description}
+                            timestamp={post.timeStamp}
+                            image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
                         />
                     ))}
                 </div>

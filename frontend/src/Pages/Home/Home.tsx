@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {useAuthHeader, useAuthUser, useSignIn} from 'react-auth-kit'
+import {useAuthUser } from 'react-auth-kit'
 import './Home.scss';
 import SideBar from '../../components/SideBar';
 import Header from '../../components/Header';
@@ -42,7 +42,7 @@ function Home(): React.ReactElement {
       <Header photoUrl={photo} username={profileName} users={[]} />
       <div className='homeBody'>
         <SideBar photoUrl={photo} username={profileName} />
-        <Feed photoUrl={photo} username={profileName}/>
+        <Feed photoUrl={photo} username={profileName} profileId={currentUser()?.id}/>
       </div>
     </>
   );
