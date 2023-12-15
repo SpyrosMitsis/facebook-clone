@@ -17,6 +17,7 @@ interface Props {
 }
 
 interface User {
+    id: number;
     firstName: string;
     surname: string;
     profilePicName: string;
@@ -110,7 +111,7 @@ export const FriendsProfile = (): React.ReactElement => {
 
     }
 
-    if (friendshipStatus == true) {
+    if (friendshipStatus === 'friends') {
         return (
             <>
                 <Unfriend
@@ -143,18 +144,19 @@ export const FriendsProfile = (): React.ReactElement => {
                     {posts?.map(post => (
                         <Post
                             key={post.id}
+                            id={post.user.id}
                             profilePic={`http://localhost:5112/Media/ProfilePics/${post.user.profilePicName}`}
                             username={post.user.firstName + " " + post.user.surname}
                             text={post.description}
                             timestamp={post.timeStamp}
-                            image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
-                        />
+                            image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`} 
+                            />
                     ))}
                 </div>
             </>
         );
     }
-    if (friendshipStatus === false) {
+    if (friendshipStatus === "userSent") {
         return (
             <>
                 <Unfriend
@@ -187,12 +189,58 @@ export const FriendsProfile = (): React.ReactElement => {
                     {posts?.map(post => (
                         <Post
                             key={post.id}
+                            id={post.user.id}
                             profilePic={`http://localhost:5112/Media/ProfilePics/${post.user.profilePicName}`}
                             username={post.user.firstName + " " + post.user.surname}
                             text={post.description}
                             timestamp={post.timeStamp}
                             image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
-                        />
+                            />
+                    ))}
+                </div>
+            </>
+        );
+    }
+    if (friendshipStatus === "friendSent") {
+        return (
+            <>
+                <Unfriend
+                    show={showUnfriend}
+                    setShow={setShowUnfriend}
+                    userId={currentUser()?.id}
+                    friendId={userData?.id}
+                    friendFirstName={userData?.firstName}
+                    friendLastName={userData?.surname}
+                />
+                <Header photoUrl={currentPhoto} username={currentProfileName} users={[]} userId={currentUser()?.id} />
+                <div className="frame">
+                    <div className="CoverPicture">
+                        <CoverPicture photoUrl={photoUrl} />
+                    </div>
+                    <div className="frame-3">
+                        <Avatar className="profileAvatar1" src={photo} />
+                        <div className="ProfileName"> {profileName}
+                            <div className="FriendsNumber">{numberFriends} friends</div>
+                            <div className="BioWrapper">
+                                Bio
+                                <div className="Bio">{bio}</div>
+                            </div>
+                        </div>
+                        <Button className="unfriend" onClick={handleOnClickUnfriend}>La caca</Button>
+                    </div>
+                </div>
+
+                <div className="createPost_wrapper1">
+                    {posts?.map(post => (
+                        <Post
+                            key={post.id}
+                            id={post.user.id}
+                            profilePic={`http://localhost:5112/Media/ProfilePics/${post.user.profilePicName}`}
+                            username={post.user.firstName + " " + post.user.surname}
+                            text={post.description}
+                            timestamp={post.timeStamp}
+                            image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
+                            />
                     ))}
                 </div>
             </>
@@ -231,6 +279,7 @@ export const FriendsProfile = (): React.ReactElement => {
                 {posts?.map(post => (
                     <Post
                         key={post.id}
+                        id={post.user.id}
                         profilePic={`http://localhost:5112/Media/ProfilePics/${post.user.profilePicName}`}
                         username={post.user.firstName + " " + post.user.surname}
                         text={post.description}

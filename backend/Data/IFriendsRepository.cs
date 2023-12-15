@@ -12,6 +12,6 @@ namespace backend.Data
         Task<bool> DeclineFriendRequestAsync(int profileId, int friendId);
         Task<int> GetSumOfFriendsAsync(int userId);
         Task<ICollection<UserDto>> GetPendingFriendRequestsAsync(int userId);
-        Task<bool?> GetFriendshipAsync(int userId, int friendId);
+        Task<string> GetFriendshipAsync(int userId, int friendId);
     }
 }

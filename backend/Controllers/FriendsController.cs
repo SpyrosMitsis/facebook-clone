@@ -32,7 +32,7 @@ namespace FacebookClone.Controllers
             return Ok(friends);
         }
 
-        [HttpPost("/addFriend/{userId}")]
+        [HttpPost("addFriend/{userId}")]
 
         public async Task<IActionResult> SendFriendRequest(int userId, int friendId)
         {
@@ -134,11 +134,6 @@ namespace FacebookClone.Controllers
         public async Task<IActionResult> getFriendshipAsync(int userId, int friendId)
         {
             var frienship = await _friendsRepository.GetFriendshipAsync(userId, friendId);
-
-            if(frienship == null)
-            {
-                return Ok("notFriends");
-            }
 
             return Ok(frienship);
         }

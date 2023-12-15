@@ -7,7 +7,7 @@ import './Header.scss';
 import { useNavigate } from 'react-router';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
-import { Autocomplete, Badge, TextField } from '@mui/material';
+import { Autocomplete, Badge, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, MenuItem, TextField } from '@mui/material';
 import axios from '../../api/axios';
 
 interface HeaderProps {
@@ -19,7 +19,8 @@ interface HeaderProps {
 
 interface UserData {
     id: number;
-    fullName: string
+    firstName: string;
+    surname: string;
     profilePicName: string
 }
 
@@ -29,12 +30,14 @@ interface SearchBoxProps {
 
 
 
-export default function Header({ users, photoUrl, username, userId}: HeaderProps): React.ReactElement {
+export default function Header({ users, photoUrl, username, userId }: HeaderProps): React.ReactElement {
     const signOut = useSignOut();
     const navigate = useNavigate()
     const location = useLocation(); // Get the current location
     const [searchTerm, setSearchTerm] = useState('');
-    const [pendingFriendRequests, setPendingFriendRequests] = useState('')
+    const [pendingFriendRequests, setPendingFriendRequests] = useState<UserData[]>([])
+    const [showList, setShowList] = useState(false);
+
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
@@ -46,9 +49,9 @@ export default function Header({ users, photoUrl, username, userId}: HeaderProps
 
     //make an useEffect caling axios get to this api endpoint /api/Friend/pendingFriendRequests/{userId} to get the pending friend requests
 
-        const GET_PENDING_FRIENDS = `/Friend/pendingFriendRequests/${userId}`
+    const GET_PENDING_FRIENDS = `/Friend/pendingFriendRequests/${userId}`
 
-        useEffect(() => {
+    useEffect(() => {
         axios.get(GET_PENDING_FRIENDS)
             .then(response => {
                 setPendingFriendRequests(response.data)
@@ -61,9 +64,7 @@ export default function Header({ users, photoUrl, username, userId}: HeaderProps
 
     }, [])
 
-    //take the setPendingFriendsRequest and count the object iside the array and set it to the badge
     const badgeNumber = pendingFriendRequests.length
-
 
     return (
         <div className='header'>
@@ -98,13 +99,29 @@ export default function Header({ users, photoUrl, username, userId}: HeaderProps
                     <h4>{username}</h4>
                 </div>
                 <IconButton>
-                    <AddRoundedIcon />
-                </IconButton>
-                <IconButton>
                     <Badge badgeContent={badgeNumber} color='error'>
-                        <NotificationsRoundedIcon />
+                        <NotificationsRoundedIcon onClick={() => setShowList(!showList)} />
                     </Badge>
                 </IconButton>
+                {showList && (
+                    <div className='notifications'>
+                        <div className='listContainer'>
+                            <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                                {pendingFriendRequests.map((user) => (
+                                    <ListItem key={user.id}>
+                                        <ListItemButton onClick={() => navigate(`/Profile/${user.id}`)}>
+                                            <ListItemAvatar>
+                                                <Avatar src={`http://localhost:5112/Media/ProfilePics/${user.profilePicName}`} />
+                                            </ListItemAvatar>
+                                            <ListItemText primary={`${user.firstName} ${user.surname}`} />
+                                        </ListItemButton>
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </div>
+                    </div>
+                )}
+
                 <IconButton onClick={() => signOut()}>
                     <ExitToAppRoundedIcon />
                 </IconButton>

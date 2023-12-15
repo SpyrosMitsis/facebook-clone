@@ -109,31 +109,42 @@ namespace backend.Data
         public async Task<ICollection<UserDto>> GetPendingFriendRequestsAsync(int userId)
         {
             var pendingFriendRequests = await _context.Friendships
-                .Include(f => f.Friend)
-                .Where(f => (f.ProfileId == userId) && f.Status == "pending")
+                .Include(f => f.Profile)
+                .Where(f => (f.FriendId == userId) && f.Status == "pending")
                 .Select(f => new UserDto
                 {
-                    Id = f.FriendId,
-                    FirstName = f.Friend.FirstName,
-                    Surname = f.Friend.Surname,
-                    ProfilePicName = f.Friend.ProfilePicName
+                    Id = f.ProfileId,
+                    FirstName = f.Profile.FirstName,
+                    Surname = f.Profile.Surname,
+                    ProfilePicName = f.Profile.ProfilePicName
                 })
                 .ToListAsync();
 
             return pendingFriendRequests;
         }
 
-        public async Task<bool?> GetFriendshipAsync(int userId, int friendId)
+        public async Task<string> GetFriendshipAsync(int userId, int friendId)
         {
-            var getFriendship = await _context.Friendships
-                .FirstOrDefaultAsync(f => 
-                f.ProfileId == userId && f.FriendId == friendId);
-            if(getFriendship != null)
+            var getFriendship = await _context.Friendships.FirstOrDefaultAsync(f =>
+                (f.ProfileId == userId && f.FriendId == friendId) || (f.ProfileId == friendId && f.FriendId == userId));
+
+            if (getFriendship != null)
             {
-                return getFriendship.isFriend;
+                if (getFriendship.isFriend)
+                {
+                    return "friends";
+                }
+                else if(getFriendship.ProfileId == userId)
+                {
+                    return "userSent";
+                }
+                else
+                {
+                    return "friendSent";
+                }
             }
-            else { 
-                return null; 
+            else {
+                return "notFriends";
             }
 
                 

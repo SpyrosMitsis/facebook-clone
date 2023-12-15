@@ -6,6 +6,7 @@ import './Post.scss';
 import Avatar from '@mui/material/Avatar';
 
 interface PostProps {
+  id: number;
   profilePic: string;
   username: string;
   text: string;
@@ -20,7 +21,8 @@ function Post(props: PostProps): React.ReactElement {
       <div className='top'>
         <Avatar src={profilePic} />
         <div className='info'>
-          <h4>{username}</h4>
+        <a href={`http://localhost:5173/Profile/${props.id}`} style={{ color: 'black', textDecoration: 'none' }}>
+         {username}</a>
           <span> {timestamp}</span>
         </div>
       </div>
