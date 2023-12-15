@@ -131,7 +131,7 @@ export const Profile = (): React.ReactElement => {
             <ImageUploader show={showImageUploader} setShow={setShowImageUploader} imageUrl={photoUrl} aspectRatio={aspectRatio} destinationFolder={destinationFolder} />
             <AddBio show={showBioAdder} setShow={setShowBioAdder} userId={currentUser()?.id} />
 
-            <Header photoUrl={photo} username={profileName} users={[]} />
+            <Header photoUrl={photo} username={profileName} users={[]} userId={currentUser()?.id} />
             <div className="frame">
                 <div className="coverPicture-wrapper" onClick={handleCoverPictureClick}>
                     <div className="CoverPicture">

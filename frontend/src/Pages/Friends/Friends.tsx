@@ -57,7 +57,7 @@ function Friends(): React.ReactElement {
 
   return (
     <>
-      <Header photoUrl={photo} username={profileName} users={[]} />
+      <Header photoUrl={photo} username={profileName} users={[]} userId={currentUser()?.id} />
       <div className='homeBody'>
         <SideBar photoUrl={photo} username={profileName} />
         <div className='Friends-list'>

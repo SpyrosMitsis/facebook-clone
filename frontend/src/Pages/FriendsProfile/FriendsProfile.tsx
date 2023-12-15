@@ -121,7 +121,7 @@ export const FriendsProfile = (): React.ReactElement => {
                     friendFirstName={userData?.firstName}
                     friendLastName={userData?.surname}
                 />
-                <Header photoUrl={currentPhoto} username={currentProfileName} users={[]} />
+                <Header photoUrl={currentPhoto} username={currentProfileName} users={[]} userId={currentUser()?.id} />
                 <div className="frame">
                     <div className="CoverPicture">
                         <CoverPicture photoUrl={photoUrl} />
@@ -165,7 +165,7 @@ export const FriendsProfile = (): React.ReactElement => {
                     friendFirstName={userData?.firstName}
                     friendLastName={userData?.surname}
                 />
-                <Header photoUrl={currentPhoto} username={currentProfileName} users={[]} />
+                <Header photoUrl={currentPhoto} username={currentProfileName} users={[]} userId={currentUser()?.id} />
                 <div className="frame">
                     <div className="CoverPicture">
                         <CoverPicture photoUrl={photoUrl} />
@@ -209,7 +209,7 @@ export const FriendsProfile = (): React.ReactElement => {
                 friendFirstName={userData?.firstName} 
                 friendLastName={userData?.surname} 
             />
-            <Header photoUrl={currentPhoto} username={currentProfileName} users={[]} />
+            <Header photoUrl={currentPhoto} username={currentProfileName} users={[]} userId={currentUser()?.id} />
             <div className="frame">
                 <div className="CoverPicture">
                     <CoverPicture photoUrl={photoUrl} />

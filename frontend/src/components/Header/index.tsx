@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom'; // Import useLocation
 import { SearchIcon, HomeRoundedIcon, SubscriptionsRoundedIcon, SupervisedUserCircleRoundedIcon, AddRoundedIcon, NotificationsRoundedIcon, StorefrontRoundedIcon, ExitToAppRoundedIcon } from '../../utils/icons';
 import fbImgLogo from '../../assets/fbImgLogo.png';
@@ -7,9 +7,11 @@ import './Header.scss';
 import { useNavigate } from 'react-router';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
-import { Autocomplete, TextField } from '@mui/material';
+import { Autocomplete, Badge, TextField } from '@mui/material';
+import axios from '../../api/axios';
 
 interface HeaderProps {
+    userId: number;
     photoUrl?: string;
     username: string | null;
     users: UserData[];
@@ -22,38 +24,46 @@ interface UserData {
 }
 
 interface SearchBoxProps {
-  onSearch: (term: string) => void;
+    onSearch: (term: string) => void;
 }
 
 
 
-export default function Header({ users, photoUrl, username }: HeaderProps): React.ReactElement {
+export default function Header({ users, photoUrl, username, userId}: HeaderProps): React.ReactElement {
     const signOut = useSignOut();
     const navigate = useNavigate()
     const location = useLocation(); // Get the current location
     const [searchTerm, setSearchTerm] = useState('');
+    const [pendingFriendRequests, setPendingFriendRequests] = useState('')
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-      // Perform the search and redirect
-        onSearch(searchTerm);
-      // Redirect to the search results page or any other page you want
+            // Perform the search and redirect
+            onSearch(searchTerm);
+            // Redirect to the search results page or any other page you want
         }
     };
-    // const filteredUsers = users.filter((user) =>
-    //     `${user.firstName} ${user.surname}`.toLowerCase().includes(searchTerm.toLowerCase())
-    // );
 
+    //make an useEffect caling axios get to this api endpoint /api/Friend/pendingFriendRequests/{userId} to get the pending friend requests
 
-    // <div className={location.pathname === '/' ? 'activeOption' : 'option'} onClick={() => navigate('/')}>
-    //     <HomeRoundedIcon fontSize='large' className='icon' />
-    // </div>
-    // <div className={location.pathname === '/subscriptions' ? 'activeOption' : 'option'}>
-    //     <SubscriptionsRoundedIcon fontSize='large' className='icon' />
-    // </div>
-    // <div className={location.pathname === '/storefront' ? 'activeOption' : 'option'}>
-    //     <StorefrontRoundedIcon fontSize='large' className='icon' />
-    // </div>
+        const GET_PENDING_FRIENDS = `/Friend/pendingFriendRequests/${userId}`
+
+        useEffect(() => {
+        axios.get(GET_PENDING_FRIENDS)
+            .then(response => {
+                setPendingFriendRequests(response.data)
+                console.log(response.data)
+            })
+            .catch(error => {
+                // Handle errors here
+                console.error('Error fetching friends:', error);
+            });
+
+    }, [])
+
+    //take the setPendingFriendsRequest and count the object iside the array and set it to the badge
+    const badgeNumber = pendingFriendRequests.length
+
 
     return (
         <div className='header'>
@@ -91,7 +101,9 @@ export default function Header({ users, photoUrl, username }: HeaderProps): Reac
                     <AddRoundedIcon />
                 </IconButton>
                 <IconButton>
-                    <NotificationsRoundedIcon />
+                    <Badge badgeContent={badgeNumber} color='error'>
+                        <NotificationsRoundedIcon />
+                    </Badge>
                 </IconButton>
                 <IconButton onClick={() => signOut()}>
                     <ExitToAppRoundedIcon />
