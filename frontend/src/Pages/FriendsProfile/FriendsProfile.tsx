@@ -254,7 +254,7 @@ export const FriendsProfile = (): React.ReactElement => {
                                 <div className="Bio">{bio}</div>
                             </div>
                         </div>
-                        <Button className="unfriend" onClick={handleAcceptFriendRequest}>Accept Request</Button>
+                        <Button className="accept" onClick={handleAcceptFriendRequest}>Accept Request</Button>
                         <Button variant="outlined" className="decline" onClick={handleDeclineFriendRequest}>Decline Request</Button>
                     </div>
                 </div>

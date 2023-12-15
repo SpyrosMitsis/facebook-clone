@@ -148,6 +148,25 @@
     align-self: center;
     width: 15% !important;
     transition: linear 200ms;
+    left: 30rem;
+
+    &:hover {
+        background-color: $sign-up-light;
+        transform: translatey(-2px);
+    }
+}
+
+.accept{
+    background-color: $primary !important;
+    color: $white !important;
+    position: relative;
+    margin-left: 1rem !important;
+    align-self: bottom;
+    margin-top: .2rem !important;
+    margin-bottom: .2rem !important;
+    align-self: center;
+    width: 15% !important;
+    transition: linear 200ms;
     left: 20rem;
 
     &:hover {
