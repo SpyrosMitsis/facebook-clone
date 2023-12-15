@@ -1,4 +1,5 @@
-﻿using backend.Models;
+﻿using backend.Dtos;
+using backend.Models;
 using FacebookClone.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace backend.Data
         public async Task<bool> RemoveFriendAsync(int profileId, int friendId)
         {
             var friendship = await _context.Friendships.FirstOrDefaultAsync(f =>
-                (f.ProfileId == profileId && f.FriendId == friendId) || (f.ProfileId == friendId && f.FriendId == profileId));
+                (f.ProfileId == profileId && f.FriendId == friendId));
 
             if (friendship != null)
             {
@@ -104,5 +105,39 @@ namespace backend.Data
             var friends = await GetFriendsListAsync(userId);
             return friends.Count();
         }
+
+        public async Task<ICollection<UserDto>> GetPendingFriendRequestsAsync(int userId)
+        {
+            var pendingFriendRequests = await _context.Friendships
+                .Include(f => f.Friend)
+                .Where(f => (f.ProfileId == userId) && f.Status == "pending")
+                .Select(f => new UserDto
+                {
+                    Id = f.FriendId,
+                    FirstName = f.Friend.FirstName,
+                    Surname = f.Friend.Surname,
+                    ProfilePicName = f.Friend.ProfilePicName
+                })
+                .ToListAsync();
+
+            return pendingFriendRequests;
+        }
+
+        public async Task<bool?> GetFriendshipAsync(int userId, int friendId)
+        {
+            var getFriendship = await _context.Friendships
+                .FirstOrDefaultAsync(f => 
+                f.ProfileId == userId && f.FriendId == friendId);
+            if(getFriendship != null)
+            {
+                return getFriendship.isFriend;
+            }
+            else { 
+                return null; 
+            }
+
+                
+        }
+
     }
 }

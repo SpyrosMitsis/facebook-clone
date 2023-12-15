@@ -80,7 +80,7 @@ namespace backend.Data
             }
             catch (Exception ex)
             {
-                return "An error has occured";
+                return $"An error has occured {ex}";
             }
 
         

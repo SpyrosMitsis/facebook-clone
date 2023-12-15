@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useContext, useState } from 'react';
+import React, { SyntheticEvent, useContext, useEffect, useState } from 'react';
 import './Login.scss';
 import fbNameLogo from '../../assets/fbNameLogo.png';
 import SignUp from '../../components/SignUp';
@@ -23,43 +23,47 @@ function Login(): React.ReactElement {
     const isAuthenticated = useIsAuthenticated()
 
     const onSignIn = async (e: SyntheticEvent) => {
-        // You can access the email and password values here and perform the login logic
-        e.preventDefault()
+    e.preventDefault();
 
-        axios.post(LOGIN_URL, {
-            email,
-            password,
-        }, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            withCredentials: true // To include credentials
-        })
-            .then((response) => {
-                
-                console.log(response.data)
-                signIn(
-                    {
-                        token: response.data.jwt,
-                        expiresIn: response.data.totalMinutes,
-                        tokenType: 'Bearer',
-                        authState: response.data.user
-                    }
-                )
+    try {
+      const response = await axios.post(
+        LOGIN_URL,
+        {
+          email,
+          password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true, // To include credentials
+        }
+      );
 
-            })
-            .catch((error) => {
-                if(error.response?.status === 400){
-                    error('Missing Username or Password')
-                }else {
-                    error('Login Failed');
-                }
-            });
+      console.log(response.data);
 
-    };
-    if(isAuthenticated()){
-        navigate('/')
+      signIn({
+        token: response.data.jwt,
+        expiresIn: response.data.totalMinutes,
+        tokenType: 'Bearer',
+        authState: response.data.user,
+      })
+    
+    } catch (error) {
+      if (error === 400) {
+        console.error('Missing Username or Password');
+      } else {
+        console.error('Login Failed');
+      }
     }
+  };
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
+  
 
     return (
         <>

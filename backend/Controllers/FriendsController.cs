@@ -4,6 +4,7 @@ using backend.Controllers;
 using backend.Models;
 using backend.Data;
 using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace FacebookClone.Controllers
 {
@@ -31,14 +32,14 @@ namespace FacebookClone.Controllers
             return Ok(friends);
         }
 
-        [HttpPost("{userId}/AddFriend/{friendId}")]
+        [HttpPost("{userId}/addFriend/{friendId}")]
 
         public async Task<IActionResult> SendFriendRequest(int userId, [FromBody] int friendId)
         {
-            
+
             var friendsList = await _friendsRepository.GetFriendsListAsync(userId);
 
-            
+
             var isFriend = friendsList.Any(friend => friend.Id == friendId);
 
             if (isFriend)
@@ -59,9 +60,9 @@ namespace FacebookClone.Controllers
                 }
             }
 
-            
+
         }
-        [HttpPost("{userId}/DeclineFriendRequest")]
+        [HttpDelete("declineFriendRequest/{userId}")]
         public async Task<IActionResult> DeclineFriendRequest(int userId, [FromBody] int friendId)
         {
             // Check if there is a pending friend request from friendId to userId
@@ -78,10 +79,10 @@ namespace FacebookClone.Controllers
         }
 
 
-        [HttpPost("{userId}/AcceptFriendRequest")]
+        [HttpPost("acceptFriendRequest/{userId}")]
         public async Task<IActionResult> AcceptFriendRequest(int userId, [FromBody] int friendId)
         {
-            
+
             bool accepted = await _friendsRepository.AcceptFriendRequestAsync(userId, friendId);
 
             if (accepted)
@@ -97,18 +98,49 @@ namespace FacebookClone.Controllers
         [HttpGet("sumOfFriends/{userId}")]
         public async Task<IActionResult> GetSumOfFriends(int userId)
         {
-            int sum =  await _friendsRepository.GetSumOfFriendsAsync(userId);
+            int sum = await _friendsRepository.GetSumOfFriendsAsync(userId);
 
-            if(sum > 0)
+            return Ok(sum);
+        }
+            
+        [HttpDelete("unfriend/{userId}")]
+        public async Task<IActionResult> DeleteFriendship(int userId, int friendId)
+        {
+            bool isDeleted = await _friendsRepository.RemoveFriendAsync(userId, friendId);
+            if (isDeleted)
             {
-                return Ok(sum);
+                return Ok();
             }
             else
             {
-                return BadRequest();
+                return NotFound();
             }
-            
+
         }
 
+        [HttpGet("pendingFriendRequests/{userId}")]
+        public async Task<IActionResult> GetPendingFriendRequests(int userId)
+        {
+            var pendingFriendRequests = await _friendsRepository.GetPendingFriendRequestsAsync(userId);
+
+            if (pendingFriendRequests == null || pendingFriendRequests.Count == 0)
+            {
+                return NotFound("No pending friend requests found for the given user ID.");
+            }
+
+            return Ok(pendingFriendRequests);
+        }
+        [HttpGet("getFriendship/{userId}")]
+        public async Task<IActionResult> getFriendshipAsync(int userId, int friendId)
+        {
+            var frienship = await _friendsRepository.GetFriendshipAsync(userId, friendId);
+
+            if(frienship == null)
+            {
+                return Ok("notFriends");
+            }
+
+            return Ok(frienship);
+        }
     }
 }

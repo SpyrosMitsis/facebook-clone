@@ -79,11 +79,12 @@ function Friends(): React.ReactElement {
             {filteredFriends.map((friend) => (
               <Friend
                 key={friend.id}
-                id={friend.id}
+                id={currentUser()?.id}
                 firstName={friend.firstName}
                 lastName={friend.surname}
-                profilePicUrl={`http://localhost:5112/Media/ProfilePics/${friend.profilePicName}`}
-              />
+                profilePicUrl={`http://localhost:5112/Media/ProfilePics/${friend.profilePicName}`} 
+                friendid={friend.id}
+               />
             ))}
           </div>
         </div>

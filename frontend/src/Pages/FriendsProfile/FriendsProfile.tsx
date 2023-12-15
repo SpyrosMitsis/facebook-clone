@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CoverPicture } from "../../components/CoverPicture/CoverPicture";
 import "./FriendsProfile.scss";
 import Header from "../../components/Header";
-import { Avatar } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import { useParams } from "react-router-dom";
 import axios from "../../api/axios";
 import { useUserContext } from "../../Hooks/UserContext";
@@ -48,10 +48,11 @@ export const FacebookProfile = ({ photoUrl }: Props): JSX.Element => {
 
 
 export const FriendsProfile = (): React.ReactElement => {
-
     const { userId } = useParams();
     const { userData, fetchUserData, numberFriends } = useUserContext();
     const [posts, setPosts] = useState<Post[]>();
+    const [friendshipStatus, setFriendshipStatus] = useState<boolean>(false);
+
 
     const currentUser = useAuthUser();
     const currentPhoto = `http://localhost:5112/Media/ProfilePics/${currentUser()?.profilePicName}`
@@ -59,11 +60,34 @@ export const FriendsProfile = (): React.ReactElement => {
     const currentProfileSurname = currentUser()?.surname
     const currentProfileName = `${currentProfilefirstName} ${currentProfileSurname}`
 
-    useEffect(() => {
-        if (userId !== undefined) {
-            fetchUserData(userId);
+    const fetchData = async () => {
+        try {
+            if (userId !== undefined) {
+                // Fetch user data
+                await fetchUserData(userId);
+                // Fetch posts
+                const response = await axios.get(`/Post/${userId}`);
+                setPosts(response.data);
+                // Fetch user data
+                const friendshipResponse = await axios.get(`/Friend/getFriendship/${currentUser()?.id}?friendId=${userId}`);
+                // Assuming the response contains a boolean value indicating friendship status
+                setFriendshipStatus(friendshipResponse.data);
+                console.log(friendshipResponse.data);
+
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
         }
-    }, []);
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, [userId]);
+
+    if (!userData) {
+        return <div>Loading...</div>;
+    }
+
 
 
 
@@ -71,28 +95,16 @@ export const FriendsProfile = (): React.ReactElement => {
     const photo = `http://localhost:5112/Media/ProfilePics/${userData?.profilePicName}`
     const photoUrl = `http://localhost:5112/Media/CoverPics/${userData?.bannerFileName}`
 
-    const GET_POSTS = `/Post/${userData?.id}`
 
     const profilefirstName = userData?.firstName
     const profileSurname = userData?.surname
     const profileName = `${profilefirstName} ${profileSurname}`
     const bio = userData?.bio
 
-    //UpdateUserData();
 
 
-    useEffect(() => {
-        axios.get(GET_POSTS)
-            .then(response => {
-                setPosts(response.data);
-                console.log(response.data)
-            })
-            .catch(error => {
-                // Handle errors here
-                console.error('Error fetching friends:', error);
-            });
 
-    }, [userData?.id])
+
 
     return (
         <>
@@ -128,6 +140,4 @@ export const FriendsProfile = (): React.ReactElement => {
         </>
     );
 }
-export default FriendsProfile;
-
-
+export default FriendsProfile

@@ -1,4 +1,5 @@
-﻿using backend.Models;
+﻿using backend.Dtos;
+using backend.Models;
 
 namespace backend.Data
 {
@@ -10,5 +11,7 @@ namespace backend.Data
         Task<bool> AcceptFriendRequestAsync(int profileId, int friendId);
         Task<bool> DeclineFriendRequestAsync(int profileId, int friendId);
         Task<int> GetSumOfFriendsAsync(int userId);
+        Task<ICollection<UserDto>> GetPendingFriendRequestsAsync(int userId);
+        Task<bool?> GetFriendshipAsync(int userId, int friendId);
     }
 }

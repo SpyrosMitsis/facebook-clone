@@ -115,9 +115,6 @@ namespace backend.Controllers
                     });
                 }
             }
-
-            return NotFound();
-
         }
 
     }
