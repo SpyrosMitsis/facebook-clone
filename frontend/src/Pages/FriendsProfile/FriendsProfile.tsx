@@ -8,6 +8,8 @@ import axios from "../../api/axios";
 import { useUserContext } from "../../Hooks/UserContext";
 import Post from "../../components/Post/Post";
 import { useAuthUser } from "react-auth-kit";
+import Unfriend from "../../components/Unfriend/Unfriend";
+import FriendRequest from "../../components/AddFriend/AddFriend";
 
 
 interface Props {
@@ -51,8 +53,8 @@ export const FriendsProfile = (): React.ReactElement => {
     const { userId } = useParams();
     const { userData, fetchUserData, numberFriends } = useUserContext();
     const [posts, setPosts] = useState<Post[]>();
-    const [friendshipStatus, setFriendshipStatus] = useState<boolean>(false);
-
+    const [friendshipStatus, setFriendshipStatus] = useState(null);
+    const [showUnfriend, setShowUnfriend] = useState(false);
 
     const currentUser = useAuthUser();
     const currentPhoto = `http://localhost:5112/Media/ProfilePics/${currentUser()?.profilePicName}`
@@ -88,10 +90,6 @@ export const FriendsProfile = (): React.ReactElement => {
         return <div>Loading...</div>;
     }
 
-
-
-
-
     const photo = `http://localhost:5112/Media/ProfilePics/${userData?.profilePicName}`
     const photoUrl = `http://localhost:5112/Media/CoverPics/${userData?.bannerFileName}`
 
@@ -103,11 +101,114 @@ export const FriendsProfile = (): React.ReactElement => {
 
 
 
+    const handleOnClickUnfriend = () => {
+        setShowUnfriend(true);
 
+    }
+    const handleOnClickSendRequest = () =>{
+        setShowUnfriend(true)
 
+    }
 
+    if (friendshipStatus == true) {
+        return (
+            <>
+                <Unfriend
+                    show={showUnfriend}
+                    setShow={setShowUnfriend}
+                    userId={currentUser()?.id}
+                    friendId={userData?.id}
+                    friendFirstName={userData?.firstName}
+                    friendLastName={userData?.surname}
+                />
+                <Header photoUrl={currentPhoto} username={currentProfileName} users={[]} />
+                <div className="frame">
+                    <div className="CoverPicture">
+                        <CoverPicture photoUrl={photoUrl} />
+                    </div>
+                    <div className="frame-3">
+                        <Avatar className="profileAvatar1" src={photo} />
+                        <div className="ProfileName"> {profileName}
+                            <div className="FriendsNumber">{numberFriends} friends</div>
+                            <div className="BioWrapper">
+                                Bio
+                                <div className="Bio">{bio}</div>
+                            </div>
+                        </div>
+                        <Button className="unfriend" onClick={handleOnClickUnfriend}>Unfriend</Button>
+                    </div>
+                </div>
+
+                <div className="createPost_wrapper1">
+                    {posts?.map(post => (
+                        <Post
+                            key={post.id}
+                            profilePic={`http://localhost:5112/Media/ProfilePics/${post.user.profilePicName}`}
+                            username={post.user.firstName + " " + post.user.surname}
+                            text={post.description}
+                            timestamp={post.timeStamp}
+                            image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
+                        />
+                    ))}
+                </div>
+            </>
+        );
+    }
+    if (friendshipStatus === false) {
+        return (
+            <>
+                <Unfriend
+                    show={showUnfriend}
+                    setShow={setShowUnfriend}
+                    userId={currentUser()?.id}
+                    friendId={userData?.id}
+                    friendFirstName={userData?.firstName}
+                    friendLastName={userData?.surname}
+                />
+                <Header photoUrl={currentPhoto} username={currentProfileName} users={[]} />
+                <div className="frame">
+                    <div className="CoverPicture">
+                        <CoverPicture photoUrl={photoUrl} />
+                    </div>
+                    <div className="frame-3">
+                        <Avatar className="profileAvatar1" src={photo} />
+                        <div className="ProfileName"> {profileName}
+                            <div className="FriendsNumber">{numberFriends} friends</div>
+                            <div className="BioWrapper">
+                                Bio
+                                <div className="Bio">{bio}</div>
+                            </div>
+                        </div>
+                        <Button className="unfriend" onClick={handleOnClickUnfriend}>Cancel Request</Button>
+                    </div>
+                </div>
+
+                <div className="createPost_wrapper1">
+                    {posts?.map(post => (
+                        <Post
+                            key={post.id}
+                            profilePic={`http://localhost:5112/Media/ProfilePics/${post.user.profilePicName}`}
+                            username={post.user.firstName + " " + post.user.surname}
+                            text={post.description}
+                            timestamp={post.timeStamp}
+                            image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
+                        />
+                    ))}
+                </div>
+            </>
+        );
+    }
+    else {
     return (
         <>
+            <FriendRequest 
+                show={showUnfriend} 
+                setShow={setShowUnfriend} 
+                userId={currentUser()?.id} 
+                friendId={userData?.id} 
+                friendFirstName={userData?.firstName} 
+                friendLastName={userData?.surname} 
+            />
             <Header photoUrl={currentPhoto} username={currentProfileName} users={[]} />
             <div className="frame">
                 <div className="CoverPicture">
@@ -122,6 +223,7 @@ export const FriendsProfile = (): React.ReactElement => {
                             <div className="Bio">{bio}</div>
                         </div>
                     </div>
+                        <Button className="unfriend" onClick={handleOnClickSendRequest}>Send Request</Button>
                 </div>
             </div>
 
@@ -139,5 +241,6 @@ export const FriendsProfile = (): React.ReactElement => {
             </div>
         </>
     );
+}
 }
 export default FriendsProfile
