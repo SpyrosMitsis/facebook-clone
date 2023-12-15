@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { SyntheticEvent, useEffect } from 'react';
 import './Friend.scss';
 import { Avatar, IconButton, Menu, MenuItem } from '@mui/material';
 import { MoreHorizontal } from '../../utils/icons';
 import axios from '../../api/axios';
 import { useAuthUser } from 'react-auth-kit';
+import Unfriend from '../Unfriend/Unfriend';
 
 interface Props {
   id: number,
-  friendid: number;
+  friendId: number;
   firstName: string;
   lastName: string;
   profilePicUrl: string;
@@ -18,37 +19,33 @@ const Friend = (props: Props): React.ReactElement => {
   const open = Boolean(anchorEl);
   const currentUser = useAuthUser();
 
-  const DELETE_FRIEND= `/Friends/${props.id}?friendId=${props.friendid}`;
+  const DELETE_FRIEND = `/Friend/unfriend/${props.id}?friendId=${props.friendId}`;
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleOnClick = () => {
-    useEffect(() => {
-      const deleteFriend = async () => {
+
+      const submit = async (e: SyntheticEvent) => {
         try {
-          // Make the DELETE request using Axios
-          const response = await axios.delete(DELETE_FRIEND);
+            const response = await axios.delete(DELETE_FRIEND, {
+            });
 
-          // Handle the response as needed
-          console.log('Friend deleted successfully', response.data);
-
-          // Update your state or perform any additional actions
+            const content = response.data;
+            console.log(response)
         } catch (error) {
-          // Handle errors
-          console.error('Error deleting friend:', error);
-        }
-      };
-      deleteFriend();
-    }, [props.id]);
-    setAnchorEl(null);
-  }
 
-  const profileLink = `http://localhost:5173/Profile/${props.friendid}`;
+            console.error("There was an error!", error);
+        }
+    }
+
+  const profileLink = `http://localhost:5173/Profile/${props.friendId}`;
 
   return (
+    <>
     <div className='friend'>
       <a href={profileLink} className='friend-link'>
         <Avatar src={props.profilePicUrl} />
@@ -75,9 +72,10 @@ const Friend = (props: Props): React.ReactElement => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleOnClick}>Remove Friend</MenuItem>
+        <MenuItem onClick={submit}>Remove Friend</MenuItem>
       </Menu>
     </div>
+  </>
   );
 };
 

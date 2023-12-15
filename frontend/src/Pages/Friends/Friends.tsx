@@ -6,6 +6,7 @@ import './Friends.scss';
 import Friend from '../../components/Friend/Friend';
 import { SearchIcon } from '../../utils/icons';
 import axios from '../../api/axios';
+import Unfriend from '../../components/Unfriend/Unfriend';
 
 interface Friend {
   id: number;
@@ -83,7 +84,7 @@ function Friends(): React.ReactElement {
                 firstName={friend.firstName}
                 lastName={friend.surname}
                 profilePicUrl={`http://localhost:5112/Media/ProfilePics/${friend.profilePicName}`} 
-                friendid={friend.id}
+                friendId={friend.id}
                />
             ))}
           </div>

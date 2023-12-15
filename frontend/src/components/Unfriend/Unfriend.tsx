@@ -26,7 +26,6 @@ const Unfriend = (props: Props) => {
         try {
             const response = await axios.delete(DELETE_FRIEND, {
             });
-
             const content = response.data;
             console.log(response)
         } catch (error) {
