@@ -63,7 +63,7 @@ namespace FacebookClone.Controllers
 
         }
         [HttpDelete("declineFriendRequest/{userId}")]
-        public async Task<IActionResult> DeclineFriendRequest(int userId, [FromBody] int friendId)
+        public async Task<IActionResult> DeclineFriendRequest(int userId, int friendId)
         {
             // Check if there is a pending friend request from friendId to userId
             bool declined = await _friendsRepository.DeclineFriendRequestAsync(userId, friendId);
@@ -79,8 +79,8 @@ namespace FacebookClone.Controllers
         }
 
 
-        [HttpPost("acceptFriendRequest/{userId}")]
-        public async Task<IActionResult> AcceptFriendRequest(int userId, [FromBody] int friendId)
+        [HttpPatch("acceptFriendRequest/{userId}")]
+        public async Task<IActionResult> AcceptFriendRequest(int userId, int friendId)
         {
 
             bool accepted = await _friendsRepository.AcceptFriendRequestAsync(userId, friendId);
@@ -123,7 +123,7 @@ namespace FacebookClone.Controllers
         {
             var pendingFriendRequests = await _friendsRepository.GetPendingFriendRequestsAsync(userId);
 
-            if (pendingFriendRequests == null || pendingFriendRequests.Count == 0)
+            if (pendingFriendRequests == null)
             {
                 return NotFound("No pending friend requests found for the given user ID.");
             }

@@ -17,6 +17,7 @@ interface Props {
 }
 
 interface User {
+    id: number;
     firstName: string;
     surname: string;
     profilePicName: string;
@@ -169,12 +170,13 @@ export const Profile = (): React.ReactElement => {
                     {posts?.map(post => (
                         <Post
                             key={post.id}
+                            id={post.user.id}
                             profilePic={`http://localhost:5112/Media/ProfilePics/${post.user.profilePicName}`}
                             username={post.user.firstName + " " + post.user.surname}
                             text={post.description}
                             timestamp={post.timeStamp}
                             image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
-                        />
+                            />
                     ))}
                 </div>
             </div>

@@ -21,7 +21,7 @@ namespace backend.Data
             var friends = await _context.Friendships
                 .Include(f => f.Profile)
                 .Include(f => f.Friend)
-                .Where(f => (f.ProfileId == userId) && f.isFriend == true)
+                .Where(f => ((f.ProfileId == userId) || f.FriendId == userId) && f.isFriend == true)
                 .Select(f =>
                     f.ProfileId == userId ? f.Friend : f.Profile
                 )
@@ -32,7 +32,7 @@ namespace backend.Data
         public async Task<bool> RemoveFriendAsync(int profileId, int friendId)
         {
             var friendship = await _context.Friendships.FirstOrDefaultAsync(f =>
-                (f.ProfileId == profileId && f.FriendId == friendId));
+                (f.ProfileId == profileId && f.FriendId == friendId) || (f.ProfileId == friendId && f.FriendId == profileId));
 
             if (friendship != null)
             {
@@ -71,7 +71,7 @@ namespace backend.Data
         public async Task<bool> DeclineFriendRequestAsync(int profileId, int friendId)
         {
             var friendship = await _context.Friendships.FirstOrDefaultAsync(f =>
-                f.ProfileId == friendId && f.FriendId == profileId && f.Status == "pending");
+                f.ProfileId == friendId && f.FriendId == profileId && f.isFriend == false );
 
             if (friendship != null)
             {
@@ -92,7 +92,8 @@ namespace backend.Data
 
             if (friendship != null)
             {
-                friendship.Status = "accepted";
+                friendship.Status = "Accepted";
+                friendship.isFriend = true;
                 await _context.SaveChangesAsync();
                 return true;
             }

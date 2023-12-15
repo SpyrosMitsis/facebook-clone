@@ -91,6 +91,8 @@ export const FriendsProfile = (): React.ReactElement => {
         return <div>Loading...</div>;
     }
 
+
+
     const photo = `http://localhost:5112/Media/ProfilePics/${userData?.profilePicName}`
     const photoUrl = `http://localhost:5112/Media/CoverPics/${userData?.bannerFileName}`
 
@@ -106,9 +108,35 @@ export const FriendsProfile = (): React.ReactElement => {
         setShowUnfriend(true);
 
     }
-    const handleOnClickSendRequest = () =>{
+    const handleOnClickSendRequest = () => {
         setShowUnfriend(true)
 
+    }
+    const handleAcceptFriendRequest = () => {
+        const ACCEPT_FRIEND_REQUEST = `Friend/acceptFriendRequest/${currentUser()?.id}?friendId=${userData?.id}`;
+        // Send a POST request to the server
+        axios.patch(ACCEPT_FRIEND_REQUEST)
+            .then(response => {
+                console.log(response);
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+    const handleDeclineFriendRequest = () => {
+        const DECLINE_FRIEND_REQUEST = `Friend/declineFriendRequest/${currentUser()?.id}?friendId=${userData?.id}`;
+
+        axios.delete(DECLINE_FRIEND_REQUEST)
+            .then(response => {
+                console.log(response);
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error(error);
+            });
+            
     }
 
     if (friendshipStatus === 'friends') {
@@ -149,8 +177,8 @@ export const FriendsProfile = (): React.ReactElement => {
                             username={post.user.firstName + " " + post.user.surname}
                             text={post.description}
                             timestamp={post.timeStamp}
-                            image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`} 
-                            />
+                            image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
+                        />
                     ))}
                 </div>
             </>
@@ -195,7 +223,7 @@ export const FriendsProfile = (): React.ReactElement => {
                             text={post.description}
                             timestamp={post.timeStamp}
                             image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
-                            />
+                        />
                     ))}
                 </div>
             </>
@@ -226,7 +254,8 @@ export const FriendsProfile = (): React.ReactElement => {
                                 <div className="Bio">{bio}</div>
                             </div>
                         </div>
-                        <Button className="unfriend" onClick={handleOnClickUnfriend}>La caca</Button>
+                        <Button className="unfriend" onClick={handleAcceptFriendRequest}>Accept Request</Button>
+                        <Button variant="outlined" className="decline" onClick={handleDeclineFriendRequest}>Decline Request</Button>
                     </div>
                 </div>
 
@@ -240,56 +269,56 @@ export const FriendsProfile = (): React.ReactElement => {
                             text={post.description}
                             timestamp={post.timeStamp}
                             image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
-                            />
+                        />
                     ))}
                 </div>
             </>
         );
     }
     else {
-    return (
-        <>
-            <FriendRequest 
-                show={showUnfriend} 
-                setShow={setShowUnfriend} 
-                userId={currentUser()?.id} 
-                friendId={userData?.id} 
-                friendFirstName={userData?.firstName} 
-                friendLastName={userData?.surname} 
-            />
-            <Header photoUrl={currentPhoto} username={currentProfileName} users={[]} userId={currentUser()?.id} />
-            <div className="frame">
-                <div className="CoverPicture">
-                    <CoverPicture photoUrl={photoUrl} />
-                </div>
-                <div className="frame-3">
-                    <Avatar className="profileAvatar1" src={photo} />
-                    <div className="ProfileName"> {profileName}
-                        <div className="FriendsNumber">{numberFriends} friends</div>
-                        <div className="BioWrapper">
-                            Bio
-                            <div className="Bio">{bio}</div>
-                        </div>
+        return (
+            <>
+                <FriendRequest
+                    show={showUnfriend}
+                    setShow={setShowUnfriend}
+                    userId={currentUser()?.id}
+                    friendId={userData?.id}
+                    friendFirstName={userData?.firstName}
+                    friendLastName={userData?.surname}
+                />
+                <Header photoUrl={currentPhoto} username={currentProfileName} users={[]} userId={currentUser()?.id} />
+                <div className="frame">
+                    <div className="CoverPicture">
+                        <CoverPicture photoUrl={photoUrl} />
                     </div>
+                    <div className="frame-3">
+                        <Avatar className="profileAvatar1" src={photo} />
+                        <div className="ProfileName"> {profileName}
+                            <div className="FriendsNumber">{numberFriends} friends</div>
+                            <div className="BioWrapper">
+                                Bio
+                                <div className="Bio">{bio}</div>
+                            </div>
+                        </div>
                         <Button className="unfriend" onClick={handleOnClickSendRequest}>Send Request</Button>
+                    </div>
                 </div>
-            </div>
 
-            <div className="createPost_wrapper1">
-                {posts?.map(post => (
-                    <Post
-                        key={post.id}
-                        id={post.user.id}
-                        profilePic={`http://localhost:5112/Media/ProfilePics/${post.user.profilePicName}`}
-                        username={post.user.firstName + " " + post.user.surname}
-                        text={post.description}
-                        timestamp={post.timeStamp}
-                        image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
-                    />
-                ))}
-            </div>
-        </>
-    );
-}
+                <div className="createPost_wrapper1">
+                    {posts?.map(post => (
+                        <Post
+                            key={post.id}
+                            id={post.user.id}
+                            profilePic={`http://localhost:5112/Media/ProfilePics/${post.user.profilePicName}`}
+                            username={post.user.firstName + " " + post.user.surname}
+                            text={post.description}
+                            timestamp={post.timeStamp}
+                            image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
+                        />
+                    ))}
+                </div>
+            </>
+        );
+    }
 }
 export default FriendsProfile

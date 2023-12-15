@@ -20,6 +20,7 @@ import NearMeRoundedIcon from '@mui/icons-material/NearMeRounded';
 import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import MoreHorizontal from '@mui/icons-material/MoreHoriz'
+import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
 
 
 export {
@@ -44,5 +45,6 @@ export {
   NearMeRoundedIcon,
   ExitToAppRoundedIcon,
   SendRoundedIcon,
-  MoreHorizontal
+  MoreHorizontal,
+  PersonAddAltRoundedIcon
 };

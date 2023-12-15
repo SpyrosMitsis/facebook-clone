@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom'; // Import useLocation
-import { SearchIcon, HomeRoundedIcon, SubscriptionsRoundedIcon, SupervisedUserCircleRoundedIcon, AddRoundedIcon, NotificationsRoundedIcon, StorefrontRoundedIcon, ExitToAppRoundedIcon } from '../../utils/icons';
+import { SearchIcon, HomeRoundedIcon, SubscriptionsRoundedIcon, SupervisedUserCircleRoundedIcon, AddRoundedIcon, NotificationsRoundedIcon, StorefrontRoundedIcon, ExitToAppRoundedIcon, PersonAddAltRoundedIcon } from '../../utils/icons';
 import fbImgLogo from '../../assets/fbImgLogo.png';
 import { useSignOut } from 'react-auth-kit';
 import './Header.scss';
@@ -9,6 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import { Autocomplete, Badge, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, MenuItem, TextField } from '@mui/material';
 import axios from '../../api/axios';
+import { Person, PersonAdd } from '@mui/icons-material';
 
 interface HeaderProps {
     userId: number;
@@ -100,7 +101,7 @@ export default function Header({ users, photoUrl, username, userId }: HeaderProp
                 </div>
                 <IconButton>
                     <Badge badgeContent={badgeNumber} color='error'>
-                        <NotificationsRoundedIcon onClick={() => setShowList(!showList)} />
+                        <PersonAddAltRoundedIcon onClick={() => setShowList(!showList)} />
                     </Badge>
                 </IconButton>
                 {showList && (
