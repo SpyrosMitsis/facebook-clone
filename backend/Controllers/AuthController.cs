@@ -18,6 +18,15 @@ namespace backend.Controllers
             _repository = repository;
             _jwtService = jwtService;
         }
+        
+        /// <summary>
+        /// Registers a new user.
+        /// </summary>
+        /// <param name="dto">The user registration data.</param>
+        /// <returns>The created user.</returns>
+        /// <exception cref="Exception">Exception.</exception>
+        /// <exception cref="Exception">Exception.</exception>
+
         [HttpPost("register")]
         public IActionResult Register(RegisterDto dto)
         {
@@ -35,6 +44,12 @@ namespace backend.Controllers
             return Created("sucess", _repository.Create(user));
         }
 
+        /// <summary>
+        /// Logs in a user.
+        /// </summary>
+        /// <param name="dto">The user login data.</param>
+        /// <returns>The logged in user.</returns>
+        /// <exception cref="Exception">Exception.</exception>
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto )
         {
@@ -67,6 +82,12 @@ namespace backend.Controllers
 
         }
 
+        /// <summary>
+        /// Logs out a user.
+        /// </summary>
+        /// <returns>The logged out user.</returns>
+        /// <exception cref="Exception">Exception.</exception>
+
         [HttpPost("logout")]
         public IActionResult Logout()
         {
@@ -79,6 +100,14 @@ namespace backend.Controllers
             );
 
         }
+        /// <summary>
+        /// Forgot password.
+        /// </summary>
+        /// <param name="dto">The user forgot password data.</param>
+        /// <returns>The updated user.</returns>
+        /// <exception cref="Exception">Exception.</exception>
+
+
         [HttpPatch("forgotPassword")]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordDto dto)
         {

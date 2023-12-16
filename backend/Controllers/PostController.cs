@@ -15,6 +15,14 @@ namespace backend.Controllers
         {
             _repository = repository;
         }
+
+        /// <summary>
+        /// Gets the posts by id.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>The posts.</returns>
+        /// <exception cref="Exception">Exception.</exception>
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPosts(int id)
         {
@@ -29,6 +37,18 @@ namespace backend.Controllers
             }
 
         }
+        /// <summary>
+        /// Gets the posts need for the homepage of the user asynchronous.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>The posts.</returns>
+
+        /// <summary>
+        /// Gets the comments by post id asynchronous.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>The comments.</returns>
+
         [HttpGet("Home/{id}")]
         public async Task<IActionResult> GetFriendsPosts(int id)
         {
@@ -43,6 +63,12 @@ namespace backend.Controllers
             }
 
         }
+
+        /// <summary>
+        /// Gets the comments by post id asynchronous.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>The comments.</returns>
 
         [HttpGet("comment/{id}")]
         public async Task<IActionResult> GetComments(int id)

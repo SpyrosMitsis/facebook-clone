@@ -15,6 +15,13 @@ namespace backend.Data
         {
             _context = context;
         }
+        
+
+        /// <summary>
+        /// Gets the list of friends for a given user.
+        /// </summary>
+        /// <param name="userId">The user ID.</param>
+        /// <returns>The list of friends.</returns>
 
         public async Task<ICollection<User>> GetFriendsListAsync(int userId)
         {
@@ -29,6 +36,14 @@ namespace backend.Data
 
             return friends;
         }
+
+        /// <summary>
+        /// Removes a friend from a user's friend list.
+        /// </summary>
+        /// <param name="profileId">The user ID.</param>
+        /// <param name="friendId">The friend ID.</param>
+        /// <returns>True if the friend was removed, false otherwise.</returns>
+
         public async Task<bool> RemoveFriendAsync(int profileId, int friendId)
         {
             var friendship = await _context.Friendships.FirstOrDefaultAsync(f =>
@@ -43,6 +58,13 @@ namespace backend.Data
 
             return false;
         }
+
+        /// <summary>
+        /// Sends a friend request from one user to another.
+        /// </summary>
+        /// <param name="fromUserId">The user ID of the sender.</param>
+        /// <param name="toUserId">The user ID of the recipient.</param>
+        /// <returns>True if the friend request was sent, false otherwise.</returns>
 
         public async Task<bool> SendFriendRequestAsync(int fromUserId, int toUserId)
         {
@@ -68,6 +90,13 @@ namespace backend.Data
             return true; 
 
         }
+
+        /// <summary>
+        /// Declines a friend request from one user to another.
+        /// </summary>
+        /// <param name="profileId">The user ID of the recipient.</param>
+        /// <param name="friendId">The user ID of the sender.</param>
+        /// <returns>True if the friend request was declined, false otherwise.</returns>
         public async Task<bool> DeclineFriendRequestAsync(int profileId, int friendId)
         {
             var friendship = await _context.Friendships.FirstOrDefaultAsync(f =>
@@ -84,6 +113,12 @@ namespace backend.Data
         }
 
 
+        /// <summary>
+        /// Accepts a friend request from one user to another.
+        /// </summary>
+        /// <param name="userId">The user ID of the recipient.</param>
+        /// <param name="friendId">The user ID of the sender.</param>
+        /// <returns>True if the friend request was accepted, false otherwise.</returns>
 
         public async Task<bool> AcceptFriendRequestAsync(int userId, int friendId)
         {
@@ -101,12 +136,23 @@ namespace backend.Data
             return false;
         }
 
+        /// <summary>
+        /// Gets the sum of friends for a given user.
+        /// </summary>
+        /// <param name="userId">The user ID.</param>
+        /// <returns>The sum of friends.</returns>
+
         public async Task<int> GetSumOfFriendsAsync(int userId)
         {
             var friends = await GetFriendsListAsync(userId);
             return friends.Count();
         }
 
+        /// <summary>
+        /// Gets the list of pending friend requests for a given user.
+        /// </summary>
+        /// <param name="userId">The user ID.</param>
+        /// <returns>The list of pending friend requests.</returns>
         public async Task<ICollection<UserDto>> GetPendingFriendRequestsAsync(int userId)
         {
             var pendingFriendRequests = await _context.Friendships
@@ -123,6 +169,16 @@ namespace backend.Data
 
             return pendingFriendRequests;
         }
+
+        /// <summary>
+        /// Gets the friendship status between two users.
+        /// </summary>
+        /// <param name="userId">The user ID.</param>
+        /// <param name="friendId">The friend ID.</param>
+        /// <returns>The friendship status, friends if they are friends, 
+        /// userSent if the user sent the friend request
+        /// friendSent if the friend sent the friend request
+        /// notFriends if they are not friends.</returns>
 
         public async Task<string> GetFriendshipAsync(int userId, int friendId)
         {

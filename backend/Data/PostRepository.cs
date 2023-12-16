@@ -14,6 +14,15 @@ namespace backend.Data
         {
             _user = user;
         }
+        
+        /// <summary>
+        /// Gets the posts by id.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>The posts.</returns>
+        /// <exception cref="Exception">Exception.</exception>
+        /// <exception cref="Exception">Exception.</exception>
+
        public async Task<ICollection<PostDto>> GetPostsByidAsync(int id)
         {
                 var posts = await (from post in _user.Posts
@@ -40,6 +49,12 @@ namespace backend.Data
 
 
         }
+        /// <summary>
+        /// Gets the posts need for the homepage of the user asynchronous.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>The posts.</returns>
+
         public async Task<ICollection<PostDto>> GetPostsHomeAsync(int id)
         {
                 var posts = await (from post in _user.Posts
@@ -64,6 +79,13 @@ namespace backend.Data
             return posts;
         }
 
+        /// <summary>
+        /// Gets the comments by post id asynchronous.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>The comments.</returns>
+        /// <exception cref="Exception">Exception.</exception>
+        /// <exception cref="Exception">Exception.</exception>
 
         public async Task<ICollection<UserCommentDto>> GetCommentsByPostIdAsync(int id)
         {
@@ -87,15 +109,6 @@ namespace backend.Data
 
             return comments;
 
-            //List<UserCommentDto> userCommentDtos = users.Select(u => new UserCommentDto {
-            //    UserId = u.Id,
-            //    FirstName = u.FirstName,
-            //    Surname = u.Surname,
-            //    profilePicName = u.ProfilePicName,
-            //    Comments = u.Comments.ToList()
-            //}).ToList();
-            //
-            //return userCommentDtos;
 
         }
     };

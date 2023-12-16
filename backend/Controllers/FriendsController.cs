@@ -19,6 +19,12 @@ namespace FacebookClone.Controllers
             _friendsRepository = friendsRepository;
         }
 
+        /// <summary>
+        /// Gets the list of friends for a given user.
+        /// </summary>
+        /// <param name="userId">The user ID.</param>
+        /// <returns>The list of friends.</returns>
+
         [HttpGet("friendList/{userId}")]
         public IActionResult GetFriendsList(int userId)
         {
@@ -32,8 +38,14 @@ namespace FacebookClone.Controllers
             return Ok(friends);
         }
 
-        [HttpPost("addFriend/{userId}")]
+        /// <summary>
+        /// Sends a friend request from one user to another.
+        /// </summary>
+        /// <param name="userId">The user ID of the sender.</param>
+        /// <param name="friendId">The user ID of the recipient.</param>
+        /// <returns>True if the friend request was sent, false otherwise.</returns>
 
+        [HttpPost("addFriend/{userId}")]
         public async Task<IActionResult> SendFriendRequest(int userId, int friendId)
         {
 
@@ -62,6 +74,13 @@ namespace FacebookClone.Controllers
 
 
         }
+        /// <summary>
+        /// Declines a friend request from one user to another.
+        /// </summary>
+        /// <param name="userId">The user ID of the recipient.</param>
+        /// <param name="friendId">The user ID of the sender.</param>
+        /// <returns>True if the friend request was declined, false otherwise.</returns>
+
         [HttpDelete("declineFriendRequest/{userId}")]
         public async Task<IActionResult> DeclineFriendRequest(int userId, int friendId)
         {
@@ -78,6 +97,12 @@ namespace FacebookClone.Controllers
             }
         }
 
+        /// <summary>
+        /// Accepts a friend request from one user to another.
+        /// </summary>
+        /// <param name="userId">The user ID of the recipient.</param>
+        /// <param name="friendId">The user ID of the sender.</param>
+        /// <returns>True if the friend request was accepted, false otherwise.</returns>
 
         [HttpPatch("acceptFriendRequest/{userId}")]
         public async Task<IActionResult> AcceptFriendRequest(int userId, int friendId)
@@ -95,6 +120,12 @@ namespace FacebookClone.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the sum of friends for a given user.
+        /// </summary>
+        /// <param name="userId">The user ID.</param>
+        /// <returns>The sum of friends.</returns>
+
         [HttpGet("sumOfFriends/{userId}")]
         public async Task<IActionResult> GetSumOfFriends(int userId)
         {
@@ -102,7 +133,13 @@ namespace FacebookClone.Controllers
 
             return Ok(sum);
         }
-            
+         /// <summary>
+        /// Removes a friend from a user's friend list.
+        /// </summary>
+        /// <param name="userId">The user ID.</param>
+        /// <param name="friendId">The friend ID.</param>
+        /// <returns>True if the friend was removed, false otherwise.</returns>
+        
         [HttpDelete("unfriend/{userId}")]
         public async Task<IActionResult> DeleteFriendship(int userId, int friendId)
         {
@@ -117,6 +154,11 @@ namespace FacebookClone.Controllers
             }
 
         }
+        /// <summary>
+        /// Gets the list of pending friend requests for a given user.
+        /// </summary>
+        /// <param name="userId">The user ID.</param>
+        /// <returns>The list of pending friend requests.</returns>
 
         [HttpGet("pendingFriendRequests/{userId}")]
         public async Task<IActionResult> GetPendingFriendRequests(int userId)
@@ -130,6 +172,16 @@ namespace FacebookClone.Controllers
 
             return Ok(pendingFriendRequests);
         }
+        /// <summary>
+        /// Gets the friendship status between two users.
+        /// </summary>
+        /// <param name="userId">The user ID.</param>
+        /// <param name="friendId">The friend ID.</param>
+        /// <returns>The friendship status, friends if they are friends, 
+        /// userSent if the user sent the friend request
+        /// friendSent if the friend sent the friend request
+        /// notFriends if they are not friends.</returns>
+        
         [HttpGet("getFriendship/{userId}")]
         public async Task<IActionResult> getFriendshipAsync(int userId, int friendId)
         {
