@@ -14,7 +14,7 @@ namespace backend.Data
         {
             _user = user;
         }
-        
+
         /// <summary>
         /// Gets the posts by id.
         /// </summary>
@@ -23,25 +23,25 @@ namespace backend.Data
         /// <exception cref="Exception">Exception.</exception>
         /// <exception cref="Exception">Exception.</exception>
 
-       public async Task<ICollection<PostDto>> GetPostsByidAsync(int id)
+        public async Task<ICollection<PostDto>> GetPostsByidAsync(int id)
         {
-                var posts = await (from post in _user.Posts
-                       where post.UserId== id 
-                       orderby post.TimeStamp
-                       select new PostDto
-                       {
-                           Id = post.Id,
-                           MediaFileName = post.MediaFileName,
-                           Description = post.Description,
-                           TimeStamp = post.TimeStamp,
-                           User = new UserDto
-                           {
-                               Id = post.User.Id,
-                               FirstName = post.User.FirstName,
-                               Surname = post.User.Surname,
-                               ProfilePicName = post.User.ProfilePicName
-                           }
-                       }).ToListAsync();
+            var posts = await (from post in _user.Posts
+                               where post.UserId == id
+                               orderby post.TimeStamp
+                               select new PostDto
+                               {
+                                   Id = post.Id,
+                                   MediaFileName = post.MediaFileName,
+                                   Description = post.Description,
+                                   TimeStamp = post.TimeStamp,
+                                   User = new UserDto
+                                   {
+                                       Id = post.User.Id,
+                                       FirstName = post.User.FirstName,
+                                       Surname = post.User.Surname,
+                                       ProfilePicName = post.User.ProfilePicName
+                                   }
+                               }).ToListAsync();
 
 
 
@@ -57,25 +57,25 @@ namespace backend.Data
 
         public async Task<ICollection<PostDto>> GetPostsHomeAsync(int id)
         {
-                var posts = await (from post in _user.Posts
-                       join friendship in _user.Friendships
-                       on post.UserId equals friendship.FriendId
-                       where friendship.ProfileId == id && friendship.isFriend == true
-                       orderby post.TimeStamp
-                       select new PostDto
-                       {
-                           Id = post.Id,
-                           MediaFileName = post.MediaFileName,
-                           Description = post.Description,
-                           TimeStamp = post.TimeStamp,
-                           User = new UserDto
-                           {
-                               Id = post.User.Id,
-                               FirstName = post.User.FirstName,
-                               Surname = post.User.Surname,
-                               ProfilePicName = post.User.ProfilePicName
-                           }
-                       }).ToListAsync();
+            var posts = await (from post in _user.Posts
+                               join friendship in _user.Friendships
+                               on post.UserId equals friendship.FriendId
+                               where friendship.ProfileId == id && friendship.isFriend == true
+                               orderby post.TimeStamp
+                               select new PostDto
+                               {
+                                   Id = post.Id,
+                                   MediaFileName = post.MediaFileName,
+                                   Description = post.Description,
+                                   TimeStamp = post.TimeStamp,
+                                   User = new UserDto
+                                   {
+                                       Id = post.User.Id,
+                                       FirstName = post.User.FirstName,
+                                       Surname = post.User.Surname,
+                                       ProfilePicName = post.User.ProfilePicName
+                                   }
+                               }).ToListAsync();
             return posts;
         }
 
@@ -90,28 +90,60 @@ namespace backend.Data
         public async Task<ICollection<UserCommentDto>> GetCommentsByPostIdAsync(int id)
         {
             var comments = await _user.Comments
-               .Where(c => c.PostId == id)
-               .Include(c => c.User)
-               .GroupBy(c => c.UserId)
-               .OrderBy(userGroup => userGroup.Min(comment => comment.TimeStamp)) 
-               .Select( c => new UserCommentDto
-               {
-                   UserId= c.Key,
-                   FirstName = c.First().User.FirstName,
-                   Surname = c.First().User.Surname,
-                   ProfilePicName = c.First().User.ProfilePicName,
-                   Comments = c.First().User.Comments
-                                .Where(c => c.PostId == id)
-                                .OrderBy(comment => comment.TimeStamp)
-                                .ToList()
-               })
-               .ToListAsync();
+                .Where(c => c.PostId == id)
+                .Include(c => c.User)
+                .GroupBy(c => c.UserId)
+                .OrderBy(userGroup => userGroup.Min(comment => comment.TimeStamp))
+                .Select(c => new UserCommentDto
+                {
+                    UserId = c.Key,
+                    FirstName = c.First().User.FirstName,
+                    Surname = c.First().User.Surname,
+                    ProfilePicName = c.First().User.ProfilePicName,
+                    Comments = c.Select(comment => new CommentDto
+                    {
+                        Id = comment.Id,
+                        Content = comment.Content,
+                        Timestamp = comment.TimeStamp
+                    }).ToList()
+                })
+                .ToListAsync();
 
             return comments;
-
-
         }
-    };
 
+
+        /// <summary>
+        /// Creates the post asynchronous.
+        /// </summary>
+        /// <param name="post">The post.</param>
+        /// <returns>The created post.</returns>
+        /// <exception cref="Exception">Exception.</exception>
+        /// <exception cref="Exception">Exception.</exception>
+
+        public async Task<Post> CreatePostAsync(Post post)
+        {
+            await _user.Posts.AddAsync(post);
+            await _user.SaveChangesAsync();
+
+            return post;
+        }
+
+        /// <summary>
+        /// Updates the post asynchronous.
+        /// </summary>
+        /// <param name="post">The post.</param>
+        /// <returns>The updated post.</returns>
+        /// <exception cref="Exception">Exception.</exception>
+        /// <exception cref="Exception">Exception.</exception>
+
+        public async Task<Post> UpdatePostAsync(Post post)
+        {
+            _user.Posts.Update(post);
+            await _user.SaveChangesAsync();
+
+            return post;
+        }
+    }
 }
 

@@ -8,6 +8,6 @@ namespace backend.Dtos
         public string FirstName { get; set; }
         public string Surname { get; set; }
         public string ProfilePicName { get; set; }
-        public List<Comment> Comments { get; set; }
+        public ICollection<CommentDto> Comments { get; set; }
     }
 }
