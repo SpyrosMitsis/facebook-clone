@@ -1,4 +1,6 @@
 ﻿using backend.Data;
+using backend.Dtos;
+using FacebookClone.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -82,6 +84,22 @@ namespace backend.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
+        }
+
+        [HttpPost("makeComment")]
+
+        public async Task<IActionResult> MakeCommentAsync ([FromBody] PostCommentDto dto)
+        {
+            var comment = new Comment
+            {
+                UserId = dto.UserId,
+                PostId = dto.PostId,
+                TimeStamp = DateTime.UtcNow,
+                Content = dto.Content
+
+            };
+            var response = await _repository.CreateCommentAsync(comment);
+            return Ok(response);
         }
         
     }

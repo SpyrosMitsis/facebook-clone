@@ -3,6 +3,7 @@ using backend.Models;
 using FacebookClone.Models;
 using Microsoft.Data.SqlClient.DataClassification;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Policy;
 
 namespace backend.Data
 {
@@ -87,31 +88,29 @@ namespace backend.Data
         /// <exception cref="Exception">Exception.</exception>
         /// <exception cref="Exception">Exception.</exception>
 
-        public async Task<ICollection<UserCommentDto>> GetCommentsByPostIdAsync(int id)
+        public async Task<ICollection<CommentDto>> GetCommentsByPostIdAsync(int id)
         {
             var comments = await _user.Comments
                 .Where(c => c.PostId == id)
                 .Include(c => c.User)
-                .GroupBy(c => c.UserId)
-                .OrderBy(userGroup => userGroup.Min(comment => comment.TimeStamp))
-                .Select(c => new UserCommentDto
+                .OrderBy(comment => comment.TimeStamp)
+                .Select(c => new CommentDto
                 {
-                    UserId = c.Key,
-                    FirstName = c.First().User.FirstName,
-                    Surname = c.First().User.Surname,
-                    ProfilePicName = c.First().User.ProfilePicName,
-                    Comments = c.Select(comment => new CommentDto
+                    Id = c.Id,
+                    Content = c.Content,
+                    Timestamp = c.TimeStamp,
+                    User = new UserDto
                     {
-                        Id = comment.Id,
-                        Content = comment.Content,
-                        Timestamp = comment.TimeStamp
-                    }).ToList()
+                        Id = c.User.Id,
+                        FirstName = c.User.FirstName,
+                        Surname = c.User.Surname,
+                        ProfilePicName = c.User.ProfilePicName
+                    }
                 })
                 .ToListAsync();
 
             return comments;
         }
-
 
         /// <summary>
         /// Creates the post asynchronous.
@@ -137,13 +136,34 @@ namespace backend.Data
         /// <exception cref="Exception">Exception.</exception>
         /// <exception cref="Exception">Exception.</exception>
 
-        public async Task<Post> UpdatePostAsync(Post post)
+        public async Task<CommentDto> CreateCommentAsync(Comment comment)
         {
-            _user.Posts.Update(post);
-            await _user.SaveChangesAsync();
+            _user.Comments.Add(comment);
+            _user.SaveChanges();
 
-            return post;
+            CommentDto comm = await _user.Comments
+                .Where(c => c.Id == comment.Id)
+                .Include(c => c.User)
+                .Select(c => new CommentDto
+                {
+                    Id = c.Id, 
+                    Content = c.Content,
+                    Timestamp = c.TimeStamp,
+                    User = new UserDto
+                    {
+                        Id = c.User.Id,
+                        FirstName = c.User.FirstName,
+                        Surname = c.User.Surname,
+                        ProfilePicName = c.User.ProfilePicName
+                    }
+                }).FirstOrDefaultAsync();
+
+            return comm;
         }
+
+
+
+
     }
 }
 

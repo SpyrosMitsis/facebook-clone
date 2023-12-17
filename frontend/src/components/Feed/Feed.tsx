@@ -56,12 +56,16 @@ function Feed({ photoUrl, username, profileId }: FeedProps): React.ReactElement 
       {posts?.map(post => (
         <Post
           key={post.id}
-          id={post.user.id}
-          profilePic={`http://localhost:5112/Media/ProfilePics/${post.user.profilePicName}`}
-          username={post.user.firstName + " " + post.user.surname}
+          id={post.id}
           text={post.description}
           timestamp={post.timeStamp}
-          image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}/>
+          image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
+          profilePic={`http://localhost:5112/Media/profilePics/${post.user.profilePicName}`}
+          username={post.user.firstName + ' ' + post.user.surname}
+          userId={post.user.id}
+          currentUserProfilePic={photoUrl} 
+          currentUserId={profileId}
+          />
       ))}
     </div>
   );

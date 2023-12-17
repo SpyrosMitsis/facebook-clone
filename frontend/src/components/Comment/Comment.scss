@@ -1,0 +1,82 @@
+@import '../../utils/variables';
+@import '../../utils/mixins';
+
+.createComment {
+  
+
+  @include for-xl-devices {
+    width: 90%;
+  }
+
+  @include for-large-devices {
+    width: 85%;
+  }
+
+  .top {
+    
+
+    @include for-small-screens {
+      overflow: hidden;
+    }
+
+    .form {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+
+      @include for-small-screens {
+        flex-wrap: wrap;
+      }
+  
+      input {
+        border-radius: 3rem;
+        padding: 0.7rem 1rem !important;
+        border: none;
+        background-color: $comment-background;
+        outline: none;
+        border-radius: 3rem;
+        overflow: hidden;
+        margin-left: 1rem !important;
+      }
+
+      .button {
+        display: flex;
+        width: auto;
+        left: 0.1rem;
+
+        @include for-small-screens {
+          display: flex;
+        }
+      }
+
+      .textInput {
+        flex: 1;
+      }
+      .imgUrlInput {
+        flex: 0.5;
+      }
+    }
+  }
+
+  .bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content:end;
+    padding-top: 0.4rem;
+
+    @include for-small-screens {
+      padding: 0.2rem;
+    }
+  }
+
+  .ImageThumbnail {
+    width: 30rem;
+    border-left-width: 1rem;
+    margin: 1rem; // Adjust the margin as needed
+    border: .2rem solid $pr-gray;
+    border-radius: 5px;
+
+  }
+
+
+}   

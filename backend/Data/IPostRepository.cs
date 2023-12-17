@@ -7,8 +7,10 @@ namespace backend.Data
     public interface IPostRepository
     {
 
-        Task<ICollection<UserCommentDto>> GetCommentsByPostIdAsync(int id);
+        Task<ICollection<CommentDto>> GetCommentsByPostIdAsync(int id);
         Task<ICollection<PostDto>> GetPostsByidAsync(int id);
         Task<ICollection<PostDto>> GetPostsHomeAsync(int id);
+        Task<CommentDto> CreateCommentAsync(Comment comment);
+
     }
 }
