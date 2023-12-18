@@ -3,6 +3,7 @@ using backend.Models;
 using FacebookClone.Models;
 using Microsoft.Data.SqlClient.DataClassification;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using System.Security.Policy;
 
 namespace backend.Data
@@ -141,7 +142,7 @@ namespace backend.Data
             _user.Comments.Add(comment);
             _user.SaveChanges();
 
-            CommentDto comm = await _user.Comments
+            CommentDto? comm = await _user.Comments
                 .Where(c => c.Id == comment.Id)
                 .Include(c => c.User)
                 .Select(c => new CommentDto
@@ -161,9 +162,48 @@ namespace backend.Data
             return comm;
         }
 
+        public async Task<ICollection<Like>> GetLikesByPostIdAsync(int id)
+        {
+            var likes = await _user.Likes
+                .Where(l => l.PostId  == id)
+                .ToListAsync();
 
+            return likes;
+        }
 
+        public async Task<Like> CreateLikeByPostIdAsync(Like like)
+        {
+            var existingLike = await _user.Likes.FirstOrDefaultAsync(l =>
+                (l.PostId == like.PostId && l.UserId == like.UserId));
 
+            if(existingLike != null)
+            {
+                return existingLike;
+            }
+            else
+            {
+                await _user.Likes.AddAsync(like);
+                await _user.SaveChangesAsync();
+
+                return like;
+            }
+
+        }
+
+        public async Task<bool> RemoveLikeAsync(int userId, int postId)
+        {
+            var like = await _user.Likes.FirstOrDefaultAsync(l =>
+                (l.PostId == postId && l.UserId== userId));
+
+            if ( like != null)
+            {
+                _user.Likes.Remove(like);
+                await _user.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
     }
 }
 

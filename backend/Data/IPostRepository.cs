@@ -11,6 +11,12 @@ namespace backend.Data
         Task<ICollection<PostDto>> GetPostsByidAsync(int id);
         Task<ICollection<PostDto>> GetPostsHomeAsync(int id);
         Task<CommentDto> CreateCommentAsync(Comment comment);
+        Task<ICollection<Like>> GetLikesByPostIdAsync(int id);
+        Task<Like> CreateLikeByPostIdAsync(Like like);
+        Task<bool> RemoveLikeAsync(int userId, int postId);
+
+
+
 
     }
 }

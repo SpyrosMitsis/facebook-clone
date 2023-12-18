@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from 'react';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { ChatBubbleOutlineRounded as ChatBubbleOutlineRoundedIcon, NearMeRounded as NearMeRoundedIcon, ThumbUpRounded as ThumbUpRoundedIcon } from '@mui/icons-material';
 import Avatar from '@mui/material/Avatar';
 
@@ -32,16 +32,27 @@ interface Comment {
   }
 }
 
+interface Like {
+  id: number;
+  userId: number;
+  postId: number;
+  timeStamp: string;
+}
 
 function Post(props: PostProps): React.ReactElement {
   const { profilePic, username, text, timestamp, image } = props;
 
   const [showCommentSection, setShowCommentSection] = useState(false);
   const [comments, setComments] = useState<Comment[]>([]);
+  const [likes, setLikes] = useState<number>(0);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+
+
 
 
   const GET_COMMENTS = `Post/comment/${props.id}/`;
   const POST_COMMENT = 'Post/makeComment';
+  const GET_LIKES = `Post/likes/${props.id}`
 
   const handleCommentClick = async (e: SyntheticEvent) => {
 
@@ -58,10 +69,62 @@ function Post(props: PostProps): React.ReactElement {
       }
     }
   }
+  const handleLikeClick = async () => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'timestamp': new Date().toISOString(),
+        },
+      };
+
+      const payload = {
+        timeStamp: new Date().toISOString(),
+        postId: props.id,
+        userId: props.currentUserId,
+      };
+
+      if (isLiked) {
+        // Unlike (DELETE request)
+        await axios.delete(`Post/deleteLike/${props.currentUserId}?PostId=${props.id}`);
+        setLikes((prevLikes) => Math.max(0, prevLikes - 1));
+      } else {
+        // Like (POST request)
+        await axios.post(`Post/makeLike`, payload, config);
+        setLikes((prevLikes) => prevLikes + 1);
+      }
+
+      // Toggle the like status
+      setIsLiked(!isLiked);
+    } catch (error) {
+      console.error('Error toggling like:', error);
+    }
+  };
+
+
+
+
   const updateComments = (newComment: Comment) => {
     // Update the comments state with the new comment
     setComments((prevComments) => [...prevComments, newComment]);
   };
+
+  useEffect(() => {
+    axios.get(GET_LIKES)
+      .then(response => {
+        setLikes(response.data.length)
+        response.data.forEach((like: Like) => {
+          if (like.userId === props.currentUserId) {
+            setIsLiked(true)
+          }
+        });
+      })
+      .catch(error => {
+        // Handle errors here
+        console.error('Error fetching friends:', error);
+      });
+
+  }, [])
 
   return (
     <div className='post'>
@@ -85,13 +148,15 @@ function Post(props: PostProps): React.ReactElement {
         </div>
       )}
       <div className='bottomAction'>
-        <div className='action'>
-          <ThumbUpRoundedIcon className='postAction' />
-          <h4>Like</h4>
+        <div className='likeCount'> {likes} Likes </div>
+        <div className={`action ${isLiked ? 'liked' : ''}`} onClick={handleLikeClick}>
+          <ThumbUpRoundedIcon className={`postAction ${isLiked ? 'blue' : ''}`} />
+          <h4 style={{ color: isLiked ? '#2d88ff' : '' }}>Like</h4>
         </div>
-        <div className='action' onClick={handleCommentClick}>
-          <ChatBubbleOutlineRoundedIcon className='postAction' />
-          <h4>Comment</h4>
+
+        <div className={`action ${showCommentSection ? 'blue' : ''}`} onClick={handleCommentClick}>
+          <ChatBubbleOutlineRoundedIcon className={`postAction ${showCommentSection ? 'blue' : ''}`} />
+          <h4 style={{ color: showCommentSection ? '#2d88ff' : '' }}>Comment</h4>
         </div>
       </div>
       {showCommentSection && (

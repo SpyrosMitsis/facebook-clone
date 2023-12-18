@@ -101,6 +101,51 @@ namespace backend.Controllers
             var response = await _repository.CreateCommentAsync(comment);
             return Ok(response);
         }
-        
+
+        [HttpGet("likes/{id}")]
+        public async Task<IActionResult> GetLikesByPostIdAsync(int id)
+        {
+            var likes = await _repository.GetLikesByPostIdAsync(id);
+
+            if(likes == null)
+            {
+                return Ok((int)0);
+            }           
+
+            return Ok(likes);
+        }
+
+        [HttpPost("makeLike")]
+
+        public async Task<IActionResult> PostLikeByPostIdAsync([FromBody] LikeDto like)
+        {
+            var ll = new Like
+            {
+                UserId = like.UserId,
+                PostId = like.PostId,
+                TimeStamp = DateTime.UtcNow
+            };
+
+            var response = await _repository.CreateLikeByPostIdAsync(ll);
+
+            return Created("Sucess",response);
+
+        }
+
+        [HttpDelete("deleteLike/{userId}")]
+        public async Task<IActionResult> DeleteFriendship(int userId, int postId)
+        {
+            bool isDeleted = await _repository.RemoveLikeAsync(userId, postId);
+            if (isDeleted)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+
+        }
+
     }
 }

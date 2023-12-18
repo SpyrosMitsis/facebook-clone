@@ -1,8 +1,7 @@
-﻿namespace FacebookClone.Models
+﻿namespace backend.Dtos
 {
-    public class Like
+    public class LikeDto
     {
-        public int Id { get; set; }
         public DateTime TimeStamp { get; set; }
         public int PostId { get; set; }
         public int UserId { get; set; }

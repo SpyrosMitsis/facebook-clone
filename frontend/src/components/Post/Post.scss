@@ -52,6 +52,7 @@
 
   .image {
     padding: 0.3rem;
+
     img {
       width: 100%;
     }
@@ -59,8 +60,9 @@
 }
 
 .bottomAction {
-  padding: 0.3rem 0.3rem 0;
   border-top: 1px solid $border-color;
+  padding-top: 0.3rem;
+  ;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -70,11 +72,12 @@
     cursor: pointer;
     display: flex;
     flex-direction: row;
-    padding: 0.5rem 1rem ;
+    padding: 0.5rem 0.5rem;
+    /* Adjust padding for the like button */
     flex: 1;
     align-items: center;
     justify-content: center;
-     
+
     &:hover {
       background-color: $button-hover;
       transform: translateY(-2px);
@@ -85,14 +88,28 @@
       color: $comment-text;
       margin-left: 0.5rem;
 
+      &.blue {
+        color: $primary !important;
+        /* You can customize the color based on your design */
+      }
+
       @include for-small-screens {
         display: none;
       }
     }
-    
+
     .postAction {
       margin: 0 0.5rem;
       color: $icon;
+
+      &.blue {
+        color: $primary !important;
+        /* You can customize the color based on your design */
+      }
     }
+  }
+
+  .likeCount {
+    padding: 0.5rem 5rem;
   }
 }

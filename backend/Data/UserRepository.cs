@@ -134,7 +134,7 @@ namespace backend.Data
             {
                 var wwwPath = this.env.ContentRootPath;
                 wwwPath = wwwPath + "Uploads\\";
-                string imageFileName = await _user
+                string? imageFileName = await _user
                     .Users
                     .Where(u => u.Id == id)
                     .Select(u => u.ProfilePicName)
