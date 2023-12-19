@@ -8,6 +8,7 @@ import Profile from './Pages/Profile/Profile';
 import Friends from './Pages/Friends/Friends';
 import FriendsProfile from './Pages/FriendsProfile/FriendsProfile';
 import { UserContextProvider } from './Hooks/UserContext';
+import People from './Pages/People/People';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
               <Route path='/ProfilePage' element={<Profile />} />
               <Route path='/Profile/:userId' element={<FriendsProfile />} />
               <Route path='/Friends' element={<Friends />} />
+              <Route path='/People' element={<People />} />
             </Routes>
           </UserContextProvider>
         </main>

@@ -9,7 +9,6 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import { Autocomplete, Badge, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, MenuItem, TextField } from '@mui/material';
 import axios from '../../api/axios';
-import { Person, PersonAdd } from '@mui/icons-material';
 
 interface HeaderProps {
     userId: number;
@@ -40,16 +39,6 @@ export default function Header({ users, photoUrl, username, userId }: HeaderProp
     const [showList, setShowList] = useState(false);
 
 
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            // Perform the search and redirect
-            onSearch(searchTerm);
-            // Redirect to the search results page or any other page you want
-        }
-    };
-
-    //make an useEffect caling axios get to this api endpoint /api/Friend/pendingFriendRequests/{userId} to get the pending friend requests
-
     const GET_PENDING_FRIENDS = `/Friend/pendingFriendRequests/${userId}`
 
     useEffect(() => {
@@ -64,6 +53,11 @@ export default function Header({ users, photoUrl, username, userId }: HeaderProp
             });
 
     }, [])
+
+    const handleSearchChange = (newSearchTerm: string) => {
+        // Navigate to the People component with the search term in the URL
+        navigate(`/people?search=${newSearchTerm}`);
+    };
 
     const badgeNumber = pendingFriendRequests.length
 
@@ -80,6 +74,11 @@ export default function Header({ users, photoUrl, username, userId }: HeaderProp
                             className='inputBar'
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    window.location.href = `/people?search=${searchTerm}`;
+                                }
+                            }}
                         />
                     </div>
                 </div>

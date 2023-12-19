@@ -13,6 +13,7 @@ namespace backend.Data
         Task<bool> RemoveImageAsync(int id, string path);
         bool Save();
         bool UpdateUser(User user);
-        Task<ICollection<AllUsersDto>> GetUsersAsync();
+        Task<ICollection<UserDto>> GetUsersByNameAsync(string searchString);
+
     }
 }

@@ -15,25 +15,3 @@ function App() {
     </BrowserRouter>
   );
 }
-
-
-//export const router = createBrowserRouter([
-//    {
-//        path: '/',
-//        element: <App />,
-//        children: [
-//            {
-//                path: '',
-//                element: <Login />,
-//            },
-//            {
-//                path: '/Home',
-//                element: <Home name={""}/>,
-//            },
-//            {
-//                path: '/post',
-//                element: <Post/>,
-//            },
-//        ],
-//    },
-//]);

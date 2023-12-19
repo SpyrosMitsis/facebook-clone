@@ -205,9 +205,9 @@ namespace backend.Controllers
         /// </summary>
         /// <returns>The users.</returns>
         [HttpGet("Users")]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllUsers(string searchString)
         {
-            var users = await _repository.GetUsersAsync();
+            var users = await _repository.GetUsersByNameAsync(searchString);
             if(users == null)
             {
                 return NotFound();

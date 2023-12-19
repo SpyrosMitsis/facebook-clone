@@ -56,22 +56,30 @@ namespace backend.Data
         /// </summary>
         /// <returns>a list of all users</returns>
 
-        public async Task<ICollection<AllUsersDto>> GetUsersAsync()
+        public async Task<ICollection<UserDto>> GetUsersByNameAsync(string searchString)
         {
+            var searchTerms = searchString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
             var users = await _user
                 .Users
-                .Select(
-                    u =>
-                        new AllUsersDto
-                        {
-                            Id = u.Id,
-                            FullName = u.FirstName + ' ' + u.Surname,
-                            ProfilePicName = u.ProfilePicName
-                        }
-                )
-                .ToListAsync();
+                .ToListAsync(); // Retrieve all users from the database
 
-            return users;
+            // Perform client-side filtering using LINQ to Objects
+            var filteredUsers = users
+                .Where(u => searchTerms.All(term =>
+                    u.FirstName.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                    u.Surname.Contains(term, StringComparison.OrdinalIgnoreCase)))
+                .Select(u =>
+                    new UserDto
+                    {
+                        Id = u.Id,
+                        FirstName = u.FirstName,
+                        Surname = u.Surname,
+                        ProfilePicName = u.ProfilePicName
+                    })
+                .ToList();
+
+            return filteredUsers;
         }
 
         /// <summary>
