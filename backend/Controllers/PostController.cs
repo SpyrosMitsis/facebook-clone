@@ -86,6 +86,12 @@ namespace backend.Controllers
             }
         }
 
+        
+        /// <summary>
+        /// Makes the comment asynchronous.
+        /// </summary>
+        /// <param name="dto">The dto.</param>
+        /// <returns>The action result.</returns>
         [HttpPost("makeComment")]
 
         public async Task<IActionResult> MakeCommentAsync ([FromBody] PostCommentDto dto)
@@ -102,6 +108,12 @@ namespace backend.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Gets the likes by post id asynchronous.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>The likes.</returns>
+
         [HttpGet("likes/{id}")]
         public async Task<IActionResult> GetLikesByPostIdAsync(int id)
         {
@@ -114,6 +126,12 @@ namespace backend.Controllers
 
             return Ok(likes);
         }
+
+        /// <summary>
+        /// Makes the like by post id asynchronous.
+        /// </summary>
+        /// <param name="like">The like.</param>
+        /// <returns>The action result.</returns>
 
         [HttpPost("makeLike")]
 
@@ -131,6 +149,13 @@ namespace backend.Controllers
             return Created("Sucess",response);
 
         }
+
+        /// <summary>
+        /// Deletes the like asynchronous.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="postId">The post identifier.</param>
+
 
         [HttpDelete("deleteLike/{userId}")]
         public async Task<IActionResult> DeleteFriendship(int userId, int postId)

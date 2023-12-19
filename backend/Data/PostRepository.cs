@@ -162,6 +162,13 @@ namespace backend.Data
             return comm;
         }
 
+        /// <summary>
+        /// Gets the likes by post id asynchronous.
+        /// </summary>
+        /// <param name="id">The post Id.</param>
+        /// <returns>The likes.</returns>
+        /// <exception cref="Exception">Exception.</exception>
+
         public async Task<ICollection<Like>> GetLikesByPostIdAsync(int id)
         {
             var likes = await _user.Likes
@@ -189,6 +196,12 @@ namespace backend.Data
             }
 
         }
+
+        /// <summary>
+        /// Removes the like asynchronous.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="postId">The post identifier.</param>
 
         public async Task<bool> RemoveLikeAsync(int userId, int postId)
         {
