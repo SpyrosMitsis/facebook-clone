@@ -11,10 +11,12 @@ namespace backend.Data
     public class PostRepository : IPostRepository
     {
         private readonly UserContext _user;
+        private readonly IWebHostEnvironment _env;
 
-        public PostRepository(UserContext user)
+        public PostRepository(UserContext user, IWebHostEnvironment env)
         {
             _user = user;
+            _env = env;
         }
 
         /// <summary>
@@ -80,6 +82,8 @@ namespace backend.Data
                                }).ToListAsync();
             return posts;
         }
+
+
 
         /// <summary>
         /// Gets the comments by post id asynchronous.
@@ -216,6 +220,50 @@ namespace backend.Data
             }
 
             return false;
+        }
+
+        public string UploadImage(IFormFile imageFile, int id, string path)
+        {
+            try
+            {
+                string contentPath = _env.ContentRootPath;
+                contentPath = contentPath + "Uploads\\";
+                // path = "c://projects/productminiapi/uploads" ,not exactly something like that
+                var _path = Path.Combine(contentPath, path);
+                if (!Directory.Exists(_path))
+                {
+                    Directory.CreateDirectory(_path);
+                }
+                if (imageFile == null)
+                {
+                    // Handle the case where imageFile is null
+                    // For example, you might throw an exception, log an error, or return early
+                    throw new ArgumentNullException(nameof(imageFile), "Image file cannot be null");
+                }
+                // Check the allowed extenstions
+                var ext = Path.GetExtension(imageFile.FileName);
+                var allowedExtensions = new string[] { ".jpg", ".png", ".jpeg" };
+                if (!allowedExtensions.Contains(ext))
+                {
+                    string msg = string.Format(
+                        "Only {0} extensions are allowed",
+                        string.Join(",", allowedExtensions)
+                    );
+                    return msg;
+                }
+                string uniqueString = Guid.NewGuid().ToString();
+                // we are trying to create a unique filename here
+                var newFileName = uniqueString + ext;
+                var fileWithPath = Path.Combine(_path, newFileName);
+                var stream = new FileStream(fileWithPath, FileMode.Create);
+                imageFile.CopyTo(stream);
+                stream.Close();
+                return newFileName;
+            }
+            catch (Exception ex)
+            {
+                return $"An error has occured {ex}";
+            }
         }
     }
 }

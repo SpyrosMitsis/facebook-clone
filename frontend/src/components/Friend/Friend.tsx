@@ -1,10 +1,9 @@
-import React, { SyntheticEvent, useEffect } from 'react';
+import React, { SyntheticEvent } from 'react';
 import './Friend.scss';
 import { Avatar, IconButton, Menu, MenuItem } from '@mui/material';
 import { MoreHorizontal } from '../../utils/icons';
 import axios from '../../api/axios';
 import { useAuthUser } from 'react-auth-kit';
-import Unfriend from '../Unfriend/Unfriend';
 
 interface Props {
   id: number,
@@ -35,7 +34,6 @@ const Friend = (props: Props): React.ReactElement => {
       });
 
       const content = response.data;
-      console.log(response)
     } catch (error) {
 
       console.error("There was an error!", error);

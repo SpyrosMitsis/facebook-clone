@@ -96,7 +96,6 @@ namespace backend.Data
             {
                 string contentPath = this.env.ContentRootPath;
                 contentPath = contentPath + "Uploads\\";
-                // path = "c://projects/productminiapi/uploads" ,not exactly something like that
                 var _path = Path.Combine(contentPath, path);
                 if (!Directory.Exists(_path))
                 {

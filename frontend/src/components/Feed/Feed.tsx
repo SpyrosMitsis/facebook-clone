@@ -52,7 +52,7 @@ function Feed({ photoUrl, username, profileId }: FeedProps): React.ReactElement 
   return (
     <div className='feed'>
       <ImageUploader show={showImageUploader} setShow={setShowImageUploader} imageUrl={photoUrl} aspectRatio={4 / 3} destinationFolder={'lol'} />
-      <CreatePost photoUrl={photoUrl} username={username} />
+      <CreatePost photoUrl={photoUrl} username={username} userId={profileId} />
       {posts?.map(post => (
         <Post
           key={post.id}

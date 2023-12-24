@@ -2,6 +2,7 @@
 using backend.Dtos;
 using FacebookClone.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace backend.Controllers
 {
@@ -64,6 +65,38 @@ namespace backend.Controllers
                 return StatusCode(500, ex.Message);
             }
 
+        }
+
+        [HttpPost("makePost")]
+        public async Task<ActionResult> CreatePost([FromForm] UploadPostDto post)
+        {
+            try
+            {
+                var filename = _repository.UploadImage(post.MediaFile, post.UserId, "PostPics");
+
+                var newPost = new Post
+                {
+                    Description = post.Description,
+                    TimeStamp = DateTime.Now,
+                    UserId = post.UserId,  
+                    MediaFileName = filename
+
+                };
+
+                var postResult = await _repository.CreatePostAsync(newPost);
+                if(postResult != null)
+                {
+                    return Ok(postResult);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch
+            {
+                return NoContent();
+            }
         }
 
         /// <summary>

@@ -175,7 +175,10 @@ export const Profile = (): React.ReactElement => {
                             username={post.user.firstName + " " + post.user.surname}
                             text={post.description}
                             timestamp={post.timeStamp}
-                            image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`}
+                            image={`http://localhost:5112/Media/postPics/${post.mediaFileName}`} 
+                            userId={post.user.id} 
+                            currentUserProfilePic={`http://localhost:5112/Media/ProfilePics/${post.user.profilePicName}`}
+                            currentUserId={post.user.id}                            
                             />
                     ))}
                 </div>

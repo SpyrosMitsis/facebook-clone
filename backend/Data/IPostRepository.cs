@@ -14,9 +14,7 @@ namespace backend.Data
         Task<ICollection<Like>> GetLikesByPostIdAsync(int id);
         Task<Like> CreateLikeByPostIdAsync(Like like);
         Task<bool> RemoveLikeAsync(int userId, int postId);
-
-
-
-
+        string UploadImage(IFormFile imageFile, int id, string path);
+        Task<Post> CreatePostAsync(Post post);
     }
 }
