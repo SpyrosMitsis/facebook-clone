@@ -89,5 +89,7 @@ npm run dev
 
 ## Demo
 
-![](https://imgur.com/a/LTafqBj)
+[demo.webm](https://github.com/SpyrosMitsis/facebook-clone/assets/66162195/4e657ab6-4d99-4b47-9bea-3400159661ed)
+
+
 
